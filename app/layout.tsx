@@ -1,0 +1,44 @@
+import type { Metadata } from 'next'
+import { Inter, Cormorant_Garamond } from 'next/font/google'
+import './globals.css'
+import { Providers } from './providers'
+import AnnouncementBar from '@/components/layout/AnnouncementBar'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
+})
+
+export const metadata: Metadata = {
+  title: 'TOOMORE — Premium Stuffed Medjool Dates',
+  description:
+    'Handcrafted Medjool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <body>
+        <Providers>
+          <AnnouncementBar />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
+      </body>
+    </html>
+  )
+}
