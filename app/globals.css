@@ -373,138 +373,42 @@ section {
 }
 
 /* Hero Visual */
+/* Hero Visual */
 .hero-visual {
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
   height: 100%;
+  padding: 20px;
 }
 
-.hero-visual-card {
+.hero-product-img {
   width: 100%;
-  height: 620px;
-  background: var(--cream-soft);
-  border-radius: 28px;
+  height: 580px;
+  border-radius: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
-.hero-pattern-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.05;
-  pointer-events: none;
+.hero-product-img-inner {
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 24px;
 }
 
-.hero-plate {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-.hero-plate-1 {
-  width: 200px;
-  height: 200px;
-  top: 15%;
-  left: 10%;
-}
-.hero-plate-2 {
-  width: 140px;
-  height: 140px;
-  bottom: 20%;
-  right: 8%;
+@media (max-width: 1024px) {
+  .hero-product-img {
+    height: 420px;
+  }
 }
 
-.hero-date-oval {
-  position: absolute;
-  width: 52px;
-  height: 38px;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+@media (max-width: 640px) {
+  .hero-product-img {
+    height: 300px;
+  }
 }
-
-.hero-center-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  background: var(--green);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  box-shadow: 0 16px 40px rgba(14,91,79,0.25);
-  z-index: 2;
-}
-.hero-box-name {
-  font-family: var(--font-heading);
-  font-size: 18px;
-  color: var(--gold);
-  letter-spacing: 3px;
-  font-weight: 600;
-}
-.hero-box-type {
-  font-size: 10px;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.hero-flavor-pills {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 2;
-}
-.hero-flavor-pill {
-  font-size: 11px;
-  color: var(--green);
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.03em;
-  font-weight: 500;
-  border: 1px solid rgba(14,91,79,0.08);
-}
-
-.hero-price-float {
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 16px 20px;
-  z-index: 3;
-  border: 1px solid rgba(255,255,255,0.5);
-  text-align: right;
-}
-.hero-price-amount {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--green);
-  display: block;
-  line-height: 1.2;
-}
-.hero-price-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
 /* ========================================
    BESTSELLER
    ======================================== */

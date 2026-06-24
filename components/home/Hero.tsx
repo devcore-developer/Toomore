@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import FadeIn from '@/components/shared/FadeIn'
 
 const trustItems = [
@@ -26,13 +27,6 @@ const trustItems = [
     ),
     label: 'Made for 365 Days',
   },
-]
-
-const dateItems = [
-  { bg: '#8B5E3C', top: '28%', left: '15%', rotate: -12, w: 54, h: 40 },
-  { bg: '#6B3F22', top: '22%', left: '60%', rotate: 8, w: 50, h: 38 },
-  { bg: '#A0724A', top: '55%', left: '70%', rotate: -6, w: 48, h: 36 },
-  { bg: '#7A4A2A', top: '60%', left: '18%', rotate: 18, w: 52, h: 39 },
 ]
 
 export default function Hero() {
@@ -88,46 +82,15 @@ export default function Hero() {
 
       <div className="hero-visual">
         <FadeIn delay={0.2}>
-          <div className="hero-visual-card">
-            {/* Subtle pattern */}
-            <svg className="hero-pattern-svg" viewBox="0 0 440 620" fill="none">
-              <path d="M0 310 Q110 260 220 310 T440 310" stroke="#0E5B4F" strokeWidth="0.8" />
-              <path d="M0 350 Q110 300 220 350 T440 350" stroke="#0E5B4F" strokeWidth="0.6" />
-              <path d="M0 390 Q110 340 220 390 T440 390" stroke="#0E5B4F" strokeWidth="0.4" />
-              <ellipse cx="220" cy="310" rx="160" ry="120" stroke="#0E5B4F" strokeWidth="0.5" />
-            </svg>
-
-            {/* Plates */}
-            <div className="hero-plate hero-plate-1" />
-            <div className="hero-plate hero-plate-2" />
-
-            {/* 4 Date ovals on plates */}
-            {dateItems.map((d, i) => (
-              <div
-                key={i}
-                className="hero-date-oval"
-                style={{
-                  background: d.bg,
-                  top: d.top,
-                  left: d.left,
-                  transform: `rotate(${d.rotate}deg)`,
-                  width: d.w,
-                  height: d.h,
-                }}
-              />
-            ))}
-
-            {/* Center box */}
-            <div className="hero-center-box">
-              <span className="hero-box-name">TOOMORE</span>
-              <span className="hero-box-type">Signature</span>
-            </div>
-
-            {/* Price float */}
-            <div className="hero-price-float">
-              <span className="hero-price-amount">350 EGP</span>
-              <span className="hero-price-label">Box of 12</span>
-            </div>
+          <div className="hero-product-img">
+            <Image
+              src="/images/hero-product.jpg"
+              alt="TOOMORE Premium Stuffed Medjool Dates"
+              fill
+              className="hero-product-img-inner"
+              sizes="(max-width: 768px) 100vw, 52vw"
+              priority
+            />
           </div>
         </FadeIn>
       </div>
