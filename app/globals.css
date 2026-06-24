@@ -439,11 +439,17 @@ section {
 
 @media (max-width: 768px) {
   .flavor-label {
-    font-size: 11px;
-    bottom: 16px;
+    font-size: 10px;
+    bottom: 12px;
+    letter-spacing: 0.04em;
   }
 }
-
+@media (max-width: 480px) {
+  .flavor-label {
+    font-size: 9px;
+    bottom: 8px;
+  }
+}
 /* ========================================
    BESTSELLER
    ======================================== */
@@ -1324,24 +1330,17 @@ section {
 }
 
 @media (max-width: 640px) {
-  .nav-links { display: none; }
-  .hero-title { font-size: clamp(48px, 10vw, 72px); }
-  .hero-btns { flex-direction: column; }
-  .hero-btns a, .hero-btns button { width: 100%; justify-content: center; }
-  .boxes-grid { grid-template-columns: 1fr; }
-  .why-grid { grid-template-columns: 1fr; }
-  .steps { flex-direction: column; gap: 32px; align-items: flex-start; padding-left: 24px; }
-  .steps::before { display: none; }
-  .test-grid { grid-template-columns: 1fr; }
-  .insta-grid { grid-template-columns: repeat(3, 1fr); }
-  .cta-btns { flex-direction: column; align-items: center; }
-  .cta-btns a, .cta-btns button { width: 100%; max-width: 320px; justify-content: center; }
-  .footer-top { grid-template-columns: 1fr; gap: 28px; }
-  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .hero-visual-card { height: 320px; }
-  .hero-center-box { width: 120px; height: 120px; border-radius: 14px; }
-  .hero-flavor-pills { bottom: 50px; gap: 6px; }
-  .hero-flavor-pill { font-size: 10px; padding: 4px 10px; }
-  .hero-price-float { top: 16px; right: 16px; padding: 12px 14px; }
-  .hero-price-amount { font-size: 18px; }
+  .hero-section { min-height: 500px; }
+  .hero-content { padding: 0 20px 32px; }
+  .hero-title { font-size: clamp(40px, 11vw, 64px); margin-bottom: 16px; }
+  .hero-sub { font-size: 14px; line-height: 1.7; }
+  .hero-btns { flex-direction: column; gap: 10px; }
+  .hero-btns a, .hero-btns button { width: 100%; justify-content: center; height: 44px; font-size: 13px; }
+  .trust-badges { flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+  .trust-item { gap: 6px; }
+  .trust-icon { width: 36px; height: 36px; }
+  .trust-icon svg { width: 16px; height: 16px; }
+  .trust-label { font-size: 11px; }
+  .hero-tag { font-size: 10px; margin-bottom: 20px; gap: 8px; }
+  .hero-tag-line { width: 24px; }
 }
