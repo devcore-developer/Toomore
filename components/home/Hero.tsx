@@ -28,12 +28,11 @@ const trustItems = [
   },
 ]
 
-const dateOvals = [
-  { bg: '#8B5E3C', top: '22%', left: '18%', rotate: -15, w: 52, h: 38 },
-  { bg: '#6B3F22', top: '18%', left: '58%', rotate: 10, w: 48, h: 36 },
-  { bg: '#A0724A', top: '50%', left: '72%', rotate: -5, w: 46, h: 34 },
-  { bg: '#7A4A2A', top: '62%', left: '22%', rotate: 20, w: 50, h: 37 },
-  { bg: '#9B6840', top: '70%', left: '55%', rotate: -12, w: 44, h: 33 },
+const dateItems = [
+  { bg: '#8B5E3C', top: '28%', left: '15%', rotate: -12, w: 54, h: 40 },
+  { bg: '#6B3F22', top: '22%', left: '60%', rotate: 8, w: 50, h: 38 },
+  { bg: '#A0724A', top: '55%', left: '70%', rotate: -6, w: 48, h: 36 },
+  { bg: '#7A4A2A', top: '60%', left: '18%', rotate: 18, w: 52, h: 39 },
 ]
 
 export default function Hero() {
@@ -43,7 +42,7 @@ export default function Hero() {
         <FadeIn>
           <div className="hero-tag">
             <span className="hero-tag-line" />
-            Premium Stuffed Medjool Dates
+            Egyptian Medjool Dates
           </div>
         </FadeIn>
 
@@ -64,7 +63,7 @@ export default function Hero() {
         <FadeIn delay={0.3}>
           <div className="hero-btns">
             <Link href="/shop" className="btn-primary">
-              Shop Now
+              Shop Boxes
             </Link>
             <button className="btn-outline-green">
               <svg className="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -102,8 +101,8 @@ export default function Hero() {
             <div className="hero-plate hero-plate-1" />
             <div className="hero-plate hero-plate-2" />
 
-            {/* Date ovals */}
-            {dateOvals.map((d, i) => (
+            {/* 4 Date ovals on plates */}
+            {dateItems.map((d, i) => (
               <div
                 key={i}
                 className="hero-date-oval"
@@ -122,13 +121,6 @@ export default function Hero() {
             <div className="hero-center-box">
               <span className="hero-box-name">TOOMORE</span>
               <span className="hero-box-type">Signature</span>
-            </div>
-
-            {/* Flavor pills */}
-            <div className="hero-flavor-pills">
-              <span className="hero-flavor-pill">Milk Choc</span>
-              <span className="hero-flavor-pill">Pistachio</span>
-              <span className="hero-flavor-pill">Caramel</span>
             </div>
 
             {/* Price float */}
