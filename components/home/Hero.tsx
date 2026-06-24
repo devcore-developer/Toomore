@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import FadeIn from '@/components/shared/FadeIn'
 
 const trustItems = [
@@ -32,7 +31,7 @@ const trustItems = [
 export default function Hero() {
   return (
     <section className="hero-section">
-      <div className="hero-text">
+      <div className="hero-content">
         <FadeIn>
           <div className="hero-tag">
             <span className="hero-tag-line" />
@@ -76,21 +75,6 @@ export default function Hero() {
                 <span className="trust-label">{item.label}</span>
               </div>
             ))}
-          </div>
-        </FadeIn>
-      </div>
-
-      <div className="hero-visual">
-        <FadeIn delay={0.2}>
-          <div className="hero-product-img">
-            <Image
-              src="/images/hero-product.png"
-              alt="TOOMORE Premium Stuffed Medjool Dates"
-              fill
-              className="hero-product-img-inner"
-              sizes="(max-width: 768px) 100vw, 52vw"
-              priority
-            />
           </div>
         </FadeIn>
       </div>

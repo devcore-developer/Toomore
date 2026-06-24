@@ -1,4 +1,5 @@
 import Hero from '@/components/home/Hero'
+import FlavorShowcase from '@/components/home/FlavorShowcase'
 import BestSeller from '@/components/home/BestSeller'
 import MixedBoxes from '@/components/home/MixedBoxes'
 import WhyToomore from '@/components/home/WhyToomore'
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <FlavorShowcase />
       <BestSeller />
       <MixedBoxes />
       <WhyToomore />
