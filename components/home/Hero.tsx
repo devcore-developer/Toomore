@@ -84,7 +84,7 @@ export default function Hero() {
         <FadeIn delay={0.2}>
           <div className="hero-product-img">
             <Image
-              src="/images/hero-product.jpg"
+              src="/images/hero-product.png"
               alt="TOOMORE Premium Stuffed Medjool Dates"
               fill
               className="hero-product-img-inner"
