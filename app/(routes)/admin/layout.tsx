@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 import { auth } from '@/lib/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -9,7 +9,8 @@ import AdminSidebar from '@/components/admin/AdminSidebar'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const { user, setUser, setLoading } = useAuthStore()
+  const pathname = usePathname()
+  const { user, setUser } = useAuthStore()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -17,13 +18,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         setUser(firebaseUser)
       } else {
         setUser(null)
-        if (router.pathname !== '/admin/login') {
+        if (pathname !== '/admin/login') {
           router.push('/admin/login')
         }
       }
     })
     return () => unsubscribe()
-  }, [router, setUser])
+  }, [router, setUser, pathname])
 
   if (user === null) {
     return null

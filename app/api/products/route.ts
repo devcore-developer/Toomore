@@ -7,16 +7,20 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
 
-    let q = collection(db, 'products')
+    const colRef = collection(db, 'products')
+
     if (category && category !== 'all') {
-      q = query(q, where('category', '==', category))
+      const q = query(colRef, where('category', '==', category))
+      const snap = await getDocs(q)
+      const products: any[] = []
+      snap.forEach((doc) => products.push({ id: doc.id, ...doc.data() }))
+      return NextResponse.json({ products })
+    } else {
+      const snap = await getDocs(colRef)
+      const products: any[] = []
+      snap.forEach((doc) => products.push({ id: doc.id, ...doc.data() }))
+      return NextResponse.json({ products })
     }
-
-    const snap = await getDocs(q)
-    const products: any[] = []
-    snap.forEach((doc) => products.push({ id: doc.id, ...doc.data() }))
-
-    return NextResponse.json({ products })
   } catch (error) {
     console.error('Products fetch error:', error)
     return NextResponse.json(
