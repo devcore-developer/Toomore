@@ -12,20 +12,31 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname()
   const { user, setUser } = useAuthStore()
 
+  const isLoginPage = pathname === '/admin/login'
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser)
+        if (isLoginPage) {
+          router.push('/admin')
+        }
       } else {
         setUser(null)
-        if (pathname !== '/admin/login') {
+        if (!isLoginPage) {
           router.push('/admin/login')
         }
       }
     })
     return () => unsubscribe()
-  }, [router, setUser, pathname])
+  }, [router, setUser, pathname, isLoginPage])
 
+  // صفحة اللوجن تظهر بدون سايدبار
+  if (isLoginPage) {
+    return <>{children}</>
+  }
+
+  // باقي الصفحات: لازم يكون مسجل دخول
   if (user === null) {
     return null
   }
