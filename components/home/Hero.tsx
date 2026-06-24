@@ -89,7 +89,6 @@ export default function Hero() {
       <div className="hero-visual">
         <FadeIn delay={0.2}>
           <div className="hero-visual-card">
-            {/* Subtle pattern */}
             <svg className="hero-pattern-svg" viewBox="0 0 440 620" fill="none">
               <path d="M0 310 Q110 260 220 310 T440 310" stroke="#0E5B4F" strokeWidth="0.8" />
               <path d="M0 350 Q110 300 220 350 T440 350" stroke="#0E5B4F" strokeWidth="0.6" />
@@ -97,11 +96,9 @@ export default function Hero() {
               <ellipse cx="220" cy="310" rx="160" ry="120" stroke="#0E5B4F" strokeWidth="0.5" />
             </svg>
 
-            {/* Plates */}
             <div className="hero-plate hero-plate-1" />
             <div className="hero-plate hero-plate-2" />
 
-            {/* 4 Date ovals on plates */}
             {dateItems.map((d, i) => (
               <div
                 key={i}
@@ -117,13 +114,11 @@ export default function Hero() {
               />
             ))}
 
-            {/* Center box */}
             <div className="hero-center-box">
               <span className="hero-box-name">TOOMORE</span>
               <span className="hero-box-type">Signature</span>
             </div>
 
-            {/* Price float */}
             <div className="hero-price-float">
               <span className="hero-price-amount">350 EGP</span>
               <span className="hero-price-label">Box of 12</span>

@@ -224,285 +224,55 @@ section {
 /* ========================================
    HERO
    ======================================== */
+/* ========================================
+   HERO
+   ======================================== */
 .hero-section {
-  background: var(--cream);
+  background: var(--green);
   min-height: 820px;
   display: grid;
   grid-template-columns: 48% 52%;
   align-items: center;
   gap: 48px;
   position: relative;
-}
-
-.hero-text {
-  z-index: 2;
-  max-width: 520px;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-.hero-tag-line {
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
-}
-
-.hero-title {
-  font-family: var(--font-heading);
-  font-size: clamp(62px, 7vw, 104px);
-  font-weight: 600;
-  color: var(--green);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  margin-bottom: 24px;
-}
-.hero-title em {
-  color: var(--gold);
-  font-style: italic;
-  font-weight: 500;
-}
-
-.hero-sub {
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--text-subtle);
-  margin-bottom: 0;
-}
-
-.hero-btns {
-  display: flex;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.btn-primary {
-  background: var(--orange);
-  color: #fff;
-  padding: 0 32px;
-  height: 48px;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  border-radius: var(--radius-sm);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-body);
-}
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(198,90,46,0.3);
-}
-
-.btn-outline-green {
-  background: transparent;
-  color: var(--green);
-  padding: 0 28px;
-  height: 48px;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid rgba(14,91,79,0.2);
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  border-radius: var(--radius-sm);
-  transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-body);
-}
-.btn-outline-green:hover {
-  border-color: rgba(14,91,79,0.4);
-  background: rgba(14,91,79,0.04);
-}
-
-.whatsapp-icon {
-  width: 18px;
-  height: 18px;
-  fill: #25D366;
-  flex-shrink: 0;
-}
-
-/* Trust Badges */
-.trust-badges {
-  display: flex;
-  gap: 28px;
-  margin-top: 40px;
-}
-.trust-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
-}
-.trust-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(14,91,79,0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.trust-icon svg {
-  width: 18px;
-  height: 18px;
-  stroke: var(--green);
-  fill: none;
-  stroke-width: 1.5;
-}
-.trust-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-/* Hero Visual */
-.hero-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  height: 100%;
-}
-
-.hero-visual-card {
-  width: 100%;
-  height: 620px;
-  background: var(--cream-soft);
-  border-radius: 28px;
-  position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
 }
 
-.hero-pattern-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-.hero-plate {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-.hero-plate-1 {
-  width: 200px;
-  height: 200px;
-  top: 15%;
-  left: 10%;
-}
-.hero-plate-2 {
-  width: 140px;
-  height: 140px;
-  bottom: 20%;
-  right: 8%;
-}
-
-.hero-date-oval {
-  position: absolute;
-  width: 52px;
-  height: 38px;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.hero-center-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  background: var(--green);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  box-shadow: 0 16px 40px rgba(14,91,79,0.25);
-  z-index: 2;
-}
-.hero-box-name {
-  font-family: var(--font-heading);
-  font-size: 18px;
+.hero-section .hero-tag {
   color: var(--gold);
-  letter-spacing: 3px;
-  font-weight: 600;
 }
-.hero-box-type {
-  font-size: 10px;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.hero-section .hero-tag-line {
+  background: var(--gold);
 }
 
-.hero-flavor-pills {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 2;
+.hero-section .hero-title {
+  color: var(--cream);
 }
-.hero-flavor-pill {
-  font-size: 11px;
-  color: var(--green);
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.03em;
-  font-weight: 500;
-  border: 1px solid rgba(14,91,79,0.08);
+.hero-section .hero-title em {
+  color: var(--gold);
 }
 
-.hero-price-float {
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 16px 20px;
-  z-index: 3;
-  border: 1px solid rgba(255,255,255,0.5);
-  text-align: right;
+.hero-section .hero-sub {
+  color: rgba(232,220,200,0.75);
 }
-.hero-price-amount {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--green);
-  display: block;
-  line-height: 1.2;
+
+.hero-section .btn-outline-green {
+  color: var(--cream);
+  border-color: rgba(232,220,200,0.35);
 }
-.hero-price-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
+.hero-section .btn-outline-green:hover {
+  border-color: rgba(232,220,200,0.6);
+  background: rgba(255,255,255,0.08);
+}
+
+.hero-section .trust-label {
+  color: rgba(232,220,200,0.6);
+}
+.hero-section .trust-icon {
+  background: rgba(199,165,106,0.12);
+}
+.hero-section .trust-icon svg {
+  stroke: var(--gold);
 }
 
 /* ========================================
