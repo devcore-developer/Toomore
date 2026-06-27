@@ -12,6 +12,7 @@ const links = [
   { href: '/admin/products', label: 'Products', icon: '□' },
   { href: '/admin/orders', label: 'Orders', icon: '☰' },
   { href: '/admin/gifts', label: 'Gift Requests', icon: '◐' },
+  { href: '/admin/testimonials', label: 'Testimonials', icon: '❝' },
 ]
 
 export default function AdminSidebar() {

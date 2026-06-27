@@ -1,33 +1,28 @@
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
+import Image from 'next/image'
 
 const boxes = [
   {
     title: 'Dark Indulgence',
     description: 'Rich 70% dark chocolate coatings paired with roasted pistachio and tahini cream fillings.',
     price: '320 EGP',
+    image: '/images/1.png',       // ← صورة البوكس
     bgClass: 'dark',
-    boxLabel: 'DARK',
-    boxStyle: { background: 'rgba(183,138,82,0.2)', border: '1px solid rgba(183,138,82,0.3)' },
-    labelColor: '#B78A52',
   },
   {
     title: 'Classic Collection',
     description: 'A beloved selection of our classic milk chocolate and white chocolate stuffed dates.',
     price: '280 EGP',
+    image: '/images/2.png',    // ← صورة البوكس
     bgClass: 'cream',
-    boxLabel: 'CLASSIC',
-    boxStyle: { background: 'rgba(14,91,79,0.08)', border: '1px solid rgba(14,91,79,0.12)' },
-    labelColor: '#0E5B4F',
   },
   {
     title: 'The Gift Box',
     description: 'Luxury presentation box with a curated mix of 24 dates — perfect for gifting.',
     price: '580 EGP',
+    image: '/images/3.png',       // ← صورة البوكس
     bgClass: 'mid',
-    boxLabel: 'GIFT',
-    boxStyle: { background: 'rgba(183,138,82,0.15)', border: '1px solid rgba(183,138,82,0.25)' },
-    labelColor: '#B78A52',
   },
 ]
 
@@ -44,14 +39,14 @@ export default function MixedBoxes() {
           <FadeIn key={box.title} delay={i * 0.1}>
             <div className="box-card">
               <div className={`box-img ${box.bgClass}`}>
-                <div className="mini-box" style={box.boxStyle}>
-                  <span
-                    className="heading"
-                    style={{ fontSize: 10, color: box.labelColor, letterSpacing: '0.1em' }}
-                  >
-                    {box.boxLabel}
-                  </span>
-                </div>
+                {/* ← الصورة بدل الـ mini-box */}
+                <Image
+                  src={box.image}
+                  alt={box.title}
+                  width={240}
+                  height={240}
+                  className="box-product-img"
+                />
               </div>
               <div className="box-card-body">
                 <h3 className="box-card-title">{box.title}</h3>
