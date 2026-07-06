@@ -1,11 +1,9 @@
 import StorySection from '@/components/home/StorySection'
-import Features from '@/components/home/Features'
 
 export default function StoryPage() {
   return (
-    <>
+    <div className="story-page-wrapper">
       <StorySection />
-      <Features />
-    </>
+    </div>
   )
 }

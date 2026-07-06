@@ -14,15 +14,10 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   const c = colors[status] || { bg: '#F5F5F5', text: '#616161' }
 
   return (
-    <span style={{
-      padding: '4px 12px',
-      borderRadius: 999,
-      fontSize: 12,
-      fontWeight: 600,
-      background: c.bg,
-      color: c.text,
-      textTransform: 'capitalize',
-    }}>
+    <span
+      className="admin-status-badge"
+      style={{ background: c.bg, color: c.text }}
+    >
       {status}
     </span>
   )

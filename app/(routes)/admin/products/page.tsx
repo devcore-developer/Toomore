@@ -51,7 +51,15 @@ export default function AdminProductsPage() {
 
   const openEdit = (product: Product) => {
     setEditing(product)
-    setForm({ name: product.name, description: product.description, price: product.price, flavors: product.flavors, category: product.category, pieces: product.pieces, isBestSeller: product.isBestSeller })
+    setForm({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      flavors: product.flavors,
+      category: product.category,
+      pieces: product.pieces,
+      isBestSeller: product.isBestSeller,
+    })
     setFlavorInput('')
     setModalOpen(true)
   }
@@ -97,42 +105,16 @@ export default function AdminProductsPage() {
     }
   }
 
-  const inputStyle = {
-    width: '100%',
-    padding: '10px 14px',
-    borderRadius: 10,
-    border: '1px solid rgba(14,91,79,0.12)',
-    fontSize: 14,
-    fontFamily: 'var(--font-inter), sans-serif' as const,
-    outline: 'none',
-    background: '#F9F6F0',
-  }
-
-  if (loading) return <div style={{ color: '#6A675F', padding: 40 }}>Loading products...</div>
+  if (loading) return <div className="admin-loading">Loading products...</div>
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+      <div className="admin-page-header">
         <div>
-          <h1 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 32, fontWeight: 600, color: '#0E5B4F', marginBottom: 4 }}>
-            Products
-          </h1>
-          <p style={{ fontSize: 14, color: '#6A675F' }}>Manage your product catalog</p>
+          <h1 className="admin-page-title">Products</h1>
+          <p className="admin-page-sub">Manage your product catalog</p>
         </div>
-        <button
-          onClick={openNew}
-          style={{
-            padding: '12px 24px',
-            borderRadius: 12,
-            border: 'none',
-            background: '#0E5B4F',
-            color: '#fff',
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: 'pointer',
-            fontFamily: 'var(--font-inter), sans-serif',
-          }}
-        >
+        <button onClick={openNew} className="admin-btn-primary">
           + Add Product
         </button>
       </div>
@@ -157,50 +139,86 @@ export default function AdminProductsPage() {
       />
 
       <AdminModal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? 'Edit Product' : 'New Product'}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Product Name</label>
-            <input style={inputStyle} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g. The Signature Collection" />
+        <div className="admin-form">
+          <div className="admin-form-field">
+            <label className="admin-form-label">Product Name</label>
+            <input
+              className="admin-form-input"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder="e.g. The Signature Collection"
+            />
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Description</label>
-            <textarea style={{ ...inputStyle, minHeight: 80, resize: 'vertical' }} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Product description..." />
+          <div className="admin-form-field">
+            <label className="admin-form-label">Description</label>
+            <textarea
+              className="admin-form-input admin-form-textarea"
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              placeholder="Product description..."
+            />
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Price (EGP)</label>
-              <input type="number" style={inputStyle} value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} />
+          <div className="admin-form-row">
+            <div className="admin-form-field">
+              <label className="admin-form-label">Price (EGP)</label>
+              <input
+                type="number"
+                className="admin-form-input"
+                value={form.price}
+                onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
+              />
             </div>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Pieces</label>
-              <input type="number" style={inputStyle} value={form.pieces} onChange={(e) => setForm({ ...form, pieces: Number(e.target.value) })} />
+            <div className="admin-form-field">
+              <label className="admin-form-label">Pieces</label>
+              <input
+                type="number"
+                className="admin-form-input"
+                value={form.pieces}
+                onChange={(e) => setForm({ ...form, pieces: Number(e.target.value) })}
+              />
             </div>
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Category</label>
-            <select style={inputStyle} value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as any })}>
+          <div className="admin-form-field">
+            <label className="admin-form-label">Category</label>
+            <select
+              className="admin-form-input"
+              value={form.category}
+              onChange={(e) => setForm({ ...form, category: e.target.value as any })}
+            >
               <option value="signature">Signature</option>
               <option value="mixed">Mixed</option>
               <option value="gift">Gift</option>
             </select>
           </div>
-          <div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, cursor: 'pointer' }}>
-              <input type="checkbox" checked={form.isBestSeller || false} onChange={(e) => setForm({ ...form, isBestSeller: e.target.checked })} />
-              Best Seller
-            </label>
-          </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Flavors</label>
-            <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-              <input style={{ ...inputStyle, flex: 1 }} value={flavorInput} onChange={(e) => setFlavorInput(e.target.value)} placeholder="Add flavor..." onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addFlavor())} />
-              <button type="button" onClick={addFlavor} style={{ padding: '0 16px', borderRadius: 10, border: '1px solid rgba(14,91,79,0.2)', background: 'none', cursor: 'pointer', color: '#0E5B4F', fontWeight: 600 }}>Add</button>
+          <label className="admin-form-checkbox">
+            <input
+              type="checkbox"
+              checked={form.isBestSeller || false}
+              onChange={(e) => setForm({ ...form, isBestSeller: e.target.checked })}
+            />
+            Best Seller
+          </label>
+          <div className="admin-form-field">
+            <label className="admin-form-label">Flavors</label>
+            <div className="admin-flavor-add">
+              <input
+                className="admin-form-input"
+                value={flavorInput}
+                onChange={(e) => setFlavorInput(e.target.value)}
+                placeholder="Add flavor..."
+                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addFlavor())}
+              />
+              <button type="button" onClick={addFlavor} className="admin-flavor-add-btn">
+                Add
+              </button>
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div className="admin-flavor-tags">
               {form.flavors.map((f, i) => (
-                <span key={i} style={{ padding: '4px 12px', borderRadius: 999, background: 'rgba(14,91,79,0.08)', color: '#0E5B4F', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span key={i} className="admin-flavor-tag">
                   {f}
-                  <button onClick={() => removeFlavor(i)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C62828', fontSize: 14, lineHeight: 1 }}>×</button>
+                  <button onClick={() => removeFlavor(i)} className="admin-flavor-remove" aria-label={`Remove ${f}`}>
+                    ×
+                  </button>
                 </span>
               ))}
             </div>
@@ -208,18 +226,7 @@ export default function AdminProductsPage() {
           <button
             onClick={handleSave}
             disabled={saving || !form.name}
-            style={{
-              padding: '14px',
-              borderRadius: 12,
-              border: 'none',
-              background: (saving || !form.name) ? '#ccc' : '#0E5B4F',
-              color: '#fff',
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: (saving || !form.name) ? 'not-allowed' : 'pointer',
-              fontFamily: 'var(--font-inter), sans-serif',
-              marginTop: 8,
-            }}
+            className="admin-form-submit"
           >
             {saving ? 'Saving...' : editing ? 'Update Product' : 'Create Product'}
           </button>

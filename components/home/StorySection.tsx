@@ -1,5 +1,6 @@
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
+import Image from 'next/image'
 
 export default function StorySection() {
   return (
@@ -17,12 +18,17 @@ export default function StorySection() {
 
       <FadeIn>
         <div className="story-visual">
-          <div className="story-quote">
-            &ldquo;We didn&apos;t just want to sell dates. We wanted to reimagine
-            an ancient ingredient as a modern luxury.&rdquo;
-          </div>
+          <Image
+            src="/images/Our_Story_Banner.png"
+            alt="Our Story"
+            fill
+            className="story-visual-img"
+            loading="lazy"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
         </div>
       </FadeIn>
+
       <FadeIn delay={0.15}>
         <div className="story-text">
           <SectionTitle tag="Our Story" title="A Modern Take on an Ancient Treasure" />
@@ -33,7 +39,7 @@ export default function StorySection() {
           </p>
           <p>
             TOOMORE was born out of a simple obsession: what if we treated the
-            Medjool date the way it truly deserves? Premium ingredients.
+            Mejdool date the way it truly deserves? Premium ingredients.
             Thoughtful craftsmanship. Beautiful presentation.
           </p>
           <p className="story-highlight">

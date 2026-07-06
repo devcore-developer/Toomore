@@ -9,7 +9,7 @@ interface ProductGridProps {
 export default function ProductGrid({ products, onAddToCart }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '60px 20px', color: '#4A4A4A' }}>
+      <div className="shop-empty">
         <p className="serif" style={{ fontSize: 20, color: '#0F4C3A', marginBottom: 8 }}>
           No products found
         </p>

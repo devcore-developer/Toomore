@@ -1,74 +1,95 @@
-// GiftingSection.tsx
+'use client'
+
+import { useState, useEffect } from 'react'
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
 import Badge from '@/components/ui/Badge'
+import GiftForm from '@/components/gifting/GiftForm'
 import { OCCASIONS } from '@/lib/constants'
 
 export default function GiftingSection() {
+  const [showForm, setShowForm] = useState(false)
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (showForm) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [showForm])
+
+  // Close on ESC
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showForm) setShowForm(false)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [showForm])
+
   return (
     <section className="gifting-section">
-      {/* Ambient top glow */}
-      <div className="gifting-ambient-glow" />
-
+      <div className="gifting-overlay" />
       <FadeIn>
         <div className="gifting-text-col">
           <SectionTitle
             tag="Custom Gifting"
-            title="For Every Occasion, a Perfect Gift."
+            title="A New Kind of Sweet Gift."
             light
           />
           <p className="gifting-sub">
-            Whether it&apos;s a wedding, a corporate event, or a Ramadan gathering
-            — we create custom gifting experiences that leave a lasting impression.
+            Thoughtful, elegant, and unforgettable — perfect for birthdays, thank yous, or just because.
           </p>
           <div className="occasions">
             {OCCASIONS.map((occ) => (
               <Badge key={occ} variant="occasion">{occ}</Badge>
             ))}
           </div>
-          <button className="btn-gold">Request Custom Order</button>
+          <button
+            className="btn-gold"
+            onClick={() => setShowForm(true)}
+          >
+            Request Custom Order
+          </button>
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.15}>
-        <div className="gifting-visual-col">
-          {/* Inner dark card (right side info panel) */}
-          <div className="gifting-inner-card">
-            <p className="gifting-card-title">A new kind of<br />sweet gift.</p>
-            <p className="gifting-card-sub">
-              Thoughtful, elegant, and unforgettable.<br />
-              Perfect for birthdays, thank yous, or just because.
-            </p>
-            <div className="gifting-card-icons">
-              {[
-                { icon: '🌿', label: 'Premium\nIngredients' },
-                { icon: '🤲', label: 'Hand Made\nwith Care' },
-                { icon: '🍫', label: 'Contains Rich\nChocolate' },
-                { icon: '🎁', label: 'Elegant\nGift Ready' },
-              ].map(({ icon, label }) => (
-                <div key={label} className="gifting-icon-item">
-                  <span className="gifting-icon">{icon}</span>
-                  <span className="gifting-icon-label">{label}</span>
-                </div>
-              ))}
+      {showForm && (
+        <div
+          className="gifting-modal-overlay"
+          onClick={() => setShowForm(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Custom order request"
+        >
+          <div className="gifting-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="gifting-modal-close"
+              onClick={() => setShowForm(false)}
+              aria-label="Close modal"
+            >
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className="gifting-modal-header">
+              <h3 className="gifting-modal-title">Custom Order Request</h3>
+              <p className="gifting-modal-sub">Tell us about your event and we&apos;ll take care of the rest.</p>
+            </div>
+            <div className="gifting-visual">
+              <GiftForm
+                onSubmit={(data) => {
+                  console.log('Gift request:', data)
+                  setShowForm(false)
+                  alert('Your gifting request has been submitted! We will contact you shortly.')
+                }}
+              />
             </div>
           </div>
-
-          {/* Product image floating over everything */}
-          <img
-            src="/images/gift-box.png"
-            alt="TOOMORE Gift Box"
-            className="gifting-product-img"
-          />
-
-          {/* TOOMORE box right edge */}
-          <img
-            src="/images/toomore-box.png"
-            alt="TOOMORE Box"
-            className="gifting-box-img"
-          />
         </div>
-      </FadeIn>
+      )}
     </section>
   )
 }

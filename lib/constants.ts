@@ -24,14 +24,14 @@ export const FOOTER_COMPANY_LINKS = [
   { label: 'Our Story', href: '/story' },
   { label: 'Gifting', href: '/gifting' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '#' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export const FOOTER_CONTACT_LINKS = [
   { label: 'WhatsApp', href: `https://wa.me/${WHATSAPP_NUMBER}` },
   { label: 'Instagram', href: 'https://instagram.com/toomore.eg' },
   { label: 'hello@toomore.eg', href: 'mailto:hello@toomore.eg' },
-  { label: 'Cairo, Egypt', href: '#' },
+  { label: 'Alexandria, Egypt', href: '#' },
 ]
 
 export const OCCASIONS = [
@@ -42,7 +42,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     text: "I ordered the Gift Box for my mother's birthday and she cried — in the best way. The packaging alone is worth it.",
     author: 'Nour M.',
-    location: 'Cairo, Egypt',
+    location: 'Alexandria, Egypt',
     rating: 5,
   },
   {
@@ -60,30 +60,62 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     text: 'The packaging is absolutely stunning. I\'ve never seen dates presented this way. Will definitely order again for every occasion.',
     author: 'Layla H.',
-    location: 'New Cairo',
+    location: 'New Alexandria',
     rating: 5,
   },
 ]
 
 export const FAQS: FAQ[] = [
   {
-    question: 'Do you deliver outside Cairo?',
-    answer: 'Yes! We deliver nationwide across Egypt. Cairo and Alexandria receive same-day delivery. Other governorates are delivered within 1-3 business days via our trusted courier partners.',
+    question: 'What are Medjool dates?',
+    answer: 'Medjool dates are large, soft, naturally sweet dates known for their rich caramel-like flavor and premium quality. They are often called the \'King of Dates\' because of their size, texture, and taste.',
   },
   {
-    question: 'How should I store the dates?',
-    answer: 'Keep your TOOMORE dates in a cool, dry place away from direct sunlight. For best results, store them in the refrigerator. They stay fresh for up to 3 weeks when refrigerated.',
+    question: 'Why did TooMore choose Medjool dates only?',
+    answer: 'We believe great products start with great ingredients. That\'s why TooMore uses only premium Medjool dates to deliver the best taste, texture, and quality in every bite.',
   },
   {
-    question: 'Can I customize the box for my event?',
-    answer: 'Absolutely. We offer custom branding, ribbon colors, and personalized messages for events of 20+ boxes. Use our gifting request form or contact us on WhatsApp to discuss your requirements.',
+    question: 'What makes Medjool different from regular dates?',
+    answer: 'Medjool dates are larger, softer, juicier, and naturally sweeter than most other date varieties. They also have a richer texture, making them perfect for premium stuffed dates.',
   },
   {
-    question: 'What payment methods do you accept?',
-    answer: 'We accept Cash on Delivery, InstaPay, and Vodafone Cash. For orders above 1,000 EGP, a 50% deposit is required to confirm your order.',
+    question: 'Are your dates natural?',
+    answer: 'Yes. Our Medjool dates are naturally grown and carefully selected. We keep their natural goodness while pairing them with high-quality fillings for an indulgent experience.',
   },
   {
-    question: 'Are your products suitable as Ramadan gifts?',
-    answer: 'TOOMORE dates are perfect for Ramadan gifting. We offer special Ramadan packaging and bulk pricing for large orders. Contact us early to secure your Ramadan custom order.',
+    question: 'Are your dates fresh all year round?',
+    answer: 'Yes. We carefully store and package our dates to maintain their freshness, flavor, and soft texture throughout the year.',
+  },
+  {
+    question: 'Are they suitable for athletes?',
+    answer: 'Absolutely. Medjool dates provide natural carbohydrates for quick energy, making them a great pre- or post-workout snack.',
+  },
+  {
+    question: 'Can they be eaten as a healthy snack?',
+    answer: 'Yes. TooMore dates are a satisfying snack made with premium Medjool dates, offering natural energy and great taste whenever you need it.',
+  },
+  {
+    question: 'Are they suitable for children?',
+    answer: 'Yes. They are a delicious snack for children when enjoyed as part of a balanced diet. Adult supervision is recommended for younger children.',
+  },
+  {
+    question: 'Are they suitable for people who avoid refined sugar?',
+    answer: 'Yes. Medjool dates are naturally sweet, making them a great choice for people looking to reduce refined sugar in their snacks.',
+  },
+  {
+    question: 'Can I send TooMore as a gift?',
+    answer: 'Absolutely. TooMore makes a thoughtful and premium gift for family, friends, colleagues, and special occasions.',
+  },
+  {
+    question: 'What does \'TooMore\' mean?',
+    answer: 'TooMore represents abundance, generosity, and enjoying more of life\'s best moments — starting with premium Medjool dates.',
+  },
+  {
+    question: 'Which flavor should I try first?',
+    answer: 'If it\'s your first TooMore experience, start with our best-selling flavors such as Peanut Butter or White Mocha, then explore the rest to find your favorite.',
+  },
+  {
+    question: 'Which TooMore flavor is the most popular?',
+    answer: 'Our Peanut Butter flavor is currently one of our customer favorites thanks to its perfect balance of creamy, nutty richness and naturally sweet Medjool dates.',
   },
 ]

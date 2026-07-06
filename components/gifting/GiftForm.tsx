@@ -26,7 +26,7 @@ export default function GiftForm({ onSubmit }: GiftFormProps) {
   }
 
   return (
-    <div className="gifting-visual">
+    <>
       <div className="form-row">
         <div className="form-label">Event Type</div>
         <OccasionSelector selected={eventType} onChange={setEventType} />
@@ -37,9 +37,13 @@ export default function GiftForm({ onSubmit }: GiftFormProps) {
       </div>
       <Input label="Phone Number" placeholder="+20 1XX XXX XXXX" value={phone} onChange={(e) => setPhone((e.target as HTMLInputElement).value)} />
       <Input label="Notes" placeholder="Custom ribbon color, logo embossing..." value={notes} onChange={(e) => setNotes((e.target as HTMLTextAreaElement).value)} multiline rows={3} />
-      <div className="btn-submit" style={{ cursor: 'pointer' }} onClick={handleSubmit}>
+      <button
+        type="button"
+        className="btn-submit"
+        onClick={handleSubmit}
+      >
         Submit Gifting Request
-      </div>
-    </div>
+      </button>
+    </>
   )
 }

@@ -20,31 +20,34 @@ export default function ShopPage() {
   const { addItem } = useCart()
 
   return (
-    <section className="mixed" style={{ minHeight: '70vh' }}>
+    <section className="shop-page">
       <SectionTitle
         tag="Shop"
         title="Our Collection"
-        subtitle="Explore our handcrafted stuffed Medjool dates — each box is a masterpiece."
+        subtitle="Explore our handcrafted stuffed Mejdool dates — each box is a masterpiece."
       />
-      <div style={{ display: 'flex', gap: 8, marginBottom: 40, flexWrap: 'wrap' }}>
+      <div className="shop-filters">
         {categories.map((cat) => (
           <span
             key={cat.id}
-            className="occ-tag"
-            style={{
-              cursor: 'pointer',
-              background: activeCategory === cat.id ? 'rgba(15,76,58,.15)' : undefined,
-              borderColor: activeCategory === cat.id ? 'rgba(15,76,58,.4)' : undefined,
-              color: activeCategory === cat.id ? '#0F4C3A' : undefined,
-            }}
+            className={`shop-filter-pill${activeCategory === cat.id ? ' shop-filter-pill--active' : ''}`}
             onClick={() => setActiveCategory(cat.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setActiveCategory(cat.id)
+              }
+            }}
+            aria-pressed={activeCategory === cat.id}
           >
             {cat.label}
           </span>
         ))}
       </div>
       {loading ? (
-        <p style={{ textAlign: 'center', color: '#4A4A4A', padding: 40 }}>Loading...</p>
+        <p className="shop-loading">Loading...</p>
       ) : (
         <ProductGrid products={products} onAddToCart={addItem} />
       )}

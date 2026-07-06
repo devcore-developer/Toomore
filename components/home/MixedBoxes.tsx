@@ -7,21 +7,21 @@ const boxes = [
     title: 'Dark Indulgence',
     description: 'Rich 70% dark chocolate coatings paired with roasted pistachio and tahini cream fillings.',
     price: '320 EGP',
-    image: '/images/1.png',       // ← صورة البوكس
+    image: '/images/1.png',
     bgClass: 'dark',
   },
   {
     title: 'Classic Collection',
     description: 'A beloved selection of our classic milk chocolate and white chocolate stuffed dates.',
     price: '280 EGP',
-    image: '/images/2.png',    // ← صورة البوكس
+    image: '/images/2.png',
     bgClass: 'cream',
   },
   {
     title: 'The Gift Box',
     description: 'Luxury presentation box with a curated mix of 24 dates — perfect for gifting.',
     price: '580 EGP',
-    image: '/images/3.png',       // ← صورة البوكس
+    image: '/images/3.png',
     bgClass: 'mid',
   },
 ]
@@ -39,13 +39,13 @@ export default function MixedBoxes() {
           <FadeIn key={box.title} delay={i * 0.1}>
             <div className="box-card">
               <div className={`box-img ${box.bgClass}`}>
-                {/* ← الصورة بدل الـ mini-box */}
                 <Image
                   src={box.image}
                   alt={box.title}
-                  width={240}
-                  height={240}
+                  fill
                   className="box-product-img"
+                  loading="lazy"
+                  sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
               <div className="box-card-body">

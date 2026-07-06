@@ -1,5 +1,7 @@
+'use client'
+
+import { useState } from 'react'
 import { OCCASIONS } from '@/lib/constants'
-import Badge from '@/components/ui/Badge'
 
 interface OccasionSelectorProps {
   selected: string
@@ -7,22 +9,61 @@ interface OccasionSelectorProps {
 }
 
 export default function OccasionSelector({ selected, onChange }: OccasionSelectorProps) {
+  const [otherValue, setOtherValue] = useState('')
+  const allOccasions = [...OCCASIONS, 'Other']
+
+  const handleSelect = (occ: string) => {
+    if (occ === 'Other') {
+      onChange('Other')
+    } else {
+      setOtherValue('')
+      onChange(occ)
+    }
+  }
+
+  const handleOtherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOtherValue(e.target.value)
+    onChange(`Other: ${e.target.value}`)
+  }
+
+  const isOtherSelected = selected === 'Other' || selected?.startsWith('Other:')
+
   return (
-    <div className="occasions">
-      {OCCASIONS.map((occ) => (
-        <span
-          key={occ}
-          className="occ-tag"
-          style={{
-            cursor: 'pointer',
-            background: selected === occ ? 'rgba(199,165,106,.3)' : undefined,
-            borderColor: selected === occ ? 'rgba(199,165,106,.6)' : undefined,
-          }}
-          onClick={() => onChange(occ)}
-        >
-          {occ}
-        </span>
-      ))}
+    <div>
+      <div className="modal-occasions" role="radiogroup" aria-label="Select occasion">
+        {allOccasions.map((occ) => (
+          <span
+            key={occ}
+            className={`modal-occ-tag${isOtherSelected && occ === 'Other' ? ' modal-occ-tag--active' : ''}${selected === occ && occ !== 'Other' ? ' modal-occ-tag--active' : ''}`}
+            onClick={() => handleSelect(occ)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleSelect(occ)
+              }
+            }}
+            role="radio"
+            tabIndex={0}
+            aria-checked={
+              occ === 'Other'
+                ? isOtherSelected
+                : selected === occ
+            }
+          >
+            {occ}
+          </span>
+        ))}
+      </div>
+      {isOtherSelected && (
+        <input
+          className="form-input"
+          placeholder="Please specify your occasion..."
+          value={otherValue}
+          onChange={handleOtherChange}
+          style={{ marginTop: 12 }}
+          aria-label="Specify your occasion"
+        />
+      )}
     </div>
   )
 }

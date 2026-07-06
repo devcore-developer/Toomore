@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import StatusBadge from '@/components/admin/StatusBadge'
 
 interface Testimonial {
   id: string
@@ -10,16 +11,6 @@ interface Testimonial {
   rating: number
   active: boolean
   createdAt: string
-}
-
-const inputStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  borderRadius: 10,
-  border: '1px solid rgba(14,91,79,0.12)',
-  fontSize: 14,
-  outline: 'none',
-  fontFamily: 'inherit',
-  background: '#fff',
 }
 
 export default function AdminTestimonials() {
@@ -57,32 +48,25 @@ export default function AdminTestimonials() {
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 20px' }}>
-      <h1 style={{ fontSize: 28, marginBottom: 8, color: '#0E5B4F', fontFamily: 'var(--font-heading)' }}>
-        إدارة التقييمات
-      </h1>
-      <p style={{ fontSize: 14, color: '#6A675F', marginBottom: 32 }}>
-        أضف تقييمات العملاء اللي هتظهر في الصفحة الرئيسية
-      </p>
+    <div className="admin-testimonials-page">
+      <h1 className="admin-page-title">إدارة التقييمات</h1>
+      <p className="admin-page-sub">أضف تقييمات العملاء اللي هتظهر في الصفحة الرئيسية</p>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} style={{
-        background: '#fff', borderRadius: 16, padding: 24, marginBottom: 40,
-        border: '1px solid rgba(14,91,79,0.12)', display: 'flex', flexDirection: 'column', gap: 16,
-      }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <form onSubmit={handleSubmit} className="admin-testimonials-form">
+        <div className="admin-form-row">
           <input
             placeholder="Name *"
             value={form.name}
             onChange={e => setForm({ ...form, name: e.target.value })}
             required
-            style={inputStyle}
+            className="admin-form-input"
           />
           <input
             placeholder="Job Title (Optional)"
             value={form.title}
             onChange={e => setForm({ ...form, title: e.target.value })}
-            style={inputStyle}
+            className="admin-form-input"
           />
         </div>
         <textarea
@@ -91,19 +75,17 @@ export default function AdminTestimonials() {
           onChange={e => setForm({ ...form, text: e.target.value })}
           required
           rows={3}
-          style={{ ...inputStyle, resize: 'vertical' }}
+          className="admin-form-input admin-form-textarea"
         />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 14, color: '#6A675F' }}>Rating:</span>
+        <div className="admin-rating-picker">
+          <span className="admin-rating-label">Rating:</span>
           {[1, 2, 3, 4, 5].map(star => (
             <button
               type="button"
               key={star}
               onClick={() => setForm({ ...form, rating: star })}
-              style={{
-                background: 'none', border: 'none', fontSize: 24, cursor: 'pointer',
-                color: star <= form.rating ? '#B78A52' : '#ddd', padding: 0,
-              }}
+              className={`admin-star-btn${star <= form.rating ? ' admin-star-btn--active' : ''}`}
+              aria-label={`${star} star${star > 1 ? 's' : ''}`}
             >
               ★
             </button>
@@ -112,11 +94,7 @@ export default function AdminTestimonials() {
         <button
           type="submit"
           disabled={submitting}
-          style={{
-            background: '#0E5B4F', color: '#fff', border: 'none', borderRadius: 10,
-            padding: '12px 24px', fontSize: 14, fontWeight: 600, cursor: submitting ? 'not-allowed' : 'pointer',
-            opacity: submitting ? 0.6 : 1, alignSelf: 'flex-start',
-          }}
+          className="admin-form-submit"
         >
           {submitting ? 'Adding...' : 'Add Testimonial'}
         </button>
@@ -124,40 +102,29 @@ export default function AdminTestimonials() {
 
       {/* List */}
       {loading ? (
-        <p style={{ color: '#6A675F', textAlign: 'center' }}>Loading...</p>
+        <p className="admin-loading">Loading...</p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className="admin-testimonials-list">
           {testimonials.length === 0 && (
-            <p style={{ color: '#6A675F', textAlign: 'center', padding: '40px 0' }}>
+            <p className="admin-empty-state">
               No testimonials yet — Add the first testimonial from the form above
             </p>
           )}
           {testimonials.map(t => (
-            <div key={t.id} style={{
-              background: '#fff', borderRadius: 12, padding: 20,
-              border: '1px solid rgba(14,91,79,0.12)',
-              display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16,
-            }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                  <strong style={{ fontSize: 15, color: '#1E1E1E' }}>{t.name}</strong>
-                  {t.title && (
-                    <span style={{ fontSize: 13, color: '#6A675F' }}>— {t.title}</span>
-                  )}
-                  <span style={{ color: '#B78A52', fontSize: 13, marginLeft: 'auto' }}>
+            <div key={t.id} className="admin-testimonial-card">
+              <div className="admin-testimonial-content">
+                <div className="admin-testimonial-meta">
+                  <strong>{t.name}</strong>
+                  {t.title && <span>— {t.title}</span>}
+                  <span className="admin-testimonial-stars">
                     {'★'.repeat(t.rating)}
                   </span>
                 </div>
-                <p style={{ fontSize: 14, color: '#6A675F', lineHeight: 1.6 }}>
-                  "{t.text}"
-                </p>
+                <p className="admin-testimonial-text">&ldquo;{t.text}&rdquo;</p>
               </div>
               <button
                 onClick={() => handleDelete(t.id)}
-                style={{
-                  background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 8,
-                  padding: '6px 14px', fontSize: 12, cursor: 'pointer', fontWeight: 600, flexShrink: 0,
-                }}
+                className="admin-btn-danger-sm"
               >
                 Delete
               </button>

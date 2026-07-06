@@ -15,6 +15,14 @@ export default function FadeIn({ children, delay = 0, className }: FadeInProps) 
     const el = ref.current
     if (!el) return
 
+    // Respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) {
+      el.style.opacity = '1'
+      el.style.transform = 'none'
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

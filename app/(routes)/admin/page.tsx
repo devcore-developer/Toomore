@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import StatsCard from '@/components/admin/StatsCard'
 import DataTable from '@/components/admin/DataTable'
@@ -59,36 +59,22 @@ export default function AdminDashboard() {
   }, [])
 
   if (loading) {
-    return <div style={{ color: '#6A675F', padding: 40 }}>Loading dashboard...</div>
+    return <div className="admin-loading">Loading dashboard...</div>
   }
 
   return (
     <div>
-      <h1 style={{
-        fontFamily: 'var(--font-cormorant), serif',
-        fontSize: 32,
-        fontWeight: 600,
-        color: '#0E5B4F',
-        marginBottom: 8,
-      }}>Dashboard</h1>
-      <p style={{ fontSize: 14, color: '#6A675F', marginBottom: 32 }}>
-        Overview of your store performance
-      </p>
+      <h1 className="admin-page-title">Dashboard</h1>
+      <p className="admin-page-sub">Overview of your store performance</p>
 
-      <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 40 }}>
+      <div className="admin-stats-grid">
         <StatsCard label="Total Products" value={stats.products} />
         <StatsCard label="Total Orders" value={stats.orders} />
         <StatsCard label="Gift Requests" value={stats.gifts} />
         <StatsCard label="Total Revenue" value={formatPrice(stats.revenue)} color="#C65A2E" />
       </div>
 
-      <h2 style={{
-        fontFamily: 'var(--font-cormorant), serif',
-        fontSize: 22,
-        fontWeight: 600,
-        color: '#0E5B4F',
-        marginBottom: 20,
-      }}>Recent Orders</h2>
+      <h2 className="admin-section-title">Recent Orders</h2>
 
       <DataTable
         columns={[

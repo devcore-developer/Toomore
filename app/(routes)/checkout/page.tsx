@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
 import CheckoutForm from '@/components/checkout/CheckoutForm'
 import SectionTitle from '@/components/shared/SectionTitle'
+import Button from '@/components/ui/Button'
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart()
@@ -11,21 +12,19 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '100px 20px', background: '#fff', minHeight: '70vh' }}>
-        <p className="serif" style={{ fontSize: 24, color: '#0F4C3A', marginBottom: 16 }}>
-          Your cart is empty
-        </p>
-        <button className="btn-dark" onClick={() => router.push('/shop')}>
+      <div className="checkout-empty">
+        <p className="checkout-empty-title">Your cart is empty</p>
+        <Button variant="dark" href="/shop">
           Browse Products
-        </button>
+        </Button>
       </div>
     )
   }
 
   return (
-    <section className="faq">
+    <section className="checkout-page">
       <SectionTitle tag="Checkout" title="Complete Your Order" align="center" />
-      <div style={{ marginTop: 48 }}>
+      <div className="checkout-page-content">
         <CheckoutForm
           items={items}
           total={total()}

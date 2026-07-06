@@ -1,4 +1,5 @@
 import FadeIn from '@/components/shared/FadeIn'
+import Image from 'next/image'
 
 const features = [
   {
@@ -36,7 +37,7 @@ const features = [
 export default function BestSeller() {
   return (
     <section className="bestseller-section">
-      <svg className="bestseller-pattern" viewBox="0 0 400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="bestseller-pattern" viewBox="0 0 400 800" fill="none">
         <rect x="0" y="0" width="400" height="800" stroke="#F5FE4" strokeWidth="0.5" />
         <rect x="40" y="40" width="320" height="320" stroke="#F5FE4" strokeWidth="0.4" />
         <rect x="80" y="80" width="240" height="240" stroke="#F5FE4" strokeWidth="0.3" />
@@ -44,33 +45,27 @@ export default function BestSeller() {
         <line x1="200" y1="0" x2="200" y2="800" stroke="#F5FE4" strokeWidth="0.3" />
         <circle cx="200" cy="200" r="120" stroke="#F5FE4" strokeWidth="0.3" />
         <circle cx="200" cy="200" r="200" stroke="#F5FE4" strokeWidth="0.25" />
-        <line x1="40" y1="40" x2="360" y2="360" stroke="#F5FE4" strokeWidth="0.25" />
-        <line x1="360" y1="40" x2="40" y2="360" stroke="#F5FE4" strokeWidth="0.25" />
-        <line x1="40" y1="440" x2="360" y2="760" stroke="#F5FE4" strokeWidth="0.25" />
-        <line x1="360" y1="440" x2="40" y2="760" stroke="#F5FE4" strokeWidth="0.25" />
-        <rect x="120" y="120" width="160" height="160" stroke="#F5FE4" strokeWidth="0.2" transform="rotate(45 200 200)" />
-        <circle cx="200" cy="200" r="60" stroke="#F5FE4" strokeWidth="0.2" />
       </svg>
-
       <div className="bestseller-lighting" />
-
       <div className="bestseller-inner">
         <FadeIn className="bestseller-left">
           <div className="bestseller-box-wrap">
             <div className="bestseller-shadow-floor" />
-            <img
+            <Image
               src="/images/best-seller-box.png"
               alt="TOOMORE 8-Piece Hero Package"
+              width={780}
+              height={480}
               className="bestseller-box-img"
+              loading="lazy"
+              sizes="(max-width: 767px) 100vw, 55vw"
             />
           </div>
         </FadeIn>
-
         <FadeIn delay={0.15} className="bestseller-right">
           <h2 className="bestseller-heading">8-Piece Hero Package</h2>
           <div className="bestseller-underline" />
           <p className="bestseller-subtitle">Perfect to discover your favorite flavor.</p>
-
           <div className="bestseller-features">
             {features.map((f, i) => (
               <div className="bestseller-feature" key={i}>
@@ -79,7 +74,6 @@ export default function BestSeller() {
               </div>
             ))}
           </div>
-
           <button className="bestseller-cta">Order Now</button>
           <p className="bestseller-price">EGP 160</p>
         </FadeIn>

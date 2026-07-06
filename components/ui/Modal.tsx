@@ -32,17 +32,20 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 200,
+        padding: '20px',
       }}
       onClick={onClose}
     >
       <div
         style={{
           background: '#fff',
-          borderRadius: 4,
-          padding: 32,
+          borderRadius: 12,
+          padding: '24px',
           maxWidth: 480,
-          width: '90%',
+          width: '100%',
           position: 'relative',
+          maxHeight: '90vh',
+          overflowY: 'auto',
         }}
         onClick={(e) => e.stopPropagation()}
       >

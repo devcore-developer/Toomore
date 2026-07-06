@@ -58,23 +58,21 @@ export default function AdminGiftsPage() {
     }
   }
 
-  if (loading) return <div style={{ color: '#6A675F', padding: 40 }}>Loading gift requests...</div>
+  if (loading) return <div className="admin-loading">Loading gift requests...</div>
 
   return (
     <div>
-      <h1 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 32, fontWeight: 600, color: '#0E5B4F', marginBottom: 4 }}>
-        Gift Requests
-      </h1>
-      <p style={{ fontSize: 14, color: '#6A675F', marginBottom: 32 }}>Manage custom gifting requests</p>
+      <h1 className="admin-page-title">Gift Requests</h1>
+      <p className="admin-page-sub">Manage custom gifting requests</p>
 
       <DataTable
         columns={[
-          { key: 'id', label: 'ID', render: (v) => <span style={{ fontFamily: 'monospace', fontSize: 13 }}>{v.slice(0, 8).toUpperCase()}</span> },
+          { key: 'id', label: 'ID', render: (v) => <span className="admin-mono">{v.slice(0, 8).toUpperCase()}</span> },
           { key: 'eventType', label: 'Event', render: (v) => <span style={{ textTransform: 'capitalize' }}>{v}</span> },
           { key: 'quantity', label: 'Quantity' },
           { key: 'eventDate', label: 'Event Date' },
           { key: 'phone', label: 'Phone' },
-          { key: 'notes', label: 'Notes', render: (v) => <span style={{ maxWidth: 200, display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{v || '—'}</span> },
+          { key: 'notes', label: 'Notes', render: (v) => <span className="admin-truncate">{v || '—'}</span> },
           { key: 'status', label: 'Status', render: (v) => <StatusBadge status={v} /> },
           { key: 'createdAt', label: 'Submitted' },
         ]}

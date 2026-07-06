@@ -6,7 +6,7 @@ const MOCK_PRODUCTS: Product[] = [
     id: 'signature-collection',
     name: 'The Signature Collection',
     description:
-      '12 handcrafted Medjool dates filled with a curated selection of our finest flavors — milk chocolate, dark chocolate with pistachio, and white chocolate with almond.',
+      '12 handcrafted Mejdool dates filled with a curated selection of our finest flavors — milk chocolate, dark chocolate with pistachio, and white chocolate with almond.',
     price: 350,
     flavors: ['Milk Chocolate', 'Dark Choc & Pistachio', 'White Choc & Almond', 'Caramel'],
     category: 'signature',

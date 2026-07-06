@@ -19,6 +19,7 @@ interface ButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit'
   className?: string
+  fullWidth?: boolean
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -40,8 +41,13 @@ export default function Button({
   onClick,
   type = 'button',
   className,
+  fullWidth,
 }: ButtonProps) {
-  const classes = cn(variantClasses[variant], className)
+  const classes = cn(
+    variantClasses[variant],
+    fullWidth && 'w-full md:w-auto',
+    className
+  )
 
   if (href) {
     return (

@@ -31,6 +31,8 @@ export default function Testimonials() {
 
   if (loading) return null
 
+  if (testimonials.length === 0) return null
+
   return (
     <section className="testimonials-section">
       <SectionTitle
@@ -48,7 +50,7 @@ export default function Testimonials() {
               <div className="stars">
                 {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
               </div>
-              <p className="test-text">"{t.text}"</p>
+              <p className="test-text">&ldquo;{t.text}&rdquo;</p>
               <div className="test-author">
                 <strong>{t.name}</strong>
                 {t.title && <span>{t.title}</span>}

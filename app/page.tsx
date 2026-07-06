@@ -20,10 +20,17 @@ export default function HomePage() {
       <MixedBoxes />
       <WhyToomore />
       <StorySection />
-      <Features />
+      <Features
+        images={[
+          '/images/step-pick-date.png',
+          '/images/step-fill-it.png',
+          '/images/step-coat-it.png',
+          '/images/step-pack-it.png',
+        ]}
+      />
       <Testimonials />
       <GiftingSection />
-      <FAQSection />
+      <FAQSection limit={5} />
       <InstagramSection />
       <FinalCTA />
     </>

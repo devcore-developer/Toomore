@@ -13,15 +13,15 @@ export default function ProductPage() {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: 80, color: '#4A4A4A' }}>
-        Loading...
+      <div className="shop-loading-full">
+        <p>Loading...</p>
       </div>
     )
   }
 
   if (!product) {
     return (
-      <div style={{ textAlign: 'center', padding: 80, color: '#4A4A4A' }}>
+      <div className="shop-loading-full">
         <p className="serif" style={{ fontSize: 24, color: '#0F4C3A', marginBottom: 12 }}>
           Product Not Found
         </p>

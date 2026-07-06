@@ -14,16 +14,16 @@ export default function InstagramSection() {
       />
       <div className="insta-grid">
         {posts.map((n) => (
-          <FadeIn key={n} delay={n * 0.06}>
-            <div className="insta-item">
+          <div key={n} className="insta-item">
+            <FadeIn delay={n * 0.06}>
               <div className="insta-box-hint">
                 <span>Post {n}</span>
               </div>
-              <div className="insta-overlay">
-                <span className="insta-icon">↗</span>
-              </div>
+            </FadeIn>
+            <div className="insta-overlay">
+              <span className="insta-icon">↗</span>
             </div>
-          </FadeIn>
+          </div>
         ))}
       </div>
     </section>

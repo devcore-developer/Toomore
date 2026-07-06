@@ -19,9 +19,9 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: 'TOOMORE — Premium Stuffed Medjool Dates',
+  title: 'TOOMORE — Premium Stuffed Mejdool Dates',
   description:
-    'Handcrafted Medjool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
+    'Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
 }
 
 export default function RootLayout({

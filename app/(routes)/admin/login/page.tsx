@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { useAuthStore } from '@/store/auth-store'
+import Link from 'next/link'
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -35,124 +36,58 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#F5EFE4',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 20,
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: 400,
-        background: '#fff',
-        borderRadius: 24,
-        padding: '48px 40px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.06)',
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: 36 }}>
-          <span style={{
-            fontFamily: 'var(--font-cormorant), serif',
-            fontSize: 28,
-            fontWeight: 600,
-            color: '#0E5B4F',
-            letterSpacing: 1,
-          }}>
+    <div className="admin-login-page">
+      <div className="admin-login-card">
+        <div className="admin-login-header">
+          <span className="admin-login-logo">
             TOO<span style={{ color: '#B78A52' }}>MORE</span>
           </span>
-          <p style={{ fontSize: 14, color: '#6A675F', marginTop: 8 }}>
-            Admin Dashboard Login
-          </p>
+          <p className="admin-login-sub">Admin Dashboard Login</p>
         </div>
 
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, color: '#1E1E1E', display: 'block', marginBottom: 6 }}>
-              Email
-            </label>
+        <form onSubmit={handleLogin} className="admin-login-form">
+          <div className="admin-login-field">
+            <label htmlFor="admin-email" className="admin-login-label">Email</label>
             <input
+              id="admin-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="admin@toomore.eg"
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: 12,
-                border: '1px solid rgba(14,91,79,0.12)',
-                fontSize: 14,
-                fontFamily: 'var(--font-inter), sans-serif',
-                outline: 'none',
-                background: '#F9F6F0',
-              }}
+              className="admin-login-input"
+              autoComplete="email"
             />
           </div>
-          <div>
-            <label style={{ fontSize: 13, fontWeight: 500, color: '#1E1E1E', display: 'block', marginBottom: 6 }}>
-              Password
-            </label>
+          <div className="admin-login-field">
+            <label htmlFor="admin-password" className="admin-login-label">Password</label>
             <input
+              id="admin-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="••••••••"
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: 12,
-                border: '1px solid rgba(14,91,79,0.12)',
-                fontSize: 14,
-                fontFamily: 'var(--font-inter), sans-serif',
-                outline: 'none',
-                background: '#F9F6F0',
-              }}
+              className="admin-login-input"
+              autoComplete="current-password"
             />
           </div>
 
           {error && (
-            <div style={{
-              padding: '10px 14px',
-              borderRadius: 10,
-              background: '#FFEBEE',
-              color: '#C62828',
-              fontSize: 13,
-            }}>
-              {error}
-            </div>
+            <div className="admin-login-error">{error}</div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            style={{
-              width: '100%',
-              padding: '14px',
-              borderRadius: 12,
-              border: 'none',
-              background: loading ? '#ccc' : '#0E5B4F',
-              color: '#fff',
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: loading ? 'not-allowed' : 'pointer',
-              fontFamily: 'var(--font-inter), sans-serif',
-              transition: 'all 0.2s ease',
-              marginTop: 8,
-            }}
+            className="admin-login-submit"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <p style={{
-          textAlign: 'center',
-          fontSize: 12,
-          color: '#6A675F',
-          marginTop: 24,
-        }}>
-          <a href="/" style={{ color: '#0E5B4F', textDecoration: 'none' }}>← Back to website</a>
+        <p className="admin-login-back">
+          <Link href="/">&larr; Back to website</Link>
         </p>
       </div>
     </div>

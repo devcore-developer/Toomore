@@ -61,26 +61,27 @@ export default function AdminOrdersPage() {
     }
   }
 
-  if (loading) return <div style={{ color: '#6A675F', padding: 40 }}>Loading orders...</div>
+  if (loading) return <div className="admin-loading">Loading orders...</div>
+
+  const paymentLabels: Record<string, string> = {
+    cod: 'Cash on Delivery',
+    instapay: 'InstaPay',
+    vodafone_cash: 'Vodafone Cash',
+  }
 
   return (
     <div>
-      <h1 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 32, fontWeight: 600, color: '#0E5B4F', marginBottom: 4 }}>
-        Orders
-      </h1>
-      <p style={{ fontSize: 14, color: '#6A675F', marginBottom: 32 }}>Manage customer orders</p>
+      <h1 className="admin-page-title">Orders</h1>
+      <p className="admin-page-sub">Manage customer orders</p>
 
       <DataTable
         columns={[
-          { key: 'id', label: 'Order ID', render: (v) => <span style={{ fontWeight: 600, fontFamily: 'monospace', fontSize: 13 }}>{v.slice(0, 8).toUpperCase()}</span> },
+          { key: 'id', label: 'Order ID', render: (v) => <span className="admin-mono">{v.slice(0, 8).toUpperCase()}</span> },
           { key: 'customerName', label: 'Customer' },
           { key: 'customerPhone', label: 'Phone' },
-          { key: 'total', label: 'Total', render: (v) => <span style={{ fontWeight: 600, color: '#C65A2E' }}>{formatPrice(v)}</span> },
-          { key: 'paymentMethod', label: 'Payment', render: (v) => {
-            const labels: Record<string, string> = { cod: 'Cash on Delivery', instapay: 'InstaPay', vodafone_cash: 'Vodafone Cash' }
-            return labels[v] || v
-          }},
-          { key: 'status', label: 'Status', render: (v, row) => <StatusBadge status={v} /> },
+          { key: 'total', label: 'Total', render: (v) => <span className="admin-price-highlight">{formatPrice(v)}</span> },
+          { key: 'paymentMethod', label: 'Payment', render: (v) => paymentLabels[v] || v },
+          { key: 'status', label: 'Status', render: (v) => <StatusBadge status={v} /> },
           { key: 'createdAt', label: 'Date' },
         ]}
         data={orders}

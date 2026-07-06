@@ -43,11 +43,19 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         <div className="box-card-footer">
           <span className="box-price">{formatPrice(product.price)}</span>
           {onAddToCart ? (
-            <button className="btn-sm" onClick={() => onAddToCart(product)}>
+            <button
+              className="btn-sm"
+              onClick={() => onAddToCart(product)}
+              aria-label={`Add ${product.name} to cart`}
+            >
               Add to Cart
             </button>
           ) : (
-            <Link href={`/shop/${product.id}`} className="btn-sm">
+            <Link
+              href={`/shop/${product.id}`}
+              className="btn-sm"
+              aria-label={`View ${product.name}`}
+            >
               View
             </Link>
           )}

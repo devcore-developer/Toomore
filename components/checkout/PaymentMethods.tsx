@@ -1,3 +1,5 @@
+'use client'
+
 interface PaymentMethodsProps {
   selected: string
   onChange: (method: string) => void
@@ -10,42 +12,35 @@ const methods = [
 ]
 
 export default function PaymentMethods({ selected, onChange }: PaymentMethodsProps) {
+  const handleSelect = (id: string) => {
+    onChange(id)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent, id: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleSelect(id)
+    }
+  }
+
   return (
-    <div>
-      <h3 className="serif" style={{ fontSize: 20, color: '#0F4C3A', marginBottom: 16 }}>Payment Method</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div className="payment-methods" role="radiogroup" aria-label="Payment method">
+      <h3 className="checkout-section-heading">Payment Method</h3>
+      <div className="payment-methods-list">
         {methods.map((m) => (
           <div
             key={m.id}
-            onClick={() => onChange(m.id)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '14px 18px',
-              border: `1px solid ${selected === m.id ? '#0F4C3A' : 'rgba(15,76,58,.15)'}`,
-              borderRadius: 3,
-              cursor: 'pointer',
-              background: selected === m.id ? 'rgba(15,76,58,.05)' : '#fff',
-              transition: 'all .15s',
-            }}
+            className={`payment-method${selected === m.id ? ' payment-method--active' : ''}`}
+            onClick={() => handleSelect(m.id)}
+            onKeyDown={(e) => handleKeyDown(e, m.id)}
+            role="radio"
+            tabIndex={0}
+            aria-checked={selected === m.id}
           >
-            <span style={{ fontSize: 20 }}>{m.icon}</span>
-            <span style={{ fontSize: 14, color: '#1F1F1F', flex: 1 }}>{m.label}</span>
-            <div
-              style={{
-                width: 18,
-                height: 18,
-                borderRadius: '50%',
-                border: `2px solid ${selected === m.id ? '#0F4C3A' : 'rgba(15,76,58,.25)'}`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {selected === m.id && (
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#0F4C3A' }} />
-              )}
+            <span className="payment-method-icon" aria-hidden="true">{m.icon}</span>
+            <span className="payment-method-label">{m.label}</span>
+            <div className="payment-radio">
+              {selected === m.id && <div className="payment-radio-dot" />}
             </div>
           </div>
         ))}

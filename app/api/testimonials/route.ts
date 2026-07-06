@@ -5,17 +5,19 @@ export async function GET() {
   try {
     const snapshot = await adminDb
       .collection('testimonials')
-      .where('active', '==', true)
       .orderBy('createdAt', 'desc')
       .get()
 
-    const testimonials = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
+    const testimonials = snapshot.docs
+      .map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      .filter((t: any) => t.active !== false)
 
     return NextResponse.json(testimonials)
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Testimonials API error:', error?.message)
     return NextResponse.json({ error: 'فشل في تحميل التقييمات' }, { status: 500 })
   }
 }
@@ -41,7 +43,8 @@ export async function POST(request: Request) {
     const doc = await docRef.get()
 
     return NextResponse.json({ id: doc.id, ...doc.data() }, { status: 201 })
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Testimonials POST error:', error?.message)
     return NextResponse.json({ error: 'فشل في إضافة التقييم' }, { status: 500 })
   }
 }
