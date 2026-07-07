@@ -3,16 +3,23 @@ import { CartItem, Product } from '@/lib/types'
 
 interface CartStore {
   items: CartItem[]
+  isOpen: boolean
   addItem: (product: Product) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
+  openCart: () => void
+  closeCart: () => void
   total: () => number
   count: () => number
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
+  isOpen: false,
+
+  openCart: () => set({ isOpen: true }),
+  closeCart: () => set({ isOpen: false }),
 
   addItem: (product) =>
     set((state) => {
@@ -22,9 +29,10 @@ export const useCartStore = create<CartStore>((set, get) => ({
           items: state.items.map((i) =>
             i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
           ),
+          isOpen: true,
         }
       }
-      return { items: [...state.items, { ...product, quantity: 1 }] }
+      return { items: [...state.items, { ...product, quantity: 1 }], isOpen: true }
     }),
 
   removeItem: (id) =>

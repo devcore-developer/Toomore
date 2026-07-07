@@ -47,9 +47,10 @@ const SOCIAL_LINKS = [
 ]
 
 const CONTACT_INFO = [
-  { label: '+20 15 56847277', href: 'https://wa.me/201556847277' },
-  { label: 'hello@toomore.eg', href: 'mailto:hello@toomore.eg' },
-  { label: 'Alexandria, Egypt', href: '#' },
+  { label: 'Whatsapp', href: 'https://wa.me/201556847277' },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61587802923596' },
+  { label: 'Instagram', href: 'https://www.instagram.com/toomoore.eg/' },
+  { label: 'Email', href: 'mailto:hello@toomore.eg' },
 ]
 
 export default function Footer() {

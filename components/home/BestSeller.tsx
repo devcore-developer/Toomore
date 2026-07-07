@@ -1,36 +1,35 @@
 import FadeIn from '@/components/shared/FadeIn'
-import Image from 'next/image'
 
 const features = [
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    text: '2 of each flavor',
+    text: 'Your choice of flavors — enough to try, enough to decide',
   },
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
         <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
         <line x1="12" y1="22.08" x2="12" y2="12" />
       </svg>
     ),
-    text: 'Elegant gift-ready package',
+    text: 'Comes gift-wrapped, ready to give',
   },
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="6" />
         <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
       </svg>
     ),
-    text: 'The perfect first package',
+    text: "Ideal if it's your first TOOMORE box",
   },
 ]
 
@@ -51,21 +50,15 @@ export default function BestSeller() {
         <FadeIn className="bestseller-left">
           <div className="bestseller-box-wrap">
             <div className="bestseller-shadow-floor" />
-            <Image
-              src="/images/best-seller-box.png"
-              alt="TOOMORE 8-Piece Hero Package"
-              width={780}
-              height={480}
-              className="bestseller-box-img"
-              loading="lazy"
-              sizes="(max-width: 767px) 100vw, 55vw"
-            />
           </div>
         </FadeIn>
+
         <FadeIn delay={0.15} className="bestseller-right">
-          <h2 className="bestseller-heading">8-Piece Hero Package</h2>
+          <span className="bestseller-tag">Best Seller</span>
+          <h2 className="bestseller-heading">8-Piece Package</h2>
           <div className="bestseller-underline" />
-          <p className="bestseller-subtitle">Perfect to discover your favorite flavor.</p>
+          <p className="bestseller-subtitle">Every flavor, one box — find the one that's yours.</p>
+
           <div className="bestseller-features">
             {features.map((f, i) => (
               <div className="bestseller-feature" key={i}>
@@ -74,8 +67,14 @@ export default function BestSeller() {
               </div>
             ))}
           </div>
-          <button className="bestseller-cta">Order Now</button>
-          <p className="bestseller-price">EGP 160</p>
+
+          <div className="cta-row">
+            <button className="order-now-btn">Order now</button>
+            <div className="price">
+              <span className="currency">EGP</span>
+              <span className="amount">160</span>
+            </div>
+          </div>
         </FadeIn>
       </div>
     </section>

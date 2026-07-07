@@ -14,6 +14,8 @@ interface Order {
   total: number
   status: string
   createdAt: string
+  // حفظ التاريخ الأصلي عشان الـ Sorting
+  _timestamp: any 
 }
 
 export default function AdminDashboard() {
@@ -30,15 +32,22 @@ export default function AdminDashboard() {
 
         let revenue = 0
         const ordersList: Order[] = []
+        
         ordersSnap.forEach((doc) => {
           const d = doc.data()
-          revenue += d.total || 0
+          // ✅ تأكد إن الرقم عدد صحيح عشان الجدول يظبط
+          revenue += Number(d.total) || 0
+          
           ordersList.push({
-            id: doc.id.slice(0, 8).toUpperCase(),
+            id: doc.id,
             customerName: d.customerName || 'N/A',
-            total: d.total || 0,
+            total: Number(d.total) || 0,
             status: d.status || 'pending',
-            createdAt: d.createdAt ? new Date(d.createdAt).toLocaleDateString() : 'N/A',
+            // ✅ حفظ الـ Timestamp الأصلي قبل التحويل لـ String
+            _timestamp: d.createdAt, 
+            createdAt: d.createdAt 
+              ? new Date(d.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) 
+              : 'N/A',
           })
         })
 
@@ -46,9 +55,17 @@ export default function AdminDashboard() {
           products: productsSnap.size,
           orders: ordersSnap.size,
           gifts: giftsSnap.size,
-          revenue,
+          revenue, // ✅ المبلغ هيطلع صح دلوقتي
         })
-        setRecentOrders(ordersList.sort((a: any, b: any) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)).slice(0, 5))
+
+        // ✅ الـ Sorting بيحصل قبل التحويل لـ String وبيشتغل تمام
+        const sortedOrders = ordersList.sort((a, b) => {
+          const timeA = a._timestamp?.seconds ? a._timestamp.seconds : 0
+          const timeB = b._timestamp?.seconds ? b._timestamp.seconds : 0
+          return timeB - timeA
+        }).slice(0, 5)
+
+        setRecentOrders(sortedOrders)
       } catch (err) {
         console.error('Dashboard fetch error:', err)
       } finally {
@@ -78,10 +95,10 @@ export default function AdminDashboard() {
 
       <DataTable
         columns={[
-          { key: 'id', label: 'Order ID' },
+          { key: 'id', label: 'Order ID', render: (v: string) => <span className="admin-mono">{v.slice(0, 8).toUpperCase()}</span> },
           { key: 'customerName', label: 'Customer' },
-          { key: 'total', label: 'Total', render: (v) => formatPrice(v) },
-          { key: 'status', label: 'Status', render: (v) => <StatusBadge status={v} /> },
+          { key: 'total', label: 'Total', render: (v: number) => formatPrice(v) },
+          { key: 'status', label: 'Status', render: (v: string) => <StatusBadge status={v} /> },
           { key: 'createdAt', label: 'Date' },
         ]}
         data={recentOrders}

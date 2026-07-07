@@ -4,22 +4,22 @@ import SectionTitle from '@/components/shared/SectionTitle'
 const flavors = [
   {
     name: 'Hazelnut Chocolate',
-    description: 'Creamy hazelnut blended with rich milk chocolate for a velvety finish.',
+    description: 'Hazelnut chocolate coated with dark chocolate.',
     image: '/images/flavor-hazelnut.png',
   },
   {
     name: 'Dark Mocha',
-    description: 'Deep 70% dark chocolate meets aromatic espresso in every bite.',
+    description: 'Coffee cream coated with dark chocolate.',
     image: '/images/flavor-mocha.png',
   },
   {
     name: 'White Mocha',
-    description: 'Smooth white chocolate with a hint of coffee, delicate and sweet.',
+    description: 'Filling coffee cream coated with white chocolate.',
     image: '/images/flavor-white.png',
   },
   {
     name: 'Peanut Butter',
-    description: 'Roasted peanut butter filling coated in premium milk chocolate.',
+    description: 'Peanut butter coated with dark chocolate.',
     image: '/images/flavor-peanut.png',
   },
 ]

@@ -7,10 +7,10 @@ export const CURRENCY = 'EGP'
 
 export const NAV_LINKS = [
   { label: 'Shop', href: '/shop' },
-  { label: 'Mixed Boxes', href: '/shop?category=mixed' },
   { label: 'Gifting', href: '/gifting' },
   { label: 'Our Story', href: '/story' },
   { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export const FOOTER_SHOP_LINKS = [
