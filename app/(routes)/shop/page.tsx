@@ -1,23 +1,47 @@
 'use client'
 
-import { useState } from 'react'
 import { useProducts } from '@/hooks/useProducts'
 import { useCart } from '@/hooks/useCart'
 import SectionTitle from '@/components/shared/SectionTitle'
 import ProductGrid from '@/components/product/ProductGrid'
-import Badge from '@/components/ui/Badge'
 
-const categories = [
-  { id: 'all', label: 'All' },
-  { id: 'signature', label: 'Signature' },
-  { id: 'mixed', label: 'Mixed Boxes' },
-  { id: 'gift', label: 'Gift Boxes' },
-]
+// الخرائط دي هتغير الاسم والسعر والوصف بناءً على الاسم القديم
+const shopOverrides: Record<string, any> = {
+  'The Signature Collection': {
+    name: '4-Piece Package',
+    price: 160,
+    pieces: 4,
+    description: 'A perfect bite-sized introduction to our stuffed dates.'
+  },
+  'Dark Indulgence': {
+    name: '8-Piece Package',
+    price: 280,
+    pieces: 8,
+    description: 'The ideal mix to discover your favorite flavors.'
+  },
+  'Classic Collection': {
+    name: '12-Piece Package',
+    price: 400,
+    pieces: 12,
+    description: 'A generous assortment for you or to share.'
+  },
+  'The Gift Box': {
+    name: '16-Piece Package',
+    price: 520,
+    pieces: 16,
+    description: 'The ultimate experience, fully customized to your taste.'
+  }
+}
 
 export default function ShopPage() {
-  const [activeCategory, setActiveCategory] = useState('all')
-  const { products, loading } = useProducts(activeCategory)
+  const { products, loading } = useProducts('all')
   const { addItem } = useCart()
+
+  // بنحدث الداتا هنا قبل ما نعرضها
+  const updatedProducts = products.map(p => ({
+    ...p,
+    ...(shopOverrides[p.name] || {})
+  }))
 
   return (
     <section className="shop-page">
@@ -26,30 +50,10 @@ export default function ShopPage() {
         title="Our Collection"
         subtitle="Explore our handcrafted stuffed Mejdool dates — each box is a masterpiece."
       />
-      <div className="shop-filters">
-        {categories.map((cat) => (
-          <span
-            key={cat.id}
-            className={`shop-filter-pill${activeCategory === cat.id ? ' shop-filter-pill--active' : ''}`}
-            onClick={() => setActiveCategory(cat.id)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                setActiveCategory(cat.id)
-              }
-            }}
-            aria-pressed={activeCategory === cat.id}
-          >
-            {cat.label}
-          </span>
-        ))}
-      </div>
       {loading ? (
         <p className="shop-loading">Loading...</p>
       ) : (
-        <ProductGrid products={products} onAddToCart={addItem} />
+        <ProductGrid products={updatedProducts} onAddToCart={addItem} />
       )}
     </section>
   )

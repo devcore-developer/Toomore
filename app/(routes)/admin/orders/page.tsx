@@ -5,6 +5,7 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import DataTable from '@/components/admin/DataTable'
 import StatusBadge from '@/components/admin/StatusBadge'
+import OrderModal from '@/components/admin/OrderModal'
 import { formatPrice } from '@/lib/utils'
 
 const statuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']
@@ -23,6 +24,7 @@ interface Order {
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null)
 
   const fetchOrders = async () => {
     try {
@@ -72,7 +74,7 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <h1 className="admin-page-title">Orders</h1>
-      <p className="admin-page-sub">Manage customer orders</p>
+      <p className="admin-page-sub">Manage customer orders (Click a row to view full invoice)</p>
 
       <DataTable
         columns={[
@@ -85,12 +87,15 @@ export default function AdminOrdersPage() {
           { key: 'createdAt', label: 'Date' },
         ]}
         data={orders}
+        onRowClick={(row) => setSelectedOrderId(row.id)} // ده السطر الجديد
         onAction={(_, row) => updateStatus(row, _)}
         actions={statuses.map((s) => ({
           label: s.charAt(0).toUpperCase() + s.slice(1),
           value: s,
         }))}
       />
+
+      <OrderModal orderId={selectedOrderId} onClose={() => setSelectedOrderId(null)} />
     </div>
   )
 }

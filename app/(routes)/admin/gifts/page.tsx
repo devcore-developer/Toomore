@@ -5,6 +5,7 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import DataTable from '@/components/admin/DataTable'
 import StatusBadge from '@/components/admin/StatusBadge'
+import GiftModal from '@/components/admin/GiftModal'
 
 interface GiftRequest {
   id: string
@@ -20,6 +21,7 @@ interface GiftRequest {
 export default function AdminGiftsPage() {
   const [gifts, setGifts] = useState<GiftRequest[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null)
 
   const fetchGifts = async () => {
     try {
@@ -63,7 +65,7 @@ export default function AdminGiftsPage() {
   return (
     <div>
       <h1 className="admin-page-title">Gift Requests</h1>
-      <p className="admin-page-sub">Manage custom gifting requests</p>
+      <p className="admin-page-sub">Manage custom gifting requests (Click a row to view details)</p>
 
       <DataTable
         columns={[
@@ -77,12 +79,15 @@ export default function AdminGiftsPage() {
           { key: 'createdAt', label: 'Submitted' },
         ]}
         data={gifts}
+        onRowClick={(row) => setSelectedGiftId(row.id)}
         onAction={(_, row) => updateStatus(row, _)}
         actions={['pending', 'confirmed', 'completed', 'cancelled'].map((s) => ({
           label: s.charAt(0).toUpperCase() + s.slice(1),
           value: s,
         }))}
       />
+
+      <GiftModal giftId={selectedGiftId} onClose={() => setSelectedGiftId(null)} />
     </div>
   )
 }

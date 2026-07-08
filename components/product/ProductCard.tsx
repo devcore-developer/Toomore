@@ -1,14 +1,18 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Product } from '@/lib/types'
 import { formatPrice } from '@/lib/utils'
-import Badge from '@/components/ui/Badge'
+import FlavorPickerModal from '@/components/shared/FlavorPickerModal'
 
 interface ProductCardProps {
   product: Product
   onAddToCart?: (product: Product) => void
 }
 
+// دي الصور البديلة اللي كنت مسحها بالغلط
 const fallbackImages: Record<string, string> = {
   signature: '/images/1.png',
   mixed: '/images/2.png',
@@ -16,18 +20,8 @@ const fallbackImages: Record<string, string> = {
 }
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
-  const bgMap: Record<string, string> = {
-    signature: '#0F4C3A',
-    mixed: '#E8DCC8',
-    gift: '#1a5c47',
-  }
-  const labelColorMap: Record<string, string> = {
-    signature: '#C7A56A',
-    mixed: '#0F4C3A',
-    gift: '#C7A56A',
-  }
-  const bg = bgMap[product.category] || '#0F4C3A'
-  const labelColor = labelColorMap[product.category] || '#C7A56A'
+  const [showFlavorPicker, setShowFlavorPicker] = useState(false)
+  
   const productImage = product.image || fallbackImages[product.category] || null
 
   return (
@@ -41,27 +35,30 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             className="box-product-img"
             loading="lazy"
             sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 33vw"
+            style={product.name.includes('16') ? { transform: 'scale(1)' } : undefined}
           />
         ) : (
-          <div
-            className="mini-box"
-            style={{
-              background: labelColor === '#C7A56A' ? 'rgba(199,165,106,.2)' : 'rgba(15,76,58,.15)',
-              border: `1px solid ${labelColor === '#C7A56A' ? 'rgba(199,165,106,.3)' : 'rgba(15,76,58,.2)'}`,
-            }}
-          >
-            <span className="serif" style={{ fontSize: 10, color: labelColor, letterSpacing: 1 }}>
-              {product.category.toUpperCase()}
+          <div className="mini-box">
+            <span className="serif" style={{ fontSize: 10, color: '#0F4C3A', letterSpacing: 1 }}>
+              {product.category?.toUpperCase()}
             </span>
           </div>
         )}
       </div>
       <div className="box-card-body">
-        <h3 className="box-card-title">{product.name}</h3>
+        <h3 className="box-card-title">{product.price === 160 ? '4-Piece Package' : product.price === 280 ? '8-Piece Package' : product.price === 400 ? '12-Piece Package' : product.price === 520 ? '16-Piece Package' : product.name}</h3>
         <p className="box-card-desc">{product.description}</p>
         <div className="box-card-footer">
           <span className="box-price">{formatPrice(product.price)}</span>
-          {onAddToCart ? (
+          
+          {product.pieces ? (
+            <button 
+              className="btn-sm" 
+              onClick={() => setShowFlavorPicker(true)}
+            >
+              Customize & Add
+            </button>
+          ) : onAddToCart ? (
             <button
               className="btn-sm"
               onClick={() => onAddToCart(product)}
@@ -80,6 +77,19 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
           )}
         </div>
       </div>
+
+      {/* مودال اختيار الأطعمة */}
+      {showFlavorPicker && (
+        <FlavorPickerModal 
+          box={{
+            id: product.id,
+            title: product.name,
+            pieces: product.pieces,
+            price: product.price
+          }} 
+          onClose={() => setShowFlavorPicker(false)} 
+        />
+      )}
     </div>
   )
 }

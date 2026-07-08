@@ -9,21 +9,35 @@ import { formatPrice } from '@/lib/utils'
 interface CheckoutFormProps {
   items: CartItem[]
   total: number
+  isSubmitting?: boolean
   onSubmit: (data: {
     name: string
     phone: string
     address: string
     paymentMethod: string
     notes: string
+    paymentScreenshot?: string
   }) => void
 }
 
-export default function CheckoutForm({ items, total, onSubmit }: CheckoutFormProps) {
+export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: CheckoutFormProps) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('cod')
   const [notes, setNotes] = useState('')
+  const [paymentScreenshot, setPaymentScreenshot] = useState<string | undefined>(undefined)
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => setPaymentScreenshot(reader.result as string)
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const requiresTransfer = paymentMethod === 'instapay' || paymentMethod === 'vodafone_cash'
 
   return (
     <div className="checkout-form">
@@ -54,12 +68,47 @@ export default function CheckoutForm({ items, total, onSubmit }: CheckoutFormPro
       {/* Payment */}
       <PaymentMethods selected={paymentMethod} onChange={setPaymentMethod} />
 
+      {/* Transfer Details & Screenshot Upload */}
+      {requiresTransfer && (
+        <div className="checkout-transfer-box">
+          <div className="checkout-transfer-info">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <div>
+              <p>Please transfer exactly <strong>{formatPrice(total)}</strong> to the following number:</p>
+              <p className="checkout-transfer-number">01012345678</p> {/* غيّر الرقم ده لرقمك الحقيقي */}
+              <p className="checkout-transfer-note">Upload a screenshot of the payment below to confirm your order.</p>
+            </div>
+          </div>
+          
+          <label className="checkout-upload-btn">
+            {paymentScreenshot ? '✓ Screenshot Uploaded' : 'Upload Screenshot'}
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={handleFileChange} 
+              style={{ display: 'none' }}
+            />
+          </label>
+          
+          {paymentScreenshot && (
+            <div className="checkout-upload-preview">
+              <img src={paymentScreenshot} alt="Payment Screenshot" />
+              <button type="button" onClick={() => setPaymentScreenshot(undefined)}>Remove</button>
+            </div>
+          )}
+        </div>
+      )}
+
       <button
         type="button"
         className="checkout-submit"
-        onClick={() => onSubmit({ name, phone, address, paymentMethod, notes })}
+        onClick={() => onSubmit({ name, phone, address, paymentMethod, notes, paymentScreenshot })}
+        disabled={isSubmitting || !name || !phone || !address || (requiresTransfer && !paymentScreenshot)}
       >
-        Place Order — {formatPrice(total)}
+        {isSubmitting ? 'Placing Order...' : `Place Order — ${formatPrice(total)}`}
       </button>
     </div>
   )

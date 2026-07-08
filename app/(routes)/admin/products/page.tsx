@@ -54,11 +54,11 @@ export default function AdminProductsPage() {
     setForm({
       name: product.name,
       description: product.description,
-      price: product.price,
-      flavors: product.flavors,
-      category: product.category,
-      pieces: product.pieces,
-      isBestSeller: product.isBestSeller,
+      price: Number(product.price) || 0,
+      flavors: Array.isArray(product.flavors) ? product.flavors : [],
+      category: product.category || 'signature',
+      pieces: Number(product.pieces) || 12,
+      isBestSeller: product.isBestSeller || false,
     })
     setFlavorInput('')
     setModalOpen(true)
@@ -213,7 +213,7 @@ export default function AdminProductsPage() {
               </button>
             </div>
             <div className="admin-flavor-tags">
-              {form.flavors.map((f, i) => (
+              {(Array.isArray(form.flavors) ? form.flavors : []).map((f, i) => (
                 <span key={i} className="admin-flavor-tag">
                   {f}
                   <button onClick={() => removeFlavor(i)} className="admin-flavor-remove" aria-label={`Remove ${f}`}>

@@ -13,9 +13,10 @@ interface DataTableProps {
   data: any[]
   onAction?: (action: string, row: any) => void
   actions?: { label: string; value: string; color?: string }[]
+  onRowClick?: (row: any) => void
 }
 
-export default function DataTable({ columns, data, onAction, actions }: DataTableProps) {
+export default function DataTable({ columns, data, onAction, actions, onRowClick }: DataTableProps) {
   const [search, setSearch] = useState('')
 
   const filtered = data.filter((row) =>
@@ -60,7 +61,11 @@ export default function DataTable({ columns, data, onAction, actions }: DataTabl
               </tr>
             ) : (
               filtered.map((row, i) => (
-                <tr key={row.id || i}>
+                <tr 
+                  key={row.id || i} 
+                  onClick={() => onRowClick?.(row)}
+                  style={{ cursor: onRowClick ? 'pointer' : 'default' }}
+                >
                   {columns.map((col) => (
                     <td key={col.key}>
                       {col.render ? col.render(row[col.key], row) : row[col.key]}
@@ -71,7 +76,10 @@ export default function DataTable({ columns, data, onAction, actions }: DataTabl
                       {actions.map((action) => (
                         <button
                           key={action.value}
-                          onClick={() => onAction?.(action.value, row)}
+                          onClick={(e) => {
+                            e.stopPropagation() // مهم جداً عشان لما تغير الحالة مفتحش الفاتورة
+                            onAction?.(action.value, row)
+                          }}
                           className={`data-table-action${action.color === '#C65A2E' ? ' data-table-action--danger' : ''}`}
                         >
                           {action.label}
