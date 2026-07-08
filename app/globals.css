@@ -3669,6 +3669,35 @@ textarea.form-input {
 .admin-btn-danger-sm:hover { background: #fecaca; }
 
 /* ========================================
+   ADMIN PAGE LAYOUT
+   ======================================== */
+.admin-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.admin-btn-primary {
+  background: #0E5B4F;
+  color: #FAF8F4;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.admin-btn-primary:hover {
+  background: #09443B;
+  box-shadow: 0 4px 12px rgba(14, 91, 79, 0.3);
+}
+
+/* ========================================
    ADMIN MOBILE (< 768px)
    ======================================== */
 @media (max-width: 767px) {
@@ -4609,4 +4638,13 @@ textarea.form-input {
   max-width: 100%;
   height: auto;
   display: block;
+}
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 500;
+  animation: cartFadeIn 0.25s ease;
 }

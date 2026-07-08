@@ -78,13 +78,7 @@ export default function GiftingPage() {
               <p className="gifting-modal-sub">Tell us about your event and we&apos;ll take care of the rest.</p>
             </div>
             <div className="gifting-visual">
-              <GiftForm
-                onSubmit={(data) => {
-                  console.log('Gift request:', data)
-                  setShowForm(false)
-                  alert('Your gifting request has been submitted! We will contact you shortly.')
-                }}
-              />
+              <GiftForm />
             </div>
           </div>
         </div>
