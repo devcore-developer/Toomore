@@ -57,10 +57,14 @@ export default function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="hero-sub">
-            Handcrafted Mejdool dates filled with premium ingredients — milk
-            chocolate, dark chocolate, pistachios, and more. The perfect luxury
-            for every moment.
+          <p className="hero-sub hero-sub--desktop">
+            Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more. The perfect luxury for every moment.
+          </p>
+          <p className="hero-sub hero-sub--mobile">
+            Handcrafted Mejdool dates in rich chocolate.
+          </p>
+          <p className="hero-sub hero-sub--mobile">  
+            Luxury in every bite.
           </p>
         </FadeIn>
 
