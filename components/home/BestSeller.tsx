@@ -10,7 +10,7 @@ const features = [
         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    text: 'Your choice of flavors — enough to try, enough to decide',
+    text: 'Handmade',
   },
   {
     icon: (
@@ -20,7 +20,7 @@ const features = [
         <line x1="12" y1="22.08" x2="12" y2="12" />
       </svg>
     ),
-    text: 'Comes gift-wrapped, ready to give',
+    text: 'Luxury Gift',
   },
   {
     icon: (
@@ -29,13 +29,15 @@ const features = [
         <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
       </svg>
     ),
-    text: "Ideal if it's your first TOOMORE box",
+    text: 'Premium Quality',
   },
 ]
 
 export default function BestSeller() {
   return (
     <section className="bestseller-section">
+
+      {/* ===== DESKTOP VERSION ===== */}
       <svg className="bestseller-pattern" viewBox="0 0 400 800" fill="none">
         <rect x="0" y="0" width="400" height="800" stroke="#F5FE4" strokeWidth="0.5" />
         <rect x="40" y="40" width="320" height="320" stroke="#F5FE4" strokeWidth="0.4" />
@@ -61,7 +63,7 @@ export default function BestSeller() {
 
           <div className="bestseller-features">
             {features.map((f, i) => (
-              <div className="bestseller-feature" key={i}>
+              <div className="bestseller-feature" key={`d-${i}`}>
                 <span className="bestseller-feature-icon">{f.icon}</span>
                 <span className="bestseller-feature-text">{f.text}</span>
               </div>
@@ -77,6 +79,63 @@ export default function BestSeller() {
           </div>
         </FadeIn>
       </div>
+
+      {/* ===== MOBILE VERSION ===== */}
+      <div className="bs-mob">
+        <div className="bs-mob-img-wrap">
+          <img
+            src="/images/bestseller-mobile.png"
+            alt="TOOMORE 8-Piece Package"
+            className="bs-mob-img"
+          />
+          <span className="bs-mob-badge">BEST SELLER</span>
+        </div>
+
+        <div className="bs-mob-content">
+          <FadeIn>
+            <span className="bs-mob-label">✦ BEST SELLER ✦</span>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <h2 className="bs-mob-heading">8-Piece Package</h2>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <p className="bs-mob-desc">Every flavor, one box — find the one that's yours.</p>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <div className="bs-mob-rating">
+              <span className="bs-mob-stars">★★★★★</span>
+              <span className="bs-mob-rating-text">4.9 (320 Reviews)</span>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.25}>
+            <div className="bs-mob-features">
+              {features.map((f, i) => (
+                <div className="bs-mob-feature" key={`m-${i}`}>
+                  <span className="bs-mob-feature-icon">{f.icon}</span>
+                  <span className="bs-mob-feature-text">{f.text}</span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          <div className="bs-mob-divider" />
+
+          <FadeIn delay={0.3}>
+            <div className="bs-mob-cta-row">
+              <div className="bs-mob-price">
+                <span className="bs-mob-currency">EGP</span>
+                <span className="bs-mob-amount">160</span>
+              </div>
+              <button className="bs-mob-btn">Customize & Add →</button>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+
     </section>
   )
 }

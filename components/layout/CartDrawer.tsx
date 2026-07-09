@@ -36,7 +36,7 @@ export default function CartDrawer() {
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
             <p className="cart-empty-text">Your cart is empty</p>
-            <button className="cart-continue-btn" onClick={closeCart}>Continue Shopping</button>
+            <button className="cart-continue-btn" onClick={() => { closeCart(); router.push('/shop') }}>Continue Shopping</button>
           </div>
         ) : (
           <>
@@ -79,9 +79,7 @@ export default function CartDrawer() {
               <button className="cart-checkout-btn" onClick={() => { closeCart(); setTimeout(() => router.push('/checkout'), 300) }}>
                 Proceed to Checkout
               </button>
-              <button className="cart-continue-link" onClick={closeCart}>
-                Continue Shopping
-              </button>
+              <button className="cart-continue-link" onClick={() => { closeCart(); router.push('/shop') }}>Continue Shopping</button>
             </div>
           </>
         )}

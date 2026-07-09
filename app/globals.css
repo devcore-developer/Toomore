@@ -5060,6 +5060,7 @@ textarea.form-input {
     color: #B98A46;
     margin-bottom: -60px;
     font-weight: 500;
+    margin-left: 10px;
   }
 
   .hero-tag-line {
@@ -5074,6 +5075,7 @@ textarea.form-input {
     color: #0F5C4F;
     text-shadow: none;
     padding-top: 15px;
+    margin-left: 8px;
   }
 
   .hero-title em {
@@ -5153,6 +5155,7 @@ textarea.form-input {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-top: 36px;
+    margin-left: 5px;
   }
 
   .trust-item {
@@ -5986,3 +5989,1007 @@ textarea.form-input {
   .premium-carousel {
     overflow: hidden;
   }
+
+/* ========================================
+   BESTSELLER MOBILE — Hidden on desktop
+   ======================================== */
+.bs-mob {
+  display: none;
+}
+
+/* ========================================
+   BESTSELLER — MOBILE ONLY
+   ======================================== */
+@media (max-width: 767px) {
+
+  /* ---- HIDE DESKTOP ---- */
+  .bestseller-pattern,
+  .bestseller-lighting,
+  .bestseller-inner {
+    display: none !important;
+  }
+
+  /* ---- SHOW MOBILE ---- */
+  .bs-mob {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* ---- SECTION ---- */
+  .bestseller-section {
+    min-height: auto;
+    background: #0A3D2E;
+    overflow: visible;
+  }
+
+  /* ---- IMAGE ---- */
+  .bs-mob-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .bs-mob-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 45% 25%;
+  }
+
+  /* ---- BADGE ---- */
+  .bs-mob-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #0D5C4A;
+    color: #D8B06A;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(216,176,106,.4);
+    z-index: 2;
+  }
+
+  /* ---- CONTENT ---- */
+  .bs-mob-content {
+    position: relative;
+    z-index: 2;
+    margin-top: -20px;
+    background: #F8F2E8;
+    border-radius: 28px 28px 0 0;
+    padding: 32px 20px 28px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- LABEL ---- */
+  .bs-mob-label {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C89A4B;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  /* ---- HEADING ---- */
+  .bs-mob-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: #0D5C4A;
+    text-align: center;
+    line-height: 1.15;
+    margin: 0 0 18px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---- DESCRIPTION ---- */
+  .bs-mob-desc {
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0 0 22px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 2;
+  }
+
+  /* ---- RATING ---- */
+  .bs-mob-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 26px;
+  }
+
+  .bs-mob-stars {
+    color: #D8B06A;
+    font-size: 16px;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .bs-mob-rating-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0D5C4A;
+  }
+
+  /* ---- FEATURES ---- */
+  .bs-mob-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+
+  .bs-mob-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .bs-mob-feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(13,92,74,.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0D5C4A;
+  }
+
+  .bs-mob-feature-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .bs-mob-feature-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.3;
+  }
+
+  /* ---- DIVIDER ---- */
+  .bs-mob-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0,0,0,.06);
+    margin-bottom: 24px;
+  }
+
+  /* ---- CTA ROW ---- */
+  .bs-mob-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .bs-mob-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .bs-mob-currency {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #C89A4B;
+    font-weight: 500;
+  }
+
+  .bs-mob-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #0D5C4A;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .bs-mob-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 54px;
+    padding: 0 28px;
+    background: #0D5C4A;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .bs-mob-btn:active {
+    transform: translateY(-2px);
+  }
+}  
+  .bestseller-section {
+    min-height: auto;
+    background: #F8F2E8 !important;
+    background-image: none !important;
+    overflow: visible;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .bs-mob-img-wrap {
+    background: #0A3D2E;
+  }
+
+/* ========================================
+   GIFTING MOBILE — Hidden on desktop
+   ======================================== */
+.gift-mob {
+  display: none;
+}
+
+/* ========================================
+   GIFTING — MOBILE ONLY
+   ======================================== */
+@media (max-width: 767px) {
+
+  /* ---- HIDE DESKTOP ---- */
+  .gifting-desktop {
+    display: none !important;
+  }
+
+  .gifting-overlay {
+    display: none !important;
+  }
+
+  /* ---- SHOW MOBILE ---- */
+  .gift-mob {
+    display: flex;
+    flex-direction: column;
+    background: #220707;
+  }
+
+  /* ---- SECTION ---- */
+  .gifting-section {
+    min-height: auto;
+    background-image: none;
+    background-color: #220707;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- IMAGE ---- */
+  /* ---- IMAGE ---- */
+  .gift-mob-img-wrap {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .gift-mob-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---- CONTENT ---- */
+  .gift-mob-content {
+    padding: 40px 32px 48px;
+  }
+
+  /* ---- LABEL ---- */
+  .gift-mob-label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C89A4B;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  /* ---- HEADING ---- */
+  .gift-mob-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---- DESCRIPTION ---- */
+  .gift-mob-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,.82);
+    line-height: 1.6;
+    margin: 0 0 32px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 3;
+    Padding: 4px;
+  }
+
+  .gift-mob-chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .gift-mob-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+    cursor: default;
+    max-width: 150px;
+  }
+
+  .gift-mob-chip:active {
+    background: rgba(200,154,75,.2);
+    border-color: #C89A4B;
+    color: #C89A4B;
+  }
+
+  /* ---- CTA BUTTON ---- */
+  .gift-mob-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    background: linear-gradient(135deg, #C9A84C 0%, #A8863A 100%);
+    color: #220707;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: transform 0.25s ease;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .gift-mob-btn:active {
+    transform: scale(0.98);
+  }
+}  
+
+/* ========================================
+   HOW IT'S MADE MOBILE — Hidden on desktop
+   ======================================== */
+.how-mob {
+  display: none;
+}
+
+/* ========================================
+   HOW IT'S MADE — MOBILE ONLY (Vertical Timeline)
+   ======================================== */
+@media (max-width: 767px) {
+
+  /* ---- HIDE DESKTOP ---- */
+  .how-desktop {
+    display: none !important;
+  }
+
+  /* ---- SHOW MOBILE ---- */
+  .how-mob {
+    display: block;
+  }
+
+  /* ---- SECTION ---- */
+  .how-section {
+    background: #F8F4EE;
+    padding: 72px 24px;
+    max-width: 100%;
+  }
+
+  /* ---- EYEBROW ---- */
+  .how-mob-eyebrow {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #B8843A;
+    margin-bottom: 18px;
+  }
+
+  /* ---- HEADING ---- */
+  .how-mob-heading {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 54px;
+    font-weight: 500;
+    color: #143F35;
+    text-align: center;
+    line-height: 1;
+    margin: 0 auto 64px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---- TIMELINE ---- */
+  .how-mob-timeline {
+    position: relative;
+    max-width: 320px;
+    margin: 0 auto;
+    padding-left: 28px;
+  }
+
+  /* ---- DASHED VERTICAL LINE ---- */
+  .how-mob-timeline::before {
+    content: '';
+    position: absolute;
+    top: 26px;
+    left: 25px;
+    width: 2px;
+    height: calc(100% - 26px);
+    border-left: 2px dashed #D6C4A7;
+    z-index: 0;
+  }
+
+  /* ---- STEP ---- */
+  .how-mob-step {
+    position: relative;
+    padding-bottom: 56px;
+  }
+
+  .how-mob-step:last-child {
+    padding-bottom: 0;
+  }
+
+  /* ---- TIMELINE CIRCLE ---- */
+  .how-mob-step-head {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+    width: 56px;
+  }
+
+  .how-mob-tl-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 4px solid #D9C8AF;
+    background: #143F35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .how-mob-tl-circle span {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ---- IMAGE CARD ---- */
+  /* ---- IMAGE CARD ---- */
+  .how-mob-step-card {
+    max-width: 260px;
+    margin: 0 auto 24px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .how-mob-step-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    background: #F8F4EE;
+  }
+
+  .how-mob-step-img img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  .how-mob-step-img .how-step-placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(139, 90, 43, 0.08);
+    border-radius: 4px;
+  }
+
+  /* ---- TITLE ---- */
+  .how-mob-step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #143F35;
+    text-align: center;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* ---- DECORATIVE DIVIDER ---- */
+  .how-mob-step-divider-line {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    max-width: 120px;
+    margin: 16px auto 18px;
+  }
+
+  .how-mob-step-divider-line span {
+    flex: 1;
+    height: 1px;
+    background: #B8843A;
+    opacity: 0.4;
+  }
+
+  .how-mob-diamond {
+    font-size: 8px;
+    color: #B8843A;
+    flex-shrink: 0;
+    margin: 0 8px;
+  }
+
+  /* ---- DESCRIPTION ---- */
+  .how-mob-step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #5C5C5C;
+    text-align: center;
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 260px;
+  }
+
+  /* ---- BOTTOM FOOTER ---- */
+  .how-mob-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 64px;
+  }
+
+  .how-mob-footer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #143F35;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+/* ========================================
+   TESTIMONIALS MOBILE — Hidden on desktop
+   ======================================== */
+.test-mob {
+  display: none;
+}
+
+/* ========================================
+   TESTIMONIALS — MOBILE ONLY
+   ======================================== */
+@media (max-width: 767px) {
+
+  /* ---- HIDE DESKTOP ---- */
+  .test-desktop {
+    display: none !important;
+  }
+
+  /* ---- SHOW MOBILE ---- */
+  .test-mob {
+    display: block;
+  }
+
+  /* ---- SECTION ---- */
+  .testimonials-section {
+    background: #F8F4EE;
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+
+  /* ---- OVERRIDES FOR MOBILE HEADER ---- */
+  .test-mob .section-tag {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #B8843A;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .test-mob .section-title {
+    font-size: 40px;
+    color: #143F35;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .test-mob .section-sub {
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* ---- CARD WRAP ---- */
+  .test-mob-card-wrap {
+    max-width: 340px;
+    width: 90%;
+    margin: 36px auto 0;
+    position: relative;
+  }
+
+  /* ---- CARD ---- */
+  .test-mob-card {
+    background: #fff;
+    border-radius: 24px;
+    border: 1px solid #E9E0D2;
+    box-shadow: 0 12px 35px rgba(0,0,0,.06);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ---- STARS ---- */
+  .test-mob-stars {
+    text-align: center;
+    color: #B8843A;
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  /* ---- DECORATIVE QUOTE ---- */
+  .test-mob-quote {
+    display: block;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(184, 132, 58, 0.08);
+    line-height: 0.6;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- REVIEW TEXT ---- */
+  .test-mob-text {
+    position: relative;
+    z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    color: #333;
+    text-align: center;
+    line-height: 1.65;
+    font-style: italic;
+    font-weight: 500;
+    margin: 0 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    Line-clamp: 5;
+  }
+
+  /* ---- AUTHOR ---- */
+  .test-mob-author {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .test-mob-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #143F35;
+    margin-bottom: 4px;
+  }
+
+  .test-mob-verified {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #B8843A;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ---- DOTS ---- */
+  .test-mob-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .test-mob-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: #D6C4A7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .test-mob-dot--active {
+    background: #B8843A;
+    width: 24px;
+    border-radius: 999px;
+  }
+}
+
+/* ========================================
+   TESTIMONIALS — DESKTOP CAROUSEL
+   ======================================== */
+.test-desktop-dots {
+  display: none;
+}
+
+.test-carousel {
+  display: none;
+}
+
+.test-arrow {
+  display: none;
+}
+
+.test-deco-quote {
+  display: none;
+}
+
+@media (min-width: 768px) {
+
+  /* ---- SHOW DESKTOP ELEMENTS ---- */
+  .test-desktop-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .test-desktop-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: #D6C4A7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .test-desktop-dot--active {
+    background: #143F35;
+    width: 24px;
+    border-radius: 999px;
+  }
+
+  /* ---- HIDE MOBILE ---- */
+  .test-mob {
+    display: none !important;
+  }
+
+  /* ---- SHOW DESKTOP ---- */
+  .test-carousel {
+    display: block;
+    position: relative;
+    max-width: var(--container);
+    margin: 48px auto 0;
+    perspective: 1400px;
+  }
+
+  /* ---- CAROUSEL STAGE ---- */
+  .test-carousel-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 260px;
+  }
+
+  /* ---- SLIDE ---- */
+  .test-carousel-slide {
+    width: 420px;
+    flex-shrink: 0;
+    transition:
+      transform 500ms cubic-bezier(.22,.61,.36,1),
+      opacity 500ms cubic-bezier(.22,.61,.36,1);
+    will-change: transform, opacity;
+  }
+
+  /* ---- CENTER ---- */
+  .test-carousel-slide[data-position="center"] {
+    position: relative;
+    transform: scale(1);
+    opacity: 1;
+    z-index: 10;
+  }
+
+  /* ---- LEFT ---- */
+  .test-carousel-slide[data-position="left"] {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-115%) scale(0.95);
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* ---- RIGHT ---- */
+  .test-carousel-slide[data-position="right"] {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(15%) scale(0.95);
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* ---- HIDDEN ---- */
+  .test-carousel-slide[data-position="hidden"] {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%) scale(0.9);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ---- ARROWS ---- */
+  .test-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #E9E0D2;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    transition: all 0.25s ease;
+    color: #143F35;
+  }
+
+  .test-arrow:hover {
+    border-color: #143F35;
+    box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  }
+
+  .test-arrow--l {
+    left: -22px;
+  }
+
+  .test-arrow--r {
+    right: -22px;
+  }
+
+  /* ---- PREMIUM CARD ---- */
+  .test-card--premium {
+    width: 420px;
+    height: 260px;
+    background: #fff;
+    border-radius: 24px;
+    border: 1px solid #E9E0D2;
+    box-shadow: 0 15px 40px rgba(0,0,0,.06);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- DECORATIVE QUOTE ---- */
+  .test-deco-quote {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 180px;
+    font-weight: 700;
+    color: rgba(184, 132, 58, 0.1);
+    line-height: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- STARS ---- */
+  .test-card--premium .test-stars {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+  }
+
+  /* ---- TEXT ---- */
+  .test-card--premium .test-text {
+    position: relative;
+    z-index: 1;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 5;
+  }
+
+  /* ---- AUTHOR ---- */
+  .test-card--premium .test-author {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- SECTION PADDING ---- */
+  .testimonials-section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  /* ---- HEADING SIZE ---- */
+  .testimonials-section .section-title {
+    font-size: clamp(48px, 5vw, 64px);
+  }
+
+  /* ---- SUBTITLE ---- */
+  .testimonials-section .section-sub {
+    font-size: 18px;
+  }
+}

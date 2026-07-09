@@ -10,7 +10,6 @@ import { OCCASIONS } from '@/lib/constants'
 export default function GiftingSection() {
   const [showForm, setShowForm] = useState(false)
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (showForm) {
       document.body.style.overflow = 'hidden'
@@ -20,7 +19,6 @@ export default function GiftingSection() {
     return () => { document.body.style.overflow = '' }
   }, [showForm])
 
-  // Close on ESC
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && showForm) setShowForm(false)
@@ -31,31 +29,82 @@ export default function GiftingSection() {
 
   return (
     <section className="gifting-section">
-      <div className="gifting-overlay" />
-      <FadeIn>
-        <div className="gifting-text-col">
-          <SectionTitle
-            tag="Custom Gifting"
-            title="A New Kind of Sweet Gift."
-            light
+
+      {/* ===== DESKTOP VERSION ===== */}
+      <div className="gifting-desktop">
+        <div className="gifting-overlay" />
+        <FadeIn>
+          <div className="gifting-text-col">
+            <SectionTitle
+              tag="Custom Gifting"
+              title="A New Kind of Sweet Gift."
+              light
+            />
+            <p className="gifting-sub">
+              Thoughtful, elegant, and unforgettable — perfect for birthdays, thank yous, or just because.
+            </p>
+            <div className="occasions">
+              {OCCASIONS.map((occ) => (
+                <Badge key={occ} variant="occasion">{occ}</Badge>
+              ))}
+            </div>
+            <button
+              className="btn-gold"
+              onClick={() => setShowForm(true)}
+            >
+              Request Custom Order
+            </button>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* ===== MOBILE VERSION ===== */}
+      <div className="gift-mob">
+        <div className="gift-mob-img-wrap">
+          <img
+            src="/images/gifting-mobile.png"
+            alt="TOOMORE Custom Gifting"
+            className="gift-mob-img"
           />
-          <p className="gifting-sub">
-            Thoughtful, elegant, and unforgettable — perfect for birthdays, thank yous, or just because.
-          </p>
-          <div className="occasions">
-            {OCCASIONS.map((occ) => (
-              <Badge key={occ} variant="occasion">{occ}</Badge>
+        </div>
+
+        <div className="gift-mob-content">
+          <FadeIn>
+            <span className="gift-mob-label">CUSTOM GIFTING</span>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <h2 className="gift-mob-heading">
+              A New Kind of<br />Sweet Gift.
+            </h2>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <p className="gift-mob-desc">
+              Thoughtful, elegant, and unforgettable — perfect for birthdays, thank yous, or just because.
+            </p>
+          </FadeIn>
+
+          <div className="gift-mob-chips">
+            {OCCASIONS.map((occ, i) => (
+              <FadeIn key={`mob-${occ}`} delay={0.2 + i * 0.05}>
+                <span className="gift-mob-chip">{occ}</span>
+              </FadeIn>
             ))}
           </div>
-          <button
-            className="btn-gold"
-            onClick={() => setShowForm(true)}
-          >
-            Request Custom Order
-          </button>
-        </div>
-      </FadeIn>
 
+          <FadeIn delay={0.35}>
+            <button
+              className="gift-mob-btn"
+              onClick={() => setShowForm(true)}
+            >
+              REQUEST CUSTOM ORDER
+            </button>
+          </FadeIn>
+        </div>
+      </div>
+
+      {/* ===== MODAL (shared) ===== */}
       {showForm && (
         <div
           className="gifting-modal-overlay"
@@ -84,6 +133,7 @@ export default function GiftingSection() {
           </div>
         </div>
       )}
+
     </section>
   )
 }
