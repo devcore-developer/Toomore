@@ -50,7 +50,6 @@ const CONTACT_INFO = [
   { label: 'Whatsapp', href: 'https://wa.me/201556847277' },
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61587802923596' },
   { label: 'Instagram', href: 'https://www.instagram.com/toomoore.eg/' },
-  { label: 'Email', href: 'mailto:hello@toomore.eg' },
 ]
 
 export default function Footer() {

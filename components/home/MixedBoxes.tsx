@@ -5,6 +5,7 @@ import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
 import Image from 'next/image'
 import FlavorPickerModal from '@/components/shared/FlavorPickerModal'
+import PremiumCarousel from '@/components/shared/PremiumCarousel'
 
 const boxes = [
   {
@@ -36,6 +37,31 @@ const boxes = [
   },
 ]
 
+function BoxCard({ box, onSelect }: { box: typeof boxes[0]; onSelect: () => void }) {
+  return (
+    <div className="box-card">
+      <div className={`box-img ${box.bgClass}`}>
+        <Image
+          src={box.image}
+          alt={box.title}
+          fill
+          className="box-product-img"
+          loading="lazy"
+          sizes="(max-width: 1024px) 50vw, 33vw"
+        />
+      </div>
+      <div className="box-card-body">
+        <h3 className="box-card-title">{box.title}</h3>
+        <p className="box-card-desc">{box.description}</p>
+        <div className="box-card-footer">
+          <span className="box-price">{box.price} EGP</span>
+          <button className="btn-sm" onClick={onSelect}>Customize & Add</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function MixedBoxes() {
   const [selectedBox, setSelectedBox] = useState<typeof boxes[0] | null>(null)
 
@@ -46,37 +72,29 @@ export default function MixedBoxes() {
         title="Mixed Box Collections"
         subtitle="Discover our range of thoughtfully curated date boxes — each one a unique experience."
       />
-      <div className="boxes-grid boxes-grid--3">
+
+      {/* ===== DESKTOP GRID ===== */}
+      <div className="boxes-grid boxes-grid--3 boxes-desktop">
         {boxes.map((box, i) => (
           <FadeIn key={box.id} delay={i * 0.1}>
-            <div className="box-card">
-              <div className={`box-img ${box.bgClass}`}>
-                <Image
-                  src={box.image}
-                  alt={box.title}
-                  fill
-                  className="box-product-img"
-                  loading="lazy"
-                  sizes="(max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              <div className="box-card-body">
-                <h3 className="box-card-title">{box.title}</h3>
-                <p className="box-card-desc">{box.description}</p>
-                <div className="box-card-footer">
-                  <span className="box-price">{box.price} EGP</span>
-                  <button className="btn-sm" onClick={() => setSelectedBox(box)}>Customize & Add</button>
-                </div>
-              </div>
-            </div>
+            <BoxCard box={box} onSelect={() => setSelectedBox(box)} />
           </FadeIn>
         ))}
       </div>
 
+      {/* ===== MOBILE CAROUSEL ===== */}
+      <div className="boxes-mob">
+        <PremiumCarousel autoplayInterval={2500}>
+          {boxes.map((box) => (
+            <BoxCard key={`mob-${box.id}`} box={box} onSelect={() => setSelectedBox(box)} />
+          ))}
+        </PremiumCarousel>
+      </div>
+
       {selectedBox && (
-        <FlavorPickerModal 
-          box={selectedBox} 
-          onClose={() => setSelectedBox(null)} 
+        <FlavorPickerModal
+          box={selectedBox}
+          onClose={() => setSelectedBox(null)}
         />
       )}
     </section>

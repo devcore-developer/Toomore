@@ -1,5 +1,6 @@
 import { Product } from '@/lib/types'
 import ProductCard from './ProductCard'
+import PremiumCarousel from '@/components/shared/PremiumCarousel'
 
 interface ProductGridProps {
   products: Product[]
@@ -19,10 +20,22 @@ export default function ProductGrid({ products, onAddToCart }: ProductGridProps)
   }
 
   return (
-    <div className="boxes-grid">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
-      ))}
-    </div>
+    <>
+      {/* ===== DESKTOP GRID ===== */}
+      <div className="boxes-grid shop-desktop">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
+        ))}
+      </div>
+
+      {/* ===== MOBILE CAROUSEL ===== */}
+      <div className="shop-mob">
+        <PremiumCarousel autoplayInterval={2500}>
+          {products.map((product) => (
+            <ProductCard key={`mob-${product.id}`} product={product} onAddToCart={onAddToCart} />
+          ))}
+        </PremiumCarousel>
+      </div>
+    </>
   )
 }

@@ -4,23 +4,32 @@ import SectionTitle from '@/components/shared/SectionTitle'
 const flavors = [
   {
     name: 'Hazelnut Chocolate',
-    description: 'Hazelnut chocolate coated with dark chocolate.',
+    description: 'Milk chocolate filled with roasted hazelnut cream.',
     image: '/images/flavor-hazelnut.png',
+    badge: 'BEST SELLER',
+    type: 'Milk Chocolate',
+    nameClass: 'flavor-name-sm',
   },
   {
     name: 'Dark Mocha',
-    description: 'Coffee cream coated with dark chocolate.',
+    description: 'Dark chocolate blended with coffee & cocoa.',
     image: '/images/flavor-mocha.png',
+    badge: 'SIGNATURE',
+    type: 'Dark Chocolate',
   },
   {
     name: 'White Mocha',
-    description: 'Filling coffee cream coated with white chocolate.',
+    description: 'Creamy white chocolate with hazelnut coffee.',
     image: '/images/flavor-white.png',
+    badge: 'NEW',
+    type: 'White Chocolate',
   },
   {
     name: 'Peanut Butter',
-    description: 'Peanut butter coated with dark chocolate.',
+    description: 'Milk chocolate with peanut butter & crunch.',
     image: '/images/flavor-peanut.png',
+    badge: 'LIMITED',
+    type: 'Crunchy',
   },
 ]
 
@@ -30,22 +39,27 @@ export default function FlavorShowcase() {
       <SectionTitle
         tag="Our Flavors"
         title="Exceptional Flavors, Perfectly Crafted."
-        subtitle="Each date is hand-filled and coated with the finest chocolates, creating a symphony of flavors in every bite."
+        subtitle="Choose your favorite handcrafted Medjool date flavor."
       />
       <div className="flavors-grid">
         {flavors.map((f, i) => (
           <FadeIn key={f.name} delay={i * 0.1}>
             <div className="flavor-card">
               <div className="flavor-card-img">
+                <div className="flavor-card-img-light" />
                 <img
                   src={f.image}
                   alt={f.name}
                   loading="lazy"
                 />
+                <div className="flavor-card-img-shadow" />
+                <span className="flavor-natural-badge">100% Natural</span>
               </div>
               <div className="flavor-card-body">
-                <h3 className="flavor-card-name">{f.name}</h3>
+                <span className="flavor-badge">{f.badge}</span>
+                <h3 className={`flavor-card-name ${f.nameClass || ''}`}>{f.name}</h3>
                 <p className="flavor-card-desc">{f.description}</p>
+                <span className="flavor-type">{f.type}</span>
               </div>
             </div>
           </FadeIn>

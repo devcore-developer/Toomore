@@ -17,14 +17,13 @@ export const FOOTER_SHOP_LINKS = [
   { label: 'Best Sellers', href: '/shop?filter=best-seller' },
   { label: 'Mixed Boxes', href: '/shop?category=mixed' },
   { label: 'Gift Boxes', href: '/shop?category=gift' },
-  { label: 'New Arrivals', href: '/shop?filter=new' },
 ]
 
 export const FOOTER_COMPANY_LINKS = [
   { label: 'Our Story', href: '/story' },
   { label: 'Gifting', href: '/gifting' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Why Us', href: '/#why-toomore' },
 ]
 
 export const FOOTER_CONTACT_LINKS = [

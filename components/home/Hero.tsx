@@ -9,6 +9,7 @@ const trustItems = [
       </svg>
     ),
     label: 'Premium Ingredients',
+    desc: 'The finest quality dates.',
   },
   {
     icon: (
@@ -18,6 +19,7 @@ const trustItems = [
       </svg>
     ),
     label: 'Made in Egypt',
+    desc: 'Proudly crafted locally.',
   },
   {
     icon: (
@@ -27,6 +29,7 @@ const trustItems = [
       </svg>
     ),
     label: 'Beautifully Packaged',
+    desc: 'Perfect for gifting.',
   },
   {
     icon: (
@@ -35,13 +38,34 @@ const trustItems = [
         <path d="M12 6v6l4 2" />
       </svg>
     ),
-    label: 'Made for 365 Days',
+    label: '365 Days Fresh',
+    desc: 'Long shelf life.',
   },
 ]
 
 export default function Hero() {
   return (
     <section className="hero-section">
+      {/* Mobile Image Container */}
+      {/* Mobile Image Container */}
+      <div className="hero-mob-img-wrap">
+        <img
+          src="/images/hero-mobile.png"
+          alt="Toomore Premium Dates"
+          className="hero-mob-img"
+        />
+      </div>
+
+      {/* Mobile Floating Review Card */}
+      <div className="hero-mob-review">
+        <div className="hero-mob-review-left">
+          <span className="hero-mob-review-stars">★★★★★</span>
+          <span className="hero-mob-review-rating">4.9</span>
+        </div>
+        <div className="hero-mob-review-divider" />
+        <span className="hero-mob-review-text">Most Premium Dates Ever</span>
+      </div>
+
       <div className="hero-content">
         <FadeIn>
           <div className="hero-tag">
@@ -57,20 +81,21 @@ export default function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="hero-sub hero-sub--desktop">
-            Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more. The perfect luxury for every moment.
-          </p>
-          <p className="hero-sub hero-sub--mobile">
-            Handcrafted Mejdool dates in rich chocolate.
-          </p>
-          <p className="hero-sub hero-sub--mobile">  
-            Luxury in every bite.
+          <p className="hero-sub">
+            Handcrafted Mejdool dates filled with premium ingredients — milk
+            chocolate, dark chocolate, pistachios, and more. The perfect luxury
+            for every moment.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.3}>
           <div className="hero-btns">
             <Link href="/shop" className="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px', flexShrink: 0 }}>
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 01-8 0" />
+              </svg>
               Shop Boxes
             </Link>
             <a
@@ -92,7 +117,10 @@ export default function Hero() {
             {trustItems.map((item) => (
               <div className="trust-item" key={item.label}>
                 <div className="trust-icon">{item.icon}</div>
-                <span className="trust-label">{item.label}</span>
+                <div className="trust-item-info">
+                  <span className="trust-label">{item.label}</span>
+                  <span className="trust-item-desc">{item.desc}</span>
+                </div>
               </div>
             ))}
           </div>
