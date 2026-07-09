@@ -7007,3 +7007,13 @@ textarea.form-input {
   .test-mob-card {
     transition: transform 0.15s ease;
   }
+
+  @media (min-width: 768px) {
+  .bestseller-section {
+    background-image: url('/images/bestseller-bg.png') !important;
+    background-size: 100% auto !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    min-height: 730px !important;
+  }
+}
