@@ -19,6 +19,9 @@ export default function Testimonials() {
   const pauseRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const resumeRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const dragStartX = useRef(0)
+  const dragCurrentX = useRef(0)
+  const isDragging = useRef(false)
 
   useEffect(() => {
     fetch('/api/testimonials')
@@ -74,6 +77,29 @@ export default function Testimonials() {
     return 'hidden'
   }
 
+  const handleDragStart = (clientX: number) => {
+    dragStartX.current = clientX
+    dragCurrentX.current = 0
+    isDragging.current = true
+    pause()
+  }
+
+  const handleDragMove = (clientX: number, element: HTMLElement) => {
+    if (!isDragging.current) return
+    dragCurrentX.current = clientX - dragStartX.current
+    element.style.transform = `translateX(${dragCurrentX.current}px)`
+  }
+
+  const handleDragEnd = (clientX: number, element: HTMLElement) => {
+    if (!isDragging.current) return
+    isDragging.current = false
+    element.style.transform = ''
+    const diff = clientX - dragStartX.current
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goPrev() : goNext()
+    }
+  }
+
   if (loading) return null
   if (testimonials.length === 0) return null
 
@@ -93,7 +119,24 @@ export default function Testimonials() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="test-mob-card-wrap">
+          <div
+            className="test-mob-card-wrap"
+            onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+            onTouchMove={(e) => handleDragMove(e.touches[0].clientX, e.currentTarget)}
+            onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX, e.currentTarget)}
+            onMouseDown={(e) => {
+              e.preventDefault()
+              handleDragStart(e.clientX)
+            }}
+            onMouseMove={(e) => handleDragMove(e.clientX, e.currentTarget)}
+            onMouseUp={(e) => handleDragEnd(e.clientX, e.currentTarget)}
+            onMouseLeave={(e) => {
+              if (isDragging.current) {
+                isDragging.current = false
+                e.currentTarget.style.transform = ''
+              }
+            }}
+          >
             <div className="test-mob-card">
               <div className="test-mob-stars">
                 {'★'.repeat(active.rating)}{'☆'.repeat(5 - active.rating)}

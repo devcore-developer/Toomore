@@ -6993,3 +6993,17 @@ textarea.form-input {
     font-size: 18px;
   }
 }
+  /* ---- CARD WRAP ---- */
+  .test-mob-card-wrap {
+    max-width: 340px;
+    width: 90%;
+    margin: 36px auto 0;
+    position: relative;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .test-mob-card {
+    transition: transform 0.15s ease;
+  }
