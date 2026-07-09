@@ -5979,3 +5979,10 @@ textarea.form-input {
   .shop-mob {
     display: none;
   }
+    html {
+    overflow-x: hidden;
+  }
+
+  .premium-carousel {
+    overflow: hidden;
+  }
