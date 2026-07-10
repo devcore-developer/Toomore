@@ -18,22 +18,40 @@ const cormorant = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
+const SITE_URL = 'https://toomore.vercel.app'
+
 export const metadata: Metadata = {
   title: 'TOOMORE — Premium Stuffed Medjool Dates',
   description:
     'Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
-  other: {
-    'og:title': 'TOOMORE — Premium Stuffed Medjool Dates',
-    'og:description': 'Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
-    'og:image': '/images/og-image.png',
-    'og:url': 'https://toomore.eg',
-    'og:type': 'website',
-    'og:site_name': 'TOOMORE',
-    'og:locale': 'en_US',
-    'twitter:card': 'summary_large_image',
-    'twitter:title': 'TOOMORE — Premium Stuffed Medjool Date',
-    'twitter:description': 'Handcrafted Mejdool dates filled with premium chocolate, pistachios & more.',
-    'twitter:image': '/images/og-image.png',
+  metadataBase: new URL(SITE_URL),
+  openGraph: {
+    title: 'TOOMORE — Premium Stuffed Medjool Dates',
+    description:
+      'Handcrafted Mejdool dates filled with premium ingredients — milk chocolate, dark chocolate, pistachios, and more.',
+    url: SITE_URL,
+    siteName: 'TOOMORE',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'TOOMORE — Premium Stuffed Medjool Dates',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TOOMORE — Premium Stuffed Medjool Dates',
+    description:
+      'Handcrafted Mejdool dates filled with premium chocolate, pistachios & more.',
+    images: ['/images/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
 }
 
@@ -45,11 +63,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <head>
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        
-        {/* Theme Color — Browser tab color */}
         <meta name="theme-color" content="#0E5B4F" />
       </head>
       <body>

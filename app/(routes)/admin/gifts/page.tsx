@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import DataTable from '@/components/admin/DataTable'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -60,6 +60,24 @@ export default function AdminGiftsPage() {
     }
   }
 
+  const handleAction = async (action: string, gift: GiftRequest) => {
+    if (action === '__delete__') {
+      const confirmed = window.confirm(
+        `Are you sure you want to delete gift request ${gift.id.slice(0, 8).toUpperCase()}?\n\nThis action cannot be undone.`
+      )
+      if (!confirmed) return
+      try {
+        await deleteDoc(doc(db, 'gifts', gift.id))
+        setGifts((prev) => prev.filter((g) => g.id !== gift.id))
+      } catch (err) {
+        console.error(err)
+        alert('Error deleting gift request')
+      }
+    } else {
+      updateStatus(gift, action)
+    }
+  }
+
   if (loading) return <div className="admin-loading">Loading gift requests...</div>
 
   return (
@@ -80,11 +98,14 @@ export default function AdminGiftsPage() {
         ]}
         data={gifts}
         onRowClick={(row) => setSelectedGiftId(row.id)}
-        onAction={(_, row) => updateStatus(row, _)}
-        actions={['pending', 'confirmed', 'completed', 'cancelled'].map((s) => ({
-          label: s.charAt(0).toUpperCase() + s.slice(1),
-          value: s,
-        }))}
+        onAction={(action, row) => handleAction(action, row)}
+        actions={[
+          ...['pending', 'confirmed', 'completed', 'cancelled'].map((s) => ({
+            label: s.charAt(0).toUpperCase() + s.slice(1),
+            value: s,
+          })),
+          { label: '— Delete Request —', value: '__delete__' },
+        ]}
       />
 
       <GiftModal giftId={selectedGiftId} onClose={() => setSelectedGiftId(null)} />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import DataTable from '@/components/admin/DataTable'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -63,6 +63,24 @@ export default function AdminOrdersPage() {
     }
   }
 
+  const handleAction = async (action: string, order: Order) => {
+    if (action === '__delete__') {
+      const confirmed = window.confirm(
+        `Are you sure you want to delete order ${order.id.slice(0, 8).toUpperCase()}?\n\nThis action cannot be undone.`
+      )
+      if (!confirmed) return
+      try {
+        await deleteDoc(doc(db, 'orders', order.id))
+        setOrders((prev) => prev.filter((o) => o.id !== order.id))
+      } catch (err) {
+        console.error(err)
+        alert('Error deleting order')
+      }
+    } else {
+      updateStatus(order, action)
+    }
+  }
+
   if (loading) return <div className="admin-loading">Loading orders...</div>
 
   const paymentLabels: Record<string, string> = {
@@ -87,12 +105,15 @@ export default function AdminOrdersPage() {
           { key: 'createdAt', label: 'Date' },
         ]}
         data={orders}
-        onRowClick={(row) => setSelectedOrderId(row.id)} // ده السطر الجديد
-        onAction={(_, row) => updateStatus(row, _)}
-        actions={statuses.map((s) => ({
-          label: s.charAt(0).toUpperCase() + s.slice(1),
-          value: s,
-        }))}
+        onRowClick={(row) => setSelectedOrderId(row.id)}
+        onAction={(action, row) => handleAction(action, row)}
+        actions={[
+          ...statuses.map((s) => ({
+            label: s.charAt(0).toUpperCase() + s.slice(1),
+            value: s,
+          })),
+          { label: '— Delete Order —', value: '__delete__' },
+        ]}
       />
 
       <OrderModal orderId={selectedOrderId} onClose={() => setSelectedOrderId(null)} />
