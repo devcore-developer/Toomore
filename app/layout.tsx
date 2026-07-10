@@ -49,10 +49,6 @@ export const metadata: Metadata = {
       'Handcrafted Mejdool dates filled with premium chocolate, pistachios & more.',
     images: ['/images/og-image.png'],
   },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
 }
 
 export default function RootLayout({
@@ -64,6 +60,8 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <head>
         <meta name="theme-color" content="#0E5B4F" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </head>
       <body>
         <Providers>
