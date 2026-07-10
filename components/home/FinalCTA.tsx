@@ -11,7 +11,7 @@ export default function FinalCTA() {
           always meant to be.
         </p>
         <div className="cta-btns">
-          <Link href="/shop" className="btn-white">
+          <Link href="/shop" className="btn-white" style={{ textDecoration: 'none' }}>
             Shop Now
           </Link>
           <a
@@ -19,6 +19,7 @@ export default function FinalCTA() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-white"
+            style={{ textDecoration: 'none' }}
           >
             <svg
               viewBox="0 0 24 24"

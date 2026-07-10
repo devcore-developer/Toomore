@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
 
@@ -44,24 +45,25 @@ export default function FlavorShowcase() {
       <div className="flavors-grid">
         {flavors.map((f, i) => (
           <FadeIn key={f.name} delay={i * 0.1}>
-            <div className="flavor-card">
-              <div className="flavor-card-img">
-                <div className="flavor-card-img-light" />
-                <img
-                  src={f.image}
-                  alt={f.name}
-                  loading="lazy"
-                />
-                <div className="flavor-card-img-shadow" />
-                <span className="flavor-natural-badge">100% Natural</span>
+            <Link href="/shop" style={{ textDecoration: 'none' }}>
+              <div className="flavor-card">
+                <div className="flavor-card-img">
+                  <div className="flavor-card-img-light" />
+                  <img
+                    src={f.image}
+                    alt={f.name}
+                    loading="lazy"
+                  />
+                  <div className="flavor-card-img-shadow" />
+                </div>
+                <div className="flavor-card-body">
+                  <span className="flavor-badge">{f.badge}</span>
+                  <h3 className={`flavor-card-name ${f.nameClass || ''}`}>{f.name}</h3>
+                  <p className="flavor-card-desc">{f.description}</p>
+                  <span className="flavor-type">{f.type}</span>
+                </div>
               </div>
-              <div className="flavor-card-body">
-                <span className="flavor-badge">{f.badge}</span>
-                <h3 className={`flavor-card-name ${f.nameClass || ''}`}>{f.name}</h3>
-                <p className="flavor-card-desc">{f.description}</p>
-                <span className="flavor-type">{f.type}</span>
-              </div>
-            </div>
+            </Link>
           </FadeIn>
         ))}
       </div>

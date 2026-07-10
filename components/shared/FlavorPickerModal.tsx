@@ -7,7 +7,7 @@ const flavors = [
   'HAZELNUT CHOCOLATE',
   'DARK MOCHA',
   'WHITE MOCHA',
-  'BENUT BUTTER'
+  'PEANUT BUTTER'
 ]
 
 interface BoxProps {

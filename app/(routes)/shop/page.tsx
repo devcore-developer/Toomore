@@ -4,8 +4,8 @@ import { useProducts } from '@/hooks/useProducts'
 import { useCart } from '@/hooks/useCart'
 import SectionTitle from '@/components/shared/SectionTitle'
 import ProductGrid from '@/components/product/ProductGrid'
+import ProductCard from '@/components/product/ProductCard'
 
-// الخرائط دي هتغير الاسم والسعر والوصف بناءً على الاسم القديم
 const shopOverrides: Record<string, any> = {
   'The Signature Collection': {
     name: '4-Piece Package',
@@ -37,11 +37,12 @@ export default function ShopPage() {
   const { products, loading } = useProducts('all')
   const { addItem } = useCart()
 
-  // بنحدث الداتا هنا قبل ما نعرضها
   const updatedProducts = products.map(p => ({
     ...p,
     ...(shopOverrides[p.name] || {})
   }))
+
+  const sortedProducts = [...updatedProducts].sort((a, b) => (a.pieces || 0) - (b.pieces || 0))
 
   return (
     <section className="shop-page">
@@ -53,7 +54,18 @@ export default function ShopPage() {
       {loading ? (
         <p className="shop-loading">Loading...</p>
       ) : (
-        <ProductGrid products={updatedProducts} onAddToCart={addItem} />
+        <>
+          {/* Mobile: vertical single-column stack */}
+          <div className="flex flex-col gap-5 px-5 md:hidden">
+            {sortedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} onAddToCart={addItem} />
+            ))}
+          </div>
+          {/* Desktop: original ProductGrid — untouched */}
+          <div className="hidden md:block">
+            <ProductGrid products={updatedProducts} onAddToCart={addItem} />
+          </div>
+        </>
       )}
     </section>
   )

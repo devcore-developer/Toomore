@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import FadeIn from '@/components/shared/FadeIn'
 import { FAQS } from '@/lib/constants'
@@ -12,6 +12,8 @@ interface FAQSectionProps {
 export default function FAQSection({ limit }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
   const [mobOpen, setMobOpen] = useState<number | null>(0)
+  const answerRefs = useRef<(HTMLDivElement | null)[]>([])
+  const mobAnswerRefs = useRef<(HTMLDivElement | null)[]>([])
   const displayedFaqs = limit ? FAQS.slice(0, limit) : FAQS
   const hasMore = limit && FAQS.length > limit
 
@@ -68,6 +70,12 @@ export default function FAQSection({ limit }: FAQSectionProps) {
                   id={`faq-answer-${i}`}
                   role="region"
                   aria-labelledby={`faq-question-${i}`}
+                  ref={(el) => { answerRefs.current[i] = el }}
+                  style={{
+                    maxHeight: openIndex === i ? `${answerRefs.current[i]?.scrollHeight || 400}px` : '0',
+                    opacity: openIndex === i ? 1 : 0,
+                    transition: 'max-height 0.22s ease, opacity 0.1s ease',
+                  }}
                 >
                   <div className="faq-a">{faq.answer}</div>
                 </div>
@@ -123,7 +131,15 @@ export default function FAQSection({ limit }: FAQSectionProps) {
                     </svg>
                   </span>
                 </div>
-                <div className="faq-mob-a-wrap">
+                <div
+                  className="faq-mob-a-wrap"
+                  ref={(el) => { mobAnswerRefs.current[i] = el }}
+                  style={{
+                    maxHeight: mobOpen === i ? `${mobAnswerRefs.current[i]?.scrollHeight || 400}px` : '0',
+                    opacity: mobOpen === i ? 1 : 0,
+                    transition: 'max-height 0.22s ease, opacity 0.1s ease',
+                  }}
+                >
                   <p className="faq-mob-a">{faq.answer}</p>
                 </div>
               </div>

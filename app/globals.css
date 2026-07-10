@@ -7017,3 +7017,30 @@ textarea.form-input {
     min-height: 730px !important;
   }
 }
+@media (min-width: 768px) {
+  .flavor-card-name {
+    font-size: 20px;
+  }
+}
+
+.hero-mob-wa {
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  padding-right: 50px;
+}
+
+.hero-mob-wa-icon-wrap {
+  margin-right: 0;
+}
+
+.hero-mob-wa-arrow {
+  position: absolute;
+  right: 16px;
+  margin-left: 0;
+}
+
+.hero-mob-wa span:not(.hero-mob-wa-icon-wrap):not(.hero-mob-wa-arrow) {
+  flex: none;
+  text-align: left;
+}

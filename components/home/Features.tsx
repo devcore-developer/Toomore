@@ -125,18 +125,6 @@ export default function Features({ images }: FeaturesProps) {
             </div>
           ))}
         </div>
-
-        {/* Bottom Footer */}
-        <FadeIn delay={0.5}>
-          <div className="how-mob-footer">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8843A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 12V18C20 19.1 19.1 20 18 20H6C4.9 20 4 19.1 4 18V12" />
-              <path d="M2 7H22V12C22 12.6 21.6 13 21 13H3C2.4 13 2 12.6 2 12V7Z" />
-              <path d="M12 7V3M8 7V5M16 7V3" />
-            </svg>
-            <p className="how-mob-footer-text">Made with care. Crafted to be remembered.</p>
-          </div>
-        </FadeIn>
       </div>
 
     </section>

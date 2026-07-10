@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { NAV_LINKS } from '@/lib/constants'
@@ -8,11 +9,27 @@ import MobileNav from '@/components/layout/MobileNav'
 import { useCartStore } from '@/store/cart-store'
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
   const openCart = useCartStore((s) => s.openCart)
   const count = useCartStore((s) => s.count)
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <nav className="main-nav">
+    <nav
+      className="main-nav"
+      style={scrolled ? {
+        background: 'rgba(248,244,236,0.82)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        boxShadow: '0 2px 20px rgba(0,0,0,0.06)',
+        transition: 'background 0.3s ease, box-shadow 0.3s ease',
+      } : undefined}
+    >
       <Link href="/" className="nav-logo-link">
         <Image
           src="/icons/logo.png"

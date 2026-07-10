@@ -52,6 +52,15 @@ const CONTACT_INFO = [
   { label: 'Instagram', href: 'https://www.instagram.com/toomoore.eg/' },
 ]
 
+// Shop: replace "Gift Boxes" with "Gifting"
+const shopLinks = [
+  ...FOOTER_SHOP_LINKS.filter(l => l.label !== 'Gift Boxes'),
+  { label: 'Gifting', href: '/gifting' }
+]
+
+// Company: remove "Gifting" completely
+const companyLinks = FOOTER_COMPANY_LINKS.filter(l => l.label.toLowerCase() !== 'gifting')
+
 export default function Footer() {
   return (
     <footer className="main-footer">
@@ -84,7 +93,7 @@ export default function Footer() {
         <div className="footer-col">
           <h5>Shop</h5>
           <ul>
-            {FOOTER_SHOP_LINKS.map((link) => (
+            {shopLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>{link.label}</Link>
               </li>
@@ -96,7 +105,7 @@ export default function Footer() {
         <div className="footer-col">
           <h5>Company</h5>
           <ul>
-            {FOOTER_COMPANY_LINKS.map((link) => (
+            {companyLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>{link.label}</Link>
               </li>
