@@ -1,12 +1,8 @@
-'use client'
-
-import { useProducts } from '@/hooks/useProducts'
-import { useCart } from '@/hooks/useCart'
+import { ShopContent } from './ShopContent'
 import SectionTitle from '@/components/shared/SectionTitle'
-import ProductGrid from '@/components/product/ProductGrid'
-import ProductCard from '@/components/product/ProductCard'
+import { Product } from '@/lib/types'
 
-const shopOverrides: Record<string, any> = {
+const shopOverrides: Record<string, Partial<Product>> = {
   'The Signature Collection': {
     name: '4-Piece Package',
     price: 160,
@@ -33,73 +29,36 @@ const shopOverrides: Record<string, any> = {
   }
 }
 
-export default function ShopPage() {
-  const { products, loading } = useProducts('all')
-  const { addItem } = useCart()
+async function getProducts(): Promise<Product[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  try {
+    const res = await fetch(`${baseUrl}/api/products`, { cache: 'no-store' })
+    if (!res.ok) return []
+    const data = await res.json()
+    return data.products || []
+  } catch {
+    return []
+  }
+}
 
-  const updatedProducts = products.map(p => ({
+export default async function ShopPage() {
+  const products = await getProducts()
+
+  const updatedProducts = products.map((p: Product) => ({
     ...p,
     ...(shopOverrides[p.name] || {})
   }))
 
   const sortedProducts = [...updatedProducts].sort((a, b) => (a.pieces || 0) - (b.pieces || 0))
 
-return (
+  return (
     <section className="shop-page">
       <SectionTitle
         tag="Shop"
         title="Our Collection"
         subtitle="Explore our handcrafted stuffed Mejdool dates — each box is a masterpiece."
       />
-      {loading ? (
-        <>
-          <div className="shop-skeleton-mob flex flex-col gap-5 px-5 md:hidden">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="shop-skel-card">
-                <div className="shop-skel-img" />
-                <div className="shop-skel-body">
-                  <div className="shop-skel-line shop-skel-line--title" />
-                  <div className="shop-skel-line shop-skel-line--desc" />
-                  <div className="shop-skel-line shop-skel-line--desc" />
-                  <div className="shop-skel-footer">
-                    <div className="shop-skel-line shop-skel-line--price" />
-                    <div className="shop-skel-btn" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="hidden md:block">
-            <div className="shop-skel-grid">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="shop-skel-card">
-                  <div className="shop-skel-img" />
-                  <div className="shop-skel-body">
-                    <div className="shop-skel-line shop-skel-line--title" />
-                    <div className="shop-skel-line shop-skel-line--desc" />
-                    <div className="shop-skel-line shop-skel-line--desc" />
-                    <div className="shop-skel-footer">
-                      <div className="shop-skel-line shop-skel-line--price" />
-                      <div className="shop-skel-btn" />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="flex flex-col gap-5 px-5 md:hidden">
-            {sortedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} onAddToCart={addItem} />
-            ))}
-          </div>
-          <div className="hidden md:block">
-            <ProductGrid products={sortedProducts} onAddToCart={addItem} />
-          </div>
-        </>
-      )}
+      <ShopContent products={sortedProducts} />
     </section>
   )
 }
