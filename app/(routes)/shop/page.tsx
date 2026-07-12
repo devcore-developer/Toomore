@@ -30,9 +30,8 @@ const shopOverrides: Record<string, Partial<Product>> = {
 }
 
 async function getProducts(): Promise<Product[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
   try {
-    const res = await fetch(`${baseUrl}/api/products`, { cache: 'no-store' })
+    const res = await fetch('/api/products', { cache: 'no-store' })
     if (!res.ok) return []
     const data = await res.json()
     return data.products || []
