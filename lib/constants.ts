@@ -6,6 +6,7 @@ export const FREE_DELIVERY_THRESHOLD = 500
 export const CURRENCY = 'EGP'
 
 export const NAV_LINKS = [
+  { label: 'Home', href: '/' },
   { label: 'Shop', href: '/shop' },
   { label: 'Gifting', href: '/gifting' },
   { label: 'Our Story', href: '/story' },

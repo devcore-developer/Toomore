@@ -35,7 +35,6 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
               className="box-product-img"
               loading="lazy"
               sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 33vw"
-              style={product.name.includes('16') ? { transform: 'scale(1)' } : undefined}
             />
           ) : (
             <div className="mini-box">

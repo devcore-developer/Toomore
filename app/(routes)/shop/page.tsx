@@ -63,7 +63,7 @@ export default function ShopPage() {
           </div>
           {/* Desktop: original ProductGrid — untouched */}
           <div className="hidden md:block">
-            <ProductGrid products={updatedProducts} onAddToCart={addItem} />
+            <ProductGrid products={sortedProducts} onAddToCart={addItem} />
           </div>
         </>
       )}

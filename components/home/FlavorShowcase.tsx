@@ -9,7 +9,6 @@ const flavors = [
     image: '/images/flavor-hazelnut.png',
     badge: 'BEST SELLER',
     type: 'Milk Chocolate',
-    nameClass: 'flavor-name-sm',
   },
   {
     name: 'Dark Mocha',
@@ -58,7 +57,7 @@ export default function FlavorShowcase() {
                 </div>
                 <div className="flavor-card-body">
                   <span className="flavor-badge">{f.badge}</span>
-                  <h3 className={`flavor-card-name ${f.nameClass || ''}`}>{f.name}</h3>
+                  <h3 className="flavor-card-name">{f.name}</h3>
                   <p className="flavor-card-desc">{f.description}</p>
                   <span className="flavor-type">{f.type}</span>
                 </div>

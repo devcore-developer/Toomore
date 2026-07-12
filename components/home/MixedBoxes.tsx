@@ -1,54 +1,49 @@
 'use client'
 
 import { useState } from 'react'
+import { useProducts } from '@/hooks/useProducts'
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
 import Image from 'next/image'
 import FlavorPickerModal from '@/components/shared/FlavorPickerModal'
 import PremiumCarousel from '@/components/shared/PremiumCarousel'
 
-const boxes = [
-  {
-    id: 'box-4',
-    title: '4-Piece Package',
-    pieces: 4,
-    description: 'A perfect bite-sized introduction to our stuffed dates.',
-    price: 160,
-    image: '/images/1.png',
-    bgClass: 'cream',
-  },
-  {
-    id: 'box-12',
-    title: '12-Piece Package',
-    pieces: 12,
-    description: 'A generous assortment for you or to share.',
-    price: 400,
-    image: '/images/2.png',
-    bgClass: 'mid',
-  },
-  {
-    id: 'box-16',
-    title: '16-Piece Package',
-    pieces: 16,
-    description: 'The ultimate experience, fully customized to your taste.',
-    price: 520,
-    image: '/images/3.png',
-    bgClass: 'dark',
-  },
-]
+const fallbackImages: Record<string, string> = {
+  signature: '/images/1.png',
+  mixed: '/images/2.png',
+  gift: '/images/3.png',
+}
 
-function BoxCard({ box, onSelect }: { box: typeof boxes[0]; onSelect: () => void }) {
+const bgClasses = ['cream', 'mid', 'dark']
+
+interface BoxData {
+  id: string
+  title: string
+  pieces: number
+  description: string
+  price: number
+  image: string | null
+  bgClass: string
+}
+
+function BoxCard({ box, onSelect, zoomOut }: { box: BoxData; onSelect: () => void; zoomOut?: boolean }) {
   return (
     <div className="box-card">
       <div className={`box-img ${box.bgClass}`}>
-        <Image
-          src={box.image}
-          alt={box.title}
-          fill
-          className="box-product-img"
-          loading="lazy"
-          sizes="(max-width: 1024px) 50vw, 33vw"
-        />
+        {box.image ? (
+          <Image
+            src={box.image}
+            alt={box.title}
+            fill
+            className={`box-product-img${zoomOut ? ' box-product-img--zoom-out' : ''}`}
+            loading="lazy"
+            sizes="(max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+            <span style={{ fontSize: 12, color: '#0F4C3A', letterSpacing: 1 }}>{box.title}</span>
+          </div>
+        )}
       </div>
       <div className="box-card-body">
         <h3 className="box-card-title">{box.title}</h3>
@@ -63,7 +58,34 @@ function BoxCard({ box, onSelect }: { box: typeof boxes[0]; onSelect: () => void
 }
 
 export default function MixedBoxes() {
-  const [selectedBox, setSelectedBox] = useState<typeof boxes[0] | null>(null)
+  const { products, loading } = useProducts('all')
+  const [selectedBox, setSelectedBox] = useState<BoxData | null>(null)
+
+  const boxes: BoxData[] = products
+    .filter((p: any) => !p.isBestSeller)
+    .sort((a: any, b: any) => (a.pieces || 0) - (b.pieces || 0))
+    .map((p: any, i: number) => ({
+      id: p.id,
+      title: p.name,
+      pieces: p.pieces || 0,
+      description: p.description || '',
+      price: p.price || 0,
+      image: p.image || fallbackImages[p.category] || null,
+      bgClass: bgClasses[i % bgClasses.length],
+    }))
+
+  if (loading) {
+    return (
+      <section className="mixed-section">
+        <SectionTitle
+          tag="Collections"
+          title="Mixed Box Collections"
+          subtitle="Discover our range of thoughtfully curated date boxes — each one a unique experience."
+        />
+        <p className="admin-loading">Loading...</p>
+      </section>
+    )
+  }
 
   return (
     <section className="mixed-section">
@@ -77,7 +99,7 @@ export default function MixedBoxes() {
       <div className="boxes-grid boxes-grid--3 boxes-desktop">
         {boxes.map((box, i) => (
           <FadeIn key={box.id} delay={i * 0.1}>
-            <BoxCard box={box} onSelect={() => setSelectedBox(box)} />
+            <BoxCard box={box} onSelect={() => setSelectedBox(box)} zoomOut={i === 3} />
           </FadeIn>
         ))}
       </div>
@@ -85,8 +107,8 @@ export default function MixedBoxes() {
       {/* ===== MOBILE CAROUSEL ===== */}
       <div className="boxes-mob">
         <PremiumCarousel autoplayInterval={2500}>
-          {boxes.map((box) => (
-            <BoxCard key={`mob-${box.id}`} box={box} onSelect={() => setSelectedBox(box)} />
+          {boxes.map((box, i) => (
+            <BoxCard key={`mob-${box.id}`} box={box} onSelect={() => setSelectedBox(box)} zoomOut={i === 3} />
           ))}
         </PremiumCarousel>
       </div>

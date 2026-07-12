@@ -270,9 +270,10 @@ section {
 }
 
 .nav-logo-img {
-  height: 44px;
+  height: 80px;
   width: auto;
   object-fit: contain;
+  margin-left: -12px;
 }
 .nav-logo span { color: var(--gold); }
 
@@ -367,7 +368,8 @@ section {
     height: 64px;
   }
   .nav-logo-img {
-    height: 36px;
+    height: 50px;
+    margin-left: -12px;
   }
 }
 
@@ -436,7 +438,8 @@ section {
   border-bottom: 1px solid rgba(28, 58, 47, 0.08);
 }
 .mob-drawer-head .nav-logo-img {
-  height: 32px;
+  height: 50px;
+  margin-left: -30px;
 }
 
 .mob-close {
@@ -766,6 +769,13 @@ section {
   line-height: 1.3;
 }
 
+@media (min-width: 768px) {
+  .flavor-card-name {
+    font-size: 18px !important;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+}
 .flavor-card-desc {
   font-size: 13px;
   color: var(--text-muted);
@@ -1065,6 +1075,7 @@ section {
   background: #fff;
   margin-top: -40px;
   border-radius: var(--radius-card) var(--radius-card) 0 0;
+  box-shadow: inset 0 0 0 18px #fff;   /* ← السطر ده بس هو الحل */
 }
 
 .box-product-img {
@@ -1074,9 +1085,11 @@ section {
   transform: scale(1.20);
   transition: transform 0.3s ease;
 }
+
 .box-product-img--zoom-out {
-  transform: scale(1.20) !important;
+  transform: scale(1.05) !important;
 }
+
 .box-card:hover .box-product-img {
   transform: scale(1.25);
 }
@@ -1574,6 +1587,137 @@ section {
 .btn-gold:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(183, 138, 60, 0.35);
+}
+
+/* ========================================
+   GIFTING — MOBILE (background banner)
+   ======================================== */
+.gifting-desktop {
+  display: block;
+}
+
+.gift-mob {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .gifting-section {
+    background-image: none !important;
+    min-height: auto !important;
+    padding: 0 !important;
+  }
+
+  .gifting-desktop {
+    display: none !important;
+  }
+
+.gift-mob {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 195vw;   /* ← 1948/1000 */
+  overflow: hidden;
+}
+
+  .gift-mob-img-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+.gift-mob-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.gift-mob-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 195vw;   /* ← نفس الشي */
+  padding: 0 28px 60px;
+}
+
+  .gift-mob-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .gift-mob-heading {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .gift-mob-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.75;
+    margin-bottom: 24px;
+    max-width: 320px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.2);
+  }
+
+  .gift-mob-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    max-width: 340px;
+  }
+
+  .gift-mob-chip {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 11px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  .gift-mob-btn {
+    background: linear-gradient(135deg, #C9A84C 0%, #A8863A 100%);
+    color: #1A1A1A;
+    padding: 0 32px;
+    height: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    width: fit-content;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .gift-mob-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
 }
 
 /* ========================================

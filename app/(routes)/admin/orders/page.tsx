@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import DataTable from '@/components/admin/DataTable'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -25,6 +25,8 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<Order | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   const fetchOrders = async () => {
     try {
@@ -65,19 +67,25 @@ export default function AdminOrdersPage() {
 
   const handleAction = async (action: string, order: Order) => {
     if (action === '__delete__') {
-      const confirmed = window.confirm(
-        `Are you sure you want to delete order ${order.id.slice(0, 8).toUpperCase()}?\n\nThis action cannot be undone.`
-      )
-      if (!confirmed) return
-      try {
-        await deleteDoc(doc(db, 'orders', order.id))
-        setOrders((prev) => prev.filter((o) => o.id !== order.id))
-      } catch (err) {
-        console.error(err)
-        alert('Error deleting order')
-      }
+      setDeleteTarget(order)
     } else {
       updateStatus(order, action)
+    }
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return
+    setDeleting(true)
+    try {
+      const res = await fetch(`/api/orders?id=${deleteTarget.id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Delete failed')
+      setOrders((prev) => prev.filter((o) => o.id !== deleteTarget.id))
+      setDeleteTarget(null)
+    } catch (err) {
+      console.error(err)
+      alert('Error deleting order')
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -117,6 +125,100 @@ export default function AdminOrdersPage() {
       />
 
       <OrderModal orderId={selectedOrderId} onClose={() => setSelectedOrderId(null)} />
+
+      {/* Delete Confirmation Modal */}
+      {deleteTarget && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 300,
+            padding: 20,
+          }}
+          onClick={() => !deleting && setDeleteTarget(null)}
+        >
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 16,
+              padding: '32px',
+              maxWidth: 400,
+              width: '100%',
+              textAlign: 'center',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                background: '#FEF2F2',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 20px',
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                <line x1="10" y1="11" x2="10" y2="17" />
+                <line x1="14" y1="11" x2="14" y2="17" />
+              </svg>
+            </div>
+            <h3 style={{ fontSize: 18, fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>
+              Delete Order?
+            </h3>
+            <p style={{ fontSize: 14, color: '#6b7280', marginBottom: 28, lineHeight: 1.6 }}>
+              Order <strong style={{ color: '#1a1a1a' }}>#{deleteTarget.id.slice(0, 8).toUpperCase()}</strong> will be permanently removed. This action cannot be undone.
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <button
+                onClick={() => setDeleteTarget(null)}
+                disabled={deleting}
+                style={{
+                  flex: 1,
+                  padding: '12px 0',
+                  borderRadius: 10,
+                  border: '1px solid #e5e7eb',
+                  background: '#fff',
+                  color: '#374151',
+                  fontSize: 14,
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleting}
+                style={{
+                  flex: 1,
+                  padding: '12px 0',
+                  borderRadius: 10,
+                  border: 'none',
+                  background: deleting ? '#f87171' : '#DC2626',
+                  color: '#fff',
+                  fontSize: 14,
+                  fontWeight: 500,
+                  cursor: deleting ? 'not-allowed' : 'pointer',
+                  fontFamily: 'inherit',
+                  opacity: deleting ? 0.7 : 1,
+                }}
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { adminDb } from '@/lib/db'
 import { generateOrderId } from '@/lib/utils'
 
 export async function POST(request: NextRequest) {
@@ -41,7 +42,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    await deleteDoc(doc(db, 'orders', id))
+    await adminDb.collection('orders').doc(id).delete()
 
     return NextResponse.json({ success: true })
   } catch (error) {

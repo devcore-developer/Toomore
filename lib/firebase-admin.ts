@@ -1,4 +1,4 @@
-import { initializeApp, cert, getApps } from 'firebase-admin/app'
+import { initializeApp, cert, getApps, getApp } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 
 const serviceAccount = {
@@ -15,7 +15,14 @@ const serviceAccount = {
 }
 
 const adminApp = getApps().length === 0
-  ? initializeApp({ credential: cert(serviceAccount as any) }, 'admin')
-  : getApps()[0]
+  ? initializeApp(
+      {
+        credential: cert(serviceAccount as any),
+        storageBucket: 'toomore-c0619.appspot.com',
+      },
+      'admin'
+    )
+  : getApp('admin')
 
 export const adminDb = getFirestore(adminApp)
+export { adminApp }
