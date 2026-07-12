@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { ShopContent } from './ShopContent'
 import SectionTitle from '@/components/shared/SectionTitle'
 import { Product } from '@/lib/types'
@@ -31,7 +32,10 @@ const shopOverrides: Record<string, Partial<Product>> = {
 
 async function getProducts(): Promise<Product[]> {
   try {
-    const res = await fetch('/api/products', { cache: 'no-store' })
+    const headersList = headers()
+    const host = headersList.get('host') || 'localhost:3000'
+    const protocol = headersList.get('x-forwarded-proto') || 'http'
+    const res = await fetch(`${protocol}://${host}/api/products`, { cache: 'no-store' })
     if (!res.ok) return []
     const data = await res.json()
     return data.products || []
