@@ -7202,3 +7202,114 @@ textarea.form-input {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+/* ========================================
+   SHOP SKELETON LOADER
+   ======================================== */
+.shop-skel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 1024px) {
+  .shop-skel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.shop-skel-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.shop-skeleton-mob {
+  margin-top: 48px;
+}
+
+.shop-skeleton-mob .shop-skel-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  .shop-skeleton-mob {
+    display: none !important;
+  }
+}
+
+.shop-skel-img {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(90deg, var(--cream-soft) 25%, var(--cream) 50%, var(--cream-soft) 75%);
+  background-size: 200% 100%;
+  animation: skelShimmer 1.5s infinite;
+}
+
+.shop-skeleton-mob .shop-skel-img {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
+}
+
+.shop-skel-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shop-skel-line {
+  height: 14px;
+  background: linear-gradient(90deg, var(--cream-soft) 25%, var(--cream) 50%, var(--cream-soft) 75%);
+  background-size: 200% 100%;
+  animation: skelShimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.shop-skel-line--title {
+  width: 60%;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.shop-skel-line--desc {
+  width: 90%;
+  margin-bottom: 8px;
+}
+
+.shop-skel-line--desc:last-of-type {
+  width: 70%;
+}
+
+.shop-skel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.shop-skel-line--price {
+  width: 80px;
+  height: 20px;
+}
+
+.shop-skel-btn {
+  width: 130px;
+  height: 42px;
+  background: linear-gradient(90deg, var(--cream-soft) 25%, var(--cream) 50%, var(--cream-soft) 75%);
+  background-size: 200% 100%;
+  animation: skelShimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skelShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Remove old loading text */
+.shop-loading {
+  display: none;
+}

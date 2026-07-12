@@ -44,7 +44,7 @@ export default function ShopPage() {
 
   const sortedProducts = [...updatedProducts].sort((a, b) => (a.pieces || 0) - (b.pieces || 0))
 
-  return (
+return (
     <section className="shop-page">
       <SectionTitle
         tag="Shop"
@@ -52,16 +52,49 @@ export default function ShopPage() {
         subtitle="Explore our handcrafted stuffed Mejdool dates — each box is a masterpiece."
       />
       {loading ? (
-        <p className="shop-loading">Loading...</p>
+        <>
+          <div className="shop-skeleton-mob flex flex-col gap-5 px-5 md:hidden">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="shop-skel-card">
+                <div className="shop-skel-img" />
+                <div className="shop-skel-body">
+                  <div className="shop-skel-line shop-skel-line--title" />
+                  <div className="shop-skel-line shop-skel-line--desc" />
+                  <div className="shop-skel-line shop-skel-line--desc" />
+                  <div className="shop-skel-footer">
+                    <div className="shop-skel-line shop-skel-line--price" />
+                    <div className="shop-skel-btn" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:block">
+            <div className="shop-skel-grid">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="shop-skel-card">
+                  <div className="shop-skel-img" />
+                  <div className="shop-skel-body">
+                    <div className="shop-skel-line shop-skel-line--title" />
+                    <div className="shop-skel-line shop-skel-line--desc" />
+                    <div className="shop-skel-line shop-skel-line--desc" />
+                    <div className="shop-skel-footer">
+                      <div className="shop-skel-line shop-skel-line--price" />
+                      <div className="shop-skel-btn" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
       ) : (
         <>
-          {/* Mobile: vertical single-column stack */}
           <div className="flex flex-col gap-5 px-5 md:hidden">
             {sortedProducts.map((product) => (
               <ProductCard key={product.id} product={product} onAddToCart={addItem} />
             ))}
           </div>
-          {/* Desktop: original ProductGrid — untouched */}
           <div className="hidden md:block">
             <ProductGrid products={sortedProducts} onAddToCart={addItem} />
           </div>
