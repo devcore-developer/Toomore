@@ -17,7 +17,7 @@ const CONTACT_METHODS = [
   {
     label: 'Instagram',
     value: '@toomoore.eg',
-    href: 'https://www.instagram.com/toomoore.eg/',
+    href: 'https://www.instagram.com/toomore.eg?igsh=MXM1NWtkYXE5eHBlYg==',
     description: 'Follow us for behind-the-scenes, new flavors, and giveaways.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none">
@@ -43,7 +43,7 @@ const CONTACT_METHODS = [
   {
     label: 'TikTok',
     value: '@toomoore',
-    href: 'https://www.tiktok.com/@toomoore',
+    href: 'https://www.tiktok.com/@toomore.eg?_r=1&_t=ZS-988tN8rAW5S',
     description: 'Watch our short videos and trending content.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none">

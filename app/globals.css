@@ -7352,3 +7352,230 @@ textarea.form-input {
   font-size: 11px;
   padding: 0 14px;
 }
+
+/* ========================================
+   SINGLE FLAVOR MODAL
+   ======================================== */
+.single-flavor-modal {
+  max-width: 380px;
+}
+
+.single-flavor-body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--cream);
+  border-radius: var(--radius-card);
+}
+
+.single-flavor-img-wrap {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #fff;
+  position: relative;
+  aspect-ratio: auto;       /* ← أضيف ده */
+  border: 1px solid var(--border-light);  /* ← أضيف ده */
+}
+
+.single-flavor-img {
+  object-fit: contain;
+  transform: scale(1.5);
+  padding: 12px;            /* ← أضيف ده */
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.single-flavor-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.single-flavor-qty-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.single-flavor-qty {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.single-flavor-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.single-flavor-total span:first-child {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.single-flavor-total span:last-child {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+@media (max-width: 767px) {
+  .single-flavor-body {
+    flex-direction: column;
+    text-align: center;
+  }
+  .single-flavor-qty {
+    justify-content: center;
+  }
+  .single-flavor-img-wrap {
+    width: 140px;
+    height: 140px;
+    min-width: 140px;
+  }
+}
+
+/* ========================================
+   CHECKOUT SHIPPING NOTE
+   ======================================== */
+.checkout-shipping-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, rgba(198, 90, 46, 0.06) 0%, rgba(183, 138, 82, 0.08) 100%);
+  border: 1px solid rgba(198, 90, 46, 0.18);
+  border-radius: var(--radius-sm);
+  margin-bottom: 28px;
+  margin-top: 8px;
+}
+
+.checkout-shipping-note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.checkout-shipping-note p {
+  font-size: 14px;
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* ========================================
+   ADMIN ORDER MODAL ENHANCEMENTS
+   ======================================== */
+.admin-order-section {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.admin-order-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.admin-order-section-title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.admin-order-type-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-order-type-btn {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.admin-order-type-btn--active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
+.admin-box-size-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.admin-box-size-btn {
+  padding: 10px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.admin-box-size-btn--active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
+.admin-flavor-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-flavor-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.admin-flavor-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+/* ========================================
+   SHOP PAGE — FLAVORS MOBILE FIX
+   ======================================== */
+@media (max-width: 767px) {
+  .shop-page .flavor-showcase-section {
+    max-width: none !important;
+    margin-left: -40px !important;
+    margin-right: -40px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+}

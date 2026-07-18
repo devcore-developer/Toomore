@@ -119,3 +119,19 @@ export const FAQS: FAQ[] = [
     answer: 'Our Peanut Butter flavor is currently one of our customer favorites thanks to its perfect balance of creamy, nutty richness and naturally sweet Medjool dates.',
   },
 ]
+
+export const FLAVORS = [
+  { name: 'Hazelnut Chocolate', description: 'Milk chocolate filled with roasted hazelnut cream.', image: '/images/flavor-hazelnut.png', badge: 'BEST SELLER', type: 'Milk Chocolate' },
+  { name: 'Dark Mocha', description: 'Dark chocolate blended with coffee & cocoa.', image: '/images/flavor-mocha.png', badge: 'SIGNATURE', type: 'Dark Chocolate' },
+  { name: 'White Mocha', description: 'Creamy white chocolate with hazelnut coffee.', image: '/images/flavor-white.png', badge: 'NEW', type: 'White Chocolate' },
+  { name: 'Peanut Butter', description: 'Milk chocolate with peanut butter & crunch.', image: '/images/flavor-peanut.png', badge: 'LIMITED', type: 'Crunchy' },
+]
+
+export const SINGLE_FLAVOR_PRICE = 40
+
+export const BOX_PRICES: Record<number, number> = {
+  4: 160,
+  8: 280,
+  12: 400,
+  16: 520,
+}

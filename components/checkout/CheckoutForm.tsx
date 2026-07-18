@@ -56,6 +56,16 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
         </div>
       </div>
 
+            {/* Shipping Note */}
+      <div className="checkout-shipping-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <p>Shipping fees are up to EGP 50 depending on your delivery location. The exact shipping cost will be confirmed with you via WhatsApp after placing your order.</p>
+      </div>
+
       {/* Customer Info */}
       <h3 className="checkout-section-heading">Delivery Details</h3>
       <div className="checkout-fields">

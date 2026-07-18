@@ -7,7 +7,7 @@ import {
 const SOCIAL_LINKS = [
   {
     label: 'Instagram',
-    href: 'https://www.instagram.com/toomoore.eg/',
+    href: 'https://www.instagram.com/toomore.eg?igsh=MXM1NWtkYXE5eHBlYg==',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="1.5" />
@@ -27,7 +27,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: 'TikTok',
-    href: 'https://www.tiktok.com/@toomoore',
+    href: 'https://www.tiktok.com/@toomore.eg?_r=1&_t=ZS-988tN8rAW5S',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.3z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -49,7 +49,7 @@ const SOCIAL_LINKS = [
 const CONTACT_INFO = [
   { label: 'Whatsapp', href: 'https://wa.me/201556847277' },
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61587802923596' },
-  { label: 'Instagram', href: 'https://www.instagram.com/toomoore.eg/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/toomore.eg?igsh=MXM1NWtkYXE5eHBlYg==' },
 ]
 
 // Shop: replace "Gift Boxes" with "Gifting"
