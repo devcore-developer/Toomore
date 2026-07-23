@@ -18,7 +18,6 @@ const cormorant = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
-// ⚠️ تم تصحيح الرابط إلى دومينك الحقيقي
 const SITE_URL = 'https://www.toomoredates.shop'
 
 export const metadata: Metadata = {
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'TOOMORE',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/og-image.png', // تأكد إن الصورة دي موجودة في مجلد public/images
         width: 1200,
         height: 630,
         alt: 'TOOMORE — Premium Stuffed Medjool Dates',
@@ -61,9 +60,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <head>
         <meta name="theme-color" content="#0E5B4F" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        {/* ⬇️ تم إضافة كود التحقق من جوجل هنا ⬇️ */}
+        {/* كود التحقق من جوجل فقط هو الموجود هنا، الفافيكون يعمل تلقائياً */}
         <meta name="google-site-verification" content="voxlv21v9YstqHZSODz8nwTVbccksfvGZknK-VSRWtM" />
       </head>
       <body>
