@@ -1,11 +1,18 @@
+'use client'
+
 import Link from 'next/link'
 import FadeIn from '@/components/shared/FadeIn'
+import { useCMS } from '@/hooks/useCMS'
 
 export default function Hero() {
+  const { get } = useCMS()
+
+  const heroDesktop = get('hero_desktop', '/images/hero-product.png')
+  const heroMobile = get('hero_mobile', '/images/hero-mobile.png')
+
   return (
     <>
       <style>{`
-        /* ===== MOBILE HERO BUTTONS ===== */
         .hero-mob-cta {
           display: flex;
           flex-direction: column;
@@ -13,7 +20,6 @@ export default function Hero() {
           gap: 14px;
           margin-top: 32px;
         }
-
         .hero-mob-shop {
           width: 100%;
           height: 52px;
@@ -34,11 +40,7 @@ export default function Hero() {
           box-shadow: 0 4px 16px rgba(198,90,46,0.25);
           text-decoration: none;
         }
-        .hero-mob-shop:active {
-          transform: scale(0.97);
-        }
-
-        /* ===== WHATSAPP PILL BUTTON ===== */
+        .hero-mob-shop:active { transform: scale(0.97); }
         .hero-mob-wa {
           width: 100%;
           height: 52px;
@@ -61,7 +63,6 @@ export default function Hero() {
           position: relative;
           padding: 0 20px;
         }
-
         .hero-mob-wa-icon-wrap {
           width: 32px;
           height: 32px;
@@ -73,14 +74,12 @@ export default function Hero() {
           justify-content: center;
           transition: background 0.25s ease;
         }
-
         .hero-mob-wa-icon {
           width: 17px;
           height: 17px;
           fill: #0F5B4C;
           transition: fill 0.25s ease;
         }
-
         .hero-mob-wa-arrow {
           width: 26px;
           height: 26px;
@@ -93,73 +92,47 @@ export default function Hero() {
           transition: border-color 0.25s ease, transform 0.25s ease;
           margin-left: auto;
         }
-
         .hero-mob-wa-arrow svg {
           width: 13px;
           height: 13px;
           stroke: #0F5B4C;
           fill: none;
-          stroke-width: 2;
-          stroke-linecap: round;
-          stroke-linejoin: round;
+          strokeWidth: 2;
+          strokeLinecap: round;
+          strokeLinejoin: round;
           transition: stroke 0.25s ease;
         }
-
-        /* Hover (for desktop testing / future) */
         .hero-mob-wa:hover {
           background: #0F5B4C;
           border-color: #0F5B4C;
           color: #fff;
           box-shadow: 0 6px 24px rgba(15,91,76,0.18);
         }
-        .hero-mob-wa:hover .hero-mob-wa-icon-wrap {
-          background: rgba(255,255,255,0.2);
-        }
-        .hero-mob-wa:hover .hero-mob-wa-icon {
-          fill: #fff;
-        }
-        .hero-mob-wa:hover .hero-mob-wa-arrow {
-          border-color: rgba(255,255,255,0.3);
-          transform: translateX(4px);
-        }
-        .hero-mob-wa:hover .hero-mob-wa-arrow svg {
-          stroke: #fff;
-        }
-
-        /* Active (touch) */
+        .hero-mob-wa:hover .hero-mob-wa-icon-wrap { background: rgba(255,255,255,0.2); }
+        .hero-mob-wa:hover .hero-mob-wa-icon { fill: #fff; }
+        .hero-mob-wa:hover .hero-mob-wa-arrow { border-color: rgba(255,255,255,0.3); transform: translateX(4px); }
+        .hero-mob-wa:hover .hero-mob-wa-arrow svg { stroke: #fff; }
         .hero-mob-wa:active {
           background: #0F5B4C;
           border-color: #0F5B4C;
           color: #fff;
           transform: scale(0.97);
         }
-        .hero-mob-wa:active .hero-mob-wa-icon-wrap {
-          background: rgba(255,255,255,0.2);
-        }
-        .hero-mob-wa:active .hero-mob-wa-icon {
-          fill: #fff;
-        }
-        .hero-mob-wa:active .hero-mob-wa-arrow {
-          border-color: rgba(255,255,255,0.3);
-        }
-        .hero-mob-wa:active .hero-mob-wa-arrow svg {
-          stroke: #fff;
-        }
-
-        /* Hide desktop buttons on mobile, hide mobile CTA on desktop */
-        @media (max-width: 767px) {
-          .hero-btns { display: none !important; }
-        }
-        @media (min-width: 768px) {
-          .hero-mob-cta { display: none !important; }
-        }
+        .hero-mob-wa:active .hero-mob-wa-icon-wrap { background: rgba(255,255,255,0.2); }
+        .hero-mob-wa:active .hero-mob-wa-icon { fill: #fff; }
+        .hero-mob-wa:active .hero-mob-wa-arrow { border-color: rgba(255,255,255,0.3); }
+        .hero-mob-wa:active .hero-mob-wa-arrow svg { stroke: #fff; }
+        @media (max-width: 767px) { .hero-btns { display: none !important; } }
+        @media (min-width: 768px) { .hero-mob-cta { display: none !important; } }
       `}</style>
 
-      <section className="hero-section">
-        {/* Mobile Image Container */}
+      <section
+        className="hero-section"
+        style={{ backgroundImage: `url(${heroDesktop})` }}
+      >
         <div className="hero-mob-img-wrap">
           <img
-            src="/images/hero-mobile.png"
+            src={heroMobile}
             alt="Toomore Premium Dates"
             className="hero-mob-img"
           />
@@ -187,7 +160,6 @@ export default function Hero() {
             </p>
           </FadeIn>
 
-          {/* ===== MOBILE CTA ===== */}
           <FadeIn delay={0.3}>
             <div className="hero-mob-cta">
               <Link href="/shop" className="hero-mob-shop">
@@ -219,7 +191,6 @@ export default function Hero() {
             </div>
           </FadeIn>
 
-          {/* ===== DESKTOP CTA (original) ===== */}
           <FadeIn delay={0.3}>
             <div className="hero-btns">
               <Link href="/shop" className="btn-primary">

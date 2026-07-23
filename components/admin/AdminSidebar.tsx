@@ -13,6 +13,11 @@ const links = [
   { href: '/admin/orders', label: 'Orders', icon: '☰' },
   { href: '/admin/gifts', label: 'Gift Requests', icon: '◐' },
   { href: '/admin/testimonials', label: 'Testimonials', icon: '❝' },
+  {
+    label: 'Website Content',
+    href: '/admin/content',
+    icon: '🎨',
+  },
 ]
 
 interface AdminSidebarProps {

@@ -1,10 +1,15 @@
-import Link from 'next/link'
-import {
-  FOOTER_SHOP_LINKS,
-  FOOTER_COMPANY_LINKS,
-} from '@/lib/constants'
+'use client'
 
-const SOCIAL_LINKS = [
+import Link from 'next/link'
+import { useCMS } from '@/hooks/useCMS'
+
+const DEFAULT_SHOP_LINKS = [
+  { label: 'Best Sellers', href: '/shop?filter=best-seller' },
+  { label: 'Mixed Boxes', href: '/shop?category=mixed' },
+  { label: 'Gifting', href: '/gifting' },
+]
+
+const DEFAULT_SOCIALS = [
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/toomore.eg?igsh=MXM1NWtkYXE5eHBlYg==',
@@ -46,35 +51,35 @@ const SOCIAL_LINKS = [
   },
 ]
 
-const CONTACT_INFO = [
-  { label: 'Whatsapp', href: 'https://wa.me/201556847277' },
+const DEFAULT_CONTACT = [
+  { label: 'WhatsApp', href: 'https://wa.me/201556847277' },
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61587802923596' },
   { label: 'Instagram', href: 'https://www.instagram.com/toomore.eg?igsh=MXM1NWtkYXE5eHBlYg==' },
 ]
 
-// Shop: replace "Gift Boxes" with "Gifting"
-const shopLinks = [
-  ...FOOTER_SHOP_LINKS.filter(l => l.label !== 'Gift Boxes'),
-  { label: 'Gifting', href: '/gifting' }
-]
-
-// Company: remove "Gifting" completely
-const companyLinks = FOOTER_COMPANY_LINKS.filter(l => l.label.toLowerCase() !== 'gifting')
-
 export default function Footer() {
+  const { get, getArray } = useCMS()
+
+  const shopLinks = getArray('footer_shop', DEFAULT_SHOP_LINKS)
+  const socials = getArray('footer_socials', DEFAULT_SOCIALS)
+  const contact = getArray('footer_contact', DEFAULT_CONTACT)
+  const brandName = get('footer_brand_name', 'TOO')
+  const brandSpan = 'MORE'
+  const tagline = get('footer_tagline', 'Premium stuffed Mejdool dates, crafted with love in Egypt.')
+  const copyright = get('footer_copyright', '© 2026 TOOMORE. powered by DevCore')
+  const poweredBy = get('footer_powered_by', '')
+
   return (
     <footer className="main-footer">
       <div className="footer-top">
         {/* Brand column */}
         <div>
           <div className="footer-brand-name">
-            TOO<span>MORE</span>
+            {brandName}<span>{brandSpan}</span>
           </div>
-          <p className="footer-tagline">
-            Premium stuffed Mejdool dates, crafted with love in Egypt.
-          </p>
+          <p className="footer-tagline">{tagline}</p>
           <div className="footer-social">
-            {SOCIAL_LINKS.map((social) => (
+            {socials.map((social: any) => (
               <a
                 key={social.label}
                 href={social.href}
@@ -93,7 +98,7 @@ export default function Footer() {
         <div className="footer-col">
           <h5>Shop</h5>
           <ul>
-            {shopLinks.map((link) => (
+            {shopLinks.map((link: any) => (
               <li key={link.href}>
                 <Link href={link.href}>{link.label}</Link>
               </li>
@@ -101,15 +106,14 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Company column */}
+        {/* Company column - removed hardcoded, could also come from CMS if needed */}
         <div className="footer-col">
           <h5>Company</h5>
           <ul>
-            {companyLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href}>{link.label}</Link>
-              </li>
-            ))}
+            <li><Link href="/story">Our Story</Link></li>
+            <li><Link href="/gifting">Gifting</Link></li>
+            <li><Link href="/faq">FAQ</Link></li>
+            <li><Link href="/#why-toomore">Why Us</Link></li>
           </ul>
         </div>
 
@@ -117,7 +121,7 @@ export default function Footer() {
         <div className="footer-col">
           <h5>Contact</h5>
           <ul>
-            {CONTACT_INFO.map((item) => (
+            {contact.map((item: any) => (
               <li key={item.label}>
                 <a
                   href={item.href}
@@ -139,8 +143,8 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span>© 2026 TOOMORE. All rights reserved.</span>
-        <span>Supported by DevCore</span>
+        <span>{copyright}</span>
+        {poweredBy && <span>{poweredBy}</span>}
       </div>
     </footer>
   )

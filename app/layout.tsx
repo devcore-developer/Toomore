@@ -18,7 +18,8 @@ const cormorant = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
-const SITE_URL = 'https://toomore.vercel.app'
+// ⚠️ تم تصحيح الرابط إلى دومينك الحقيقي
+const SITE_URL = 'https://www.toomoredates.shop'
 
 export const metadata: Metadata = {
   title: 'TOOMORE — Premium Stuffed Medjool Dates',
@@ -61,7 +62,9 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#0E5B4F" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        {/* ⬇️ تم إضافة كود التحقق من جوجل هنا ⬇️ */}
+        <meta name="google-site-verification" content="voxlv21v9YstqHZSODz8nwTVbccksfvGZknK-VSRWtM" />
       </head>
       <body>
         <Providers>

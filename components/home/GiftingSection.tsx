@@ -62,7 +62,9 @@ export default function GiftingSection() {
       <div className="gift-mob">
         <div className="gift-mob-img-wrap">
           <img
-            src="/images/gifting-mobile.png"
+            src={(() => {
+              try { return require('@/lib/cms-config').CMS_DEFAULTS.gifting_mobile } catch { return '/images/gifting-mobile.png' }
+            })()}
             alt="TOOMORE Custom Gifting"
             className="gift-mob-img"
           />
