@@ -37,7 +37,11 @@ export const CMS_SECTIONS: CMSSectionConfig[] = [
       { key: 'bestseller_desktop', label: 'Desktop Banner', type: 'image', recommendedWidth: 1440, recommendedHeight: 730, aspectRatio: '~2:1', maxFileSize: 5, formats: 'JPG / PNG / WebP', defaultValue: '/images/bestseller-bg.png' },
       { key: 'bestseller_mobile', label: 'Mobile Banner', type: 'image', recommendedWidth: 750, recommendedHeight: 1200, aspectRatio: '5:8', maxFileSize: 5, formats: 'JPG / PNG / WebP', defaultValue: '/images/bestseller-mobile.png' },
       { key: 'bestseller_title', label: 'Title', type: 'text', defaultValue: 'The Signature Collection' },
-      { 'key': 'bestseller_subtitle', label: 'Subtitle', type: 'textarea', defaultValue: 'Our most loved stuffed Medjool date, handcrafted with premium ingredients.' },
+      { key: 'bestseller_subtitle', label: 'Subtitle', type: 'textarea', defaultValue: 'Our most loved stuffed Medjool date, handcrafted with premium ingredients.' },
+      
+      // أضف هذا السطر الجديد هنا ⬇️
+      { key: 'bestseller_price', label: 'Price (EGP)', type: 'text', defaultValue: '280' },
+
       { key: 'bestseller_cta_text', label: 'CTA Button Text', type: 'text', defaultValue: 'Order Now' },
       { key: 'bestseller_cta_link', label: 'CTA Button Link', type: 'text', defaultValue: '/shop' },
     ],

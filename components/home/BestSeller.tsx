@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import FadeIn from '@/components/shared/FadeIn'
 import FlavorPickerModal from '@/components/shared/FlavorPickerModal'
+import { useCMS } from '@/hooks/useCMS'
 
 const features = [
   {
@@ -39,6 +40,11 @@ const features = [
 
 export default function BestSeller() {
   const [showFlavorPicker, setShowFlavorPicker] = useState(false)
+  const { get } = useCMS()
+
+  // جلب البيانات من لوحة التحكم (مع وضع قيم احتياطية في حال عدم وجودها)
+  const bestsellerMobile = get('bestseller_mobile', '/images/bestseller-mobile.png')
+  const bestsellerPrice = get('bestseller_price', '280')
 
   return (
     <>
@@ -83,7 +89,8 @@ export default function BestSeller() {
               </button>
               <div className="price">
                 <span className="currency">EGP</span>
-                <span className="amount">280</span>
+                {/* تم تغيير الرقم 280 إلى المتغير الديناميكي */}
+                <span className="amount">{bestsellerPrice}</span>
               </div>
             </div>
           </FadeIn>
@@ -92,8 +99,9 @@ export default function BestSeller() {
         {/* ===== MOBILE VERSION ===== */}
         <div className="bs-mob">
           <div className="bs-mob-img-wrap">
+            {/* تم تغيير الصورة الثابتة إلى المتغير الديناميكي */}
             <img
-              src="/images/bestseller-mobile.png"
+              src={bestsellerMobile}
               alt="TOOMORE 8-Piece Package"
               className="bs-mob-img"
             />
@@ -117,7 +125,8 @@ export default function BestSeller() {
               <div className="bs-mob-cta-row">
                 <div className="bs-mob-price">
                   <span className="bs-mob-currency">EGP</span>
-                  <span className="bs-mob-amount">280</span>
+                  {/* تم تغيير الرقم 280 إلى المتغير الديناميكي */}
+                  <span className="bs-mob-amount">{bestsellerPrice}</span>
                 </div>
                 <button className="bs-mob-btn" onClick={() => setShowFlavorPicker(true)}>
                   Customize & Add →
@@ -136,7 +145,8 @@ export default function BestSeller() {
             id: 'bestseller-8pc',
             title: '8-Piece Package',
             pieces: 8,
-            price: 280
+            // تم تمرير السعر كرقم للمودال
+            price: Number(bestsellerPrice) || 280
           }}
           onClose={() => setShowFlavorPicker(false)}
         />

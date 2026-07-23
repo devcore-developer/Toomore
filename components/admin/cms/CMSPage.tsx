@@ -53,8 +53,8 @@ export default function CMSPage() {
       if (res.ok) {
         setData(prev => ({ ...prev, [sectionId]: sectionData }))
         setHasUnsaved(false)
-        // تم تصحيح الخطأ هنا: تغيير section.title إلى sectionId
-        setToast({ message: `Section ${sectionId} saved successfully!`, type: 'success' })
+        // تم تصحيح الرسالة هنا لتطبع اسم القسم الحقيقي
+        setToast({ message: `Section "${sectionId}" saved successfully!`, type: 'success' })
       } else {
         setToast({ message: 'Failed to save changes', type: 'error' })
       }
