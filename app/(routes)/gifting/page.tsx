@@ -38,7 +38,7 @@ export default function GiftingPage() {
             <div className="occasions">
               {OCCASIONS.map((occ) => (<Badge key={occ} variant="occasion">{occ}</Badge>))}
             </div>
-            <button className="btn-gold" onClick={() => setShowForm(true)}>Request Custom Order</button>
+            <button className="btn-gold" style={{ marginTop: '40px' }} onClick={() => setShowForm(true)}>Request Custom Order</button>
           </div>
         </FadeIn>
       </div>

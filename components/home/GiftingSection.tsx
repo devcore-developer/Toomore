@@ -6,13 +6,12 @@ import SectionTitle from '@/components/shared/SectionTitle'
 import Badge from '@/components/ui/Badge'
 import GiftForm from '@/components/gifting/GiftForm'
 import { OCCASIONS } from '@/lib/constants'
-import { useCMS } from '@/hooks/useCMS' // <-- ADDED
+import { useCMS } from '@/hooks/useCMS'
 
 export default function GiftingSection() {
-  const { get } = useCMS() // <-- ADDED
+  const { get } = useCMS()
   const [showForm, setShowForm] = useState(false)
 
-  // <-- ADDED: Fetch images from CMS
   const giftingMobile = get('gifting_mobile', '/images/gifting-mobile.png')
 
   useEffect(() => {
@@ -30,10 +29,7 @@ export default function GiftingSection() {
   return (
     <section className="gifting-section">
       {/* ===== DESKTOP VERSION ===== */}
-      {/* Note: If your CSS uses a background image for .gifting-desktop, 
-          you will need to pass the desktop image via inline style here as well */}
       <div className="gifting-desktop" style={{ backgroundImage: `url(${get('gifting_desktop', '/images/gifting-bg.png')})` }}>
-        <div className="gifting-overlay" />
         <FadeIn>
           <div className="gifting-text-col">
             <SectionTitle tag="Custom Gifting" title="A New Kind of Sweet Gift." light />
@@ -41,7 +37,7 @@ export default function GiftingSection() {
             <div className="occasions">
               {OCCASIONS.map((occ) => (<Badge key={occ} variant="occasion">{occ}</Badge>))}
             </div>
-            <button className="btn-gold" onClick={() => setShowForm(true)}>Request Custom Order</button>
+            <button className="btn-gold" style={{ marginTop: '40px' }} onClick={() => setShowForm(true)}>Request Custom Order</button>
           </div>
         </FadeIn>
       </div>
@@ -49,7 +45,6 @@ export default function GiftingSection() {
       {/* ===== MOBILE VERSION ===== */}
       <div className="gift-mob">
         <div className="gift-mob-img-wrap">
-          {/* <-- CHANGED: Replaced require hack with CMS variable */}
           <img src={giftingMobile} alt="TOOMORE Custom Gifting" className="gift-mob-img" />
         </div>
 

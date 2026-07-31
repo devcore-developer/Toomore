@@ -1503,10 +1503,6 @@ section {
    ======================================== */
 .gifting-section {
   position: relative;
-  background-image: url('/images/gifting-bg.png');
-  background-size: 100% auto;
-  background-position: center center;
-  background-repeat: no-repeat;
   min-height: 700px;
   display: flex;
   align-items: center;
@@ -1516,27 +1512,21 @@ section {
   padding: 0;
 }
 
-.gifting-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to left,
-    rgba(10, 4, 2, 0.1) 0%,
-    rgba(10, 4, 2, 0.1) 40%,
-    rgba(10, 4, 2, 0.1) 65%,
-    transparent 100%
-  );
-  z-index: 1;
-  pointer-events: none;
+.gifting-desktop {
+  display: block;
+  width: 100%;
+  min-height: inherit;
+  background-size: 100% auto;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-
 
 .gifting-text-col {
   position: relative;
   z-index: 2;
   max-width: 520px;
-  padding: 50px var(--section-px, 48px) 80px 40px;
-  margin-left: auto;
+  padding: 100px var(--section-px, 48px) 80px 40px;
+  margin-right: auto;
 }
 
 .gifting-sub {
