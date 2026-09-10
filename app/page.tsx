@@ -41,7 +41,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero cmsData={cmsData} />
-      <FlavorShowcase />
+      <FlavorShowcase cmsData={cmsData} />
       <BestSeller cmsData={cmsData} />
       <MixedBoxes />
       <WhyToomore />

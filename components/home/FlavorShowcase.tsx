@@ -1,10 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
 import { useCMS } from '@/hooks/useCMS'
-import { CMS_DEFAULTS } from '@/lib/cms-config'
 
 const DEFAULT_FLAVORS = [
   { name: 'Hazelnut Chocolate', image: '/images/flavor-hazelnut.png', desc: 'Milk chocolate filled with roasted hazelnut cream.', badge: 'BEST SELLER', type: 'Milk Chocolate' },
@@ -18,16 +16,24 @@ interface FlavorShowcaseProps {
   title?: string
   subtitle?: string
   onFlavorClick?: (flavor: any) => void
+  cmsData?: Record<string, any> // تم إضافة هذا الـ Prop
 }
 
 export default function FlavorShowcase({
   tag = 'Our Flavors',
   title = 'Exceptional Flavors, Perfectly Crafted.',
   subtitle = 'Choose your favorite handcrafted Medjool date flavor.',
-  onFlavorClick
+  onFlavorClick,
+  cmsData // استقبال البيانات من السيرفر
 }: FlavorShowcaseProps) {
+  // نحتفظ بالـ hook لصفحات أخرى مثل الشوب (حيث لا يتم تمرير cmsData)
   const { getArray } = useCMS()
-  const flavors = getArray('flavors', DEFAULT_FLAVORS)
+  
+  // المنطق الجديد: إذا كانت بيانات السيرفر موجودة، استخدمها فوراً.
+  // إذا لم تكن موجودة (مثل صفحة الشوب)، استخدم الـ hook كالمعتاد.
+  const flavors = Array.isArray(cmsData?.flavors) && cmsData.flavors.length > 0
+    ? cmsData.flavors
+    : getArray('flavors', DEFAULT_FLAVORS)
 
   return (
     <section className="flavor-showcase-section">
