@@ -130,7 +130,7 @@ export default function MobileNav() {
                     <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
-                <a href="https://wa.me/201556847277" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <a href="https://wa.me/201042739342" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                   <svg viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C6.477 2 2 6.477 2 12C2 13.816 2.492 15.518 3.352 16.972L2 22L7.14 20.672C8.544 21.452 10.17 21.9 12 21.9C17.523 21.9 22 17.423 22 11.9C22 6.377 17.523 2 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

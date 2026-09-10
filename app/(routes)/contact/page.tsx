@@ -4,7 +4,7 @@ const CONTACT_METHODS = [
   {
     label: 'WhatsApp',
     value: '+20 15 56847277',
-    href: 'https://wa.me/201556847277',
+    href: 'https://wa.me/201042739342',
     description: 'Chat with us directly for the fastest response.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none">

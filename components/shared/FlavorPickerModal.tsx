@@ -2,13 +2,7 @@
 
 import { useState } from 'react'
 import { useCartStore } from '@/store/cart-store'
-
-const flavors = [
-  'HAZELNUT CHOCOLATE',
-  'DARK MOCHA',
-  'WHITE MOCHA',
-  'PEANUT BUTTER'
-]
+import { FLAVORS } from '@/lib/constants' // تم استيراد النكهات من الكونفيج
 
 interface BoxProps {
   id: string
@@ -25,7 +19,10 @@ interface FlavorPickerModalProps {
 export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalProps) {
   const addItem = useCartStore((s) => s.addItem)
   
-  // بنجهز الكميات بحيث كل الأطعمة بتبدأ بصفر
+  // استخدام النكهات من lib/constants وتحويلها للأسماء الكبيرة
+  const flavors = FLAVORS.map(f => f.name.toUpperCase())
+  
+  // بناء الحالة المبدئية بناءً على النكهات المستوردة
   const initialQuantities: Record<string, number> = {}
   flavors.forEach(f => initialQuantities[f] = 0)
   
@@ -37,19 +34,14 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
   const updateQty = (flavor: string, delta: number) => {
     setQuantities(prev => {
       const newQty = Math.max(0, (prev[flavor] || 0) + delta)
-      
-      // لو الزيادة هتخلي العدد يزيد عن حد البوكس، ماتعملش حاجة
       const currentTotal = Object.values(prev).reduce((sum, q) => sum + q, 0) - (prev[flavor] || 0) + newQty
       if (currentTotal > box.pieces) return prev
-      
       return { ...prev, [flavor]: newQty }
     })
   }
 
   const handleAdd = () => {
     if (!isValid) return
-
-    // بجهز مصفوفة الأطعمة النهائية للسلة
     const selectedFlavors: string[] = []
     for (const [flavor, qty] of Object.entries(quantities)) {
       for (let i = 0; i < qty; i++) {
@@ -62,7 +54,7 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
       name: box.title,
       description: `Custom: ${Object.entries(quantities).filter(([, q]) => q > 0).map(([f, q]) => `${q}x ${f}`).join(', ')}`,
       price: box.price,
-      image: undefined, // ممكن تضيف صورة افتراضية هنا لو حابب
+      image: undefined,
       flavors: selectedFlavors,
       category: 'mixed' as const,
       isBestSeller: false,

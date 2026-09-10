@@ -5,6 +5,7 @@ import Input from '@/components/ui/Input'
 import PaymentMethods from './PaymentMethods'
 import { CartItem } from '@/lib/types'
 import { formatPrice } from '@/lib/utils'
+import { INSTAPAY_LINK } from '@/lib/constants' // استيراد الرابط
 
 interface CheckoutFormProps {
   items: CartItem[]
@@ -27,6 +28,7 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
   const [paymentMethod, setPaymentMethod] = useState('cod')
   const [notes, setNotes] = useState('')
   const [paymentScreenshot, setPaymentScreenshot] = useState<string | undefined>(undefined)
+  const [instapayRedirected, setInstapayRedirected] = useState(false)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -37,11 +39,27 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
     }
   }
 
+  const handlePaymentChange = (method: string) => {
+    setPaymentMethod(method)
+    if (method === 'instapay') {
+      // فتح رابط InstaPay فور اختياره
+      if (INSTAPAY_LINK) {
+        window.open(INSTAPAY_LINK, '_blank')
+        setInstapayRedirected(true)
+      } else {
+        alert('InstaPay link is not configured. Please add it in lib/constants.ts')
+      }
+    } else {
+      setInstapayRedirected(false)
+    }
+  }
+
   const requiresTransfer = paymentMethod === 'instapay' || paymentMethod === 'vodafone_cash'
+  const showInstapayUpload = paymentMethod === 'instapay' && instapayRedirected
+  const showVodafoneUpload = paymentMethod === 'vodafone_cash'
 
   return (
     <div className="checkout-form">
-      {/* Order Summary */}
       <div className="checkout-summary">
         <h3 className="checkout-section-heading">Order Summary</h3>
         {items.map((item) => (
@@ -56,7 +74,6 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
         </div>
       </div>
 
-            {/* Shipping Note */}
       <div className="checkout-shipping-note">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
@@ -66,7 +83,6 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
         <p>Shipping fees are up to EGP 50 depending on your delivery location. The exact shipping cost will be confirmed with you via WhatsApp after placing your order.</p>
       </div>
 
-      {/* Customer Info */}
       <h3 className="checkout-section-heading">Delivery Details</h3>
       <div className="checkout-fields">
         <Input label="Full Name" placeholder="Your full name" value={name} onChange={(e) => setName((e.target as HTMLInputElement).value)} />
@@ -75,11 +91,38 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
         <Input label="Notes (optional)" placeholder="Any special instructions..." value={notes} onChange={(e) => setNotes((e.target as HTMLTextAreaElement).value)} multiline rows={2} />
       </div>
 
-      {/* Payment */}
-      <PaymentMethods selected={paymentMethod} onChange={setPaymentMethod} />
+      <PaymentMethods selected={paymentMethod} onChange={handlePaymentChange} />
 
-      {/* Transfer Details & Screenshot Upload */}
-      {requiresTransfer && (
+      {/* InstaPay Upload Flow - يظهر فقط بعد فتح الرابط */}
+      {showInstapayUpload && (
+        <div className="checkout-transfer-box">
+          <div className="checkout-transfer-info">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <div>
+              <p>Please transfer exactly <strong>{formatPrice(total)}</strong> via the InstaPay app.</p>
+              <p className="checkout-transfer-note">If the InstaPay app didn't open, please ensure the link is configured. Upload a screenshot of the payment below to confirm your order.</p>
+            </div>
+          </div>
+          
+          <label className="checkout-upload-btn">
+            {paymentScreenshot ? '✓ Screenshot Uploaded' : 'Upload Screenshot'}
+            <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
+          </label>
+          
+          {paymentScreenshot && (
+            <div className="checkout-upload-preview">
+              <img src={paymentScreenshot} alt="Payment Screenshot" />
+              <button type="button" onClick={() => setPaymentScreenshot(undefined)}>Remove</button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Vodafone Cash Flow - يظل كما هو */}
+      {showVodafoneUpload && (
         <div className="checkout-transfer-box">
           <div className="checkout-transfer-info">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -88,19 +131,14 @@ export default function CheckoutForm({ items, total, onSubmit, isSubmitting }: C
             </svg>
             <div>
               <p>Please transfer exactly <strong>{formatPrice(total)}</strong> to the following number:</p>
-              <p className="checkout-transfer-number">01012345678</p> {/* غيّر الرقم ده لرقمك الحقيقي */}
+              <p className="checkout-transfer-number">01042739342</p>
               <p className="checkout-transfer-note">Upload a screenshot of the payment below to confirm your order.</p>
             </div>
           </div>
           
           <label className="checkout-upload-btn">
             {paymentScreenshot ? '✓ Screenshot Uploaded' : 'Upload Screenshot'}
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleFileChange} 
-              style={{ display: 'none' }}
-            />
+            <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
           </label>
           
           {paymentScreenshot && (

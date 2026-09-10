@@ -6,13 +6,11 @@ import SectionTitle from '@/components/shared/SectionTitle'
 import Badge from '@/components/ui/Badge'
 import GiftForm from '@/components/gifting/GiftForm'
 import { OCCASIONS } from '@/lib/constants'
-import { useCMS } from '@/hooks/useCMS'
 
-export default function GiftingSection() {
-  const { get } = useCMS()
+export default function GiftingSection({ cmsData = {} }: { cmsData?: Record<string, any> }) {
   const [showForm, setShowForm] = useState(false)
-
-  const giftingMobile = get('gifting_mobile', '/images/gifting-mobile.png')
+  const giftingMobile = cmsData.gifting_mobile || '/images/gifting-mobile.png'
+  const giftingDesktop = cmsData.gifting_desktop || '/images/gifting-bg.png'
 
   useEffect(() => {
     if (showForm) { document.body.style.overflow = 'hidden' } 
@@ -28,8 +26,7 @@ export default function GiftingSection() {
 
   return (
     <section className="gifting-section">
-      {/* ===== DESKTOP VERSION ===== */}
-      <div className="gifting-desktop" style={{ backgroundImage: `url(${get('gifting_desktop', '/images/gifting-bg.png')})` }}>
+      <div className="gifting-desktop" style={{ backgroundImage: `url(${giftingDesktop})` }}>
         <FadeIn>
           <div className="gifting-text-col">
             <SectionTitle tag="Custom Gifting" title="A New Kind of Sweet Gift." light />
@@ -42,12 +39,10 @@ export default function GiftingSection() {
         </FadeIn>
       </div>
 
-      {/* ===== MOBILE VERSION ===== */}
       <div className="gift-mob">
         <div className="gift-mob-img-wrap">
           <img src={giftingMobile} alt="TOOMORE Custom Gifting" className="gift-mob-img" />
         </div>
-
         <div className="gift-mob-content">
           <FadeIn><span className="gift-mob-label">CUSTOM GIFTING</span></FadeIn>
           <FadeIn delay={0.1}><h2 className="gift-mob-heading">A New Kind of<br />Sweet Gift.</h2></FadeIn>
@@ -59,7 +54,6 @@ export default function GiftingSection() {
         </div>
       </div>
 
-      {/* ===== MODAL ===== */}
       {showForm && (
         <div className="gifting-modal-overlay" onClick={() => setShowForm(false)} role="dialog" aria-modal="true" aria-label="Custom order request">
           <div className="gifting-modal" onClick={(e) => e.stopPropagation()}>

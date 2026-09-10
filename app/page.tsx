@@ -10,13 +10,28 @@ import GiftingSection from '@/components/home/GiftingSection'
 import FAQSection from '@/components/home/FAQSection'
 import InstagramSection from '@/components/home/InstagramSection'
 import FinalCTA from '@/components/home/FinalCTA'
+import { adminDb } from '@/lib/firebase-admin'
 
-export default function HomePage() {
+// جلب البيانات من السيرفر مباشرة قبل إرسال الـ HTML للمتصفح
+async function getCMSData() {
+  try {
+    const docSnap = await adminDb.doc('cms/content').get()
+    return docSnap.exists ? docSnap.data() : {}
+  } catch (error) {
+    console.error('Failed to fetch CMS data on server:', error)
+    return {}
+  }
+}
+
+export default async function HomePage() {
+  // البيانات تُجلب على السيرفر وتُحقن في الكمبوننتس (يمنع وميض الصور القديمة)
+  const cmsData = await getCMSData()
+
   return (
     <>
-      <Hero />
+      <Hero cmsData={cmsData} />
       <FlavorShowcase />
-      <BestSeller />
+      <BestSeller cmsData={cmsData} />
       <MixedBoxes />
       <WhyToomore />
       <StorySection />
@@ -29,7 +44,7 @@ export default function HomePage() {
         ]}
       />
       <Testimonials />
-      <GiftingSection />
+      <GiftingSection cmsData={cmsData} />
       <FAQSection limit={5} />
       <InstagramSection />
       <FinalCTA />

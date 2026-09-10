@@ -38,10 +38,7 @@ export const CMS_SECTIONS: CMSSectionConfig[] = [
       { key: 'bestseller_mobile', label: 'Mobile Banner', type: 'image', recommendedWidth: 750, recommendedHeight: 1200, aspectRatio: '5:8', maxFileSize: 5, formats: 'JPG / PNG / WebP', defaultValue: '/images/bestseller-mobile.png' },
       { key: 'bestseller_title', label: 'Title', type: 'text', defaultValue: 'The Signature Collection' },
       { key: 'bestseller_subtitle', label: 'Subtitle', type: 'textarea', defaultValue: 'Our most loved stuffed Medjool date, handcrafted with premium ingredients.' },
-      
-      // أضف هذا السطر الجديد هنا ⬇️
       { key: 'bestseller_price', label: 'Price (EGP)', type: 'text', defaultValue: '280' },
-
       { key: 'bestseller_cta_text', label: 'CTA Button Text', type: 'text', defaultValue: 'Order Now' },
       { key: 'bestseller_cta_link', label: 'CTA Button Link', type: 'text', defaultValue: '/shop' },
     ],
@@ -141,11 +138,13 @@ export const CMS_DEFAULTS: Record<string, any> = {
     { name: 'Dark Mocha', image: '/images/flavor-mocha.png', desc: 'Dark chocolate blended with coffee & cocoa.' },
     { name: 'White Mocha', image: '/images/flavor-white.png', desc: 'Creamy white chocolate with hazelnut coffee.' },
     { name: 'Peanut Butter', image: '/images/flavor-peanut.png', desc: 'Milk chocolate with peanut butter & crunch.' },
+    { name: 'Lotus', image: '/images/flavor-lotus.png', desc: 'Milk chocolate filled with crushed Lotus biscuit.' },
+    { name: 'Coconut', image: '/images/flavor-coconut.png', desc: 'Creamy milk chocolate with toasted coconut.' },
   ],
   products: [
     { name: '4-Piece Package', image: '/images/1.png', subtitle: 'Perfect Introduction', desc: 'A perfect bite-sized introduction to our stuffed dates.' },
     { name: '8-Piece Package', image: '/images/2.png', subtitle: 'Ideal Mix', desc: 'The ideal mix to discover your favorite flavors.' },
-    {Name: '12-Piece Package', image: '/images/3.png', subtitle: 'Generous Assortment', desc: 'A generous assortment for you or to share.' },
+    { name: '12-Piece Package', image: '/images/3.png', subtitle: 'Generous Assortment', desc: 'A generous assortment for you or to share.' },
     { name: '16-Piece Package', image: '/images/4.png', subtitle: 'Ultimate Experience', desc: 'The ultimate experience, fully customized to your taste.' },
   ],
   why: [

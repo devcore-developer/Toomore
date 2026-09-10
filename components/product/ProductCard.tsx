@@ -45,7 +45,8 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
           )}
         </div>
         <div className="box-card-body">
-          <h3 className="box-card-title">{product.price === 160 ? '4-Piece Package' : product.price === 280 ? '8-Piece Package' : product.price === 400 ? '12-Piece Package' : product.price === 520 ? '16-Piece Package' : product.name}</h3>
+          {/* تم إصلاح العنوان ليعتمد على الإسم مباشرة من الداتا بدلاً من السعر */}
+          <h3 className="box-card-title">{product.name || `${product.pieces}-Piece Package`}</h3>
           <p className="box-card-desc">{product.description}</p>
           <div className="box-card-footer">
             <span className="box-price">{formatPrice(product.price)}</span>
@@ -78,7 +79,6 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         </div>
       </div>
 
-      {/* مودال اختيار النكهات — خارج الكارت تماماً */}
       {showFlavorPicker && (
         <FlavorPickerModal 
           box={{

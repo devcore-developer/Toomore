@@ -15,7 +15,7 @@ export default function FinalCTA() {
             Shop Now
           </Link>
           <a
-            href="https://wa.me/201556847277?text=Hi%20TOOMORE!%20I%E2%80%99d%20like%20to%20place%20an%20order."
+            href="https://wa.me/201042739342?text=Hi%20TOOMORE!%20I%E2%80%99d%20like%20to%20place%20an%20order."
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-white"
