@@ -12,11 +12,23 @@ import InstagramSection from '@/components/home/InstagramSection'
 import FinalCTA from '@/components/home/FinalCTA'
 import { adminDb } from '@/lib/firebase-admin'
 
-// جلب البيانات من السيرفر مباشرة قبل إرسال الـ HTML للمتصفح
+export const dynamic = 'force-dynamic'
+
 async function getCMSData() {
   try {
     const docSnap = await adminDb.doc('cms/content').get()
-    return docSnap.exists ? docSnap.data() : {}
+    // إضافة ?? {} لضمان أن raw لن يكون undefined أبداً
+    const raw = docSnap.exists ? docSnap.data() ?? {} : {}
+    
+    const flat: Record<string, any> = {}
+    for (const [key, value] of Object.entries(raw)) {
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        Object.assign(flat, value)
+      } else {
+        flat[key] = value
+      }
+    }
+    return flat
   } catch (error) {
     console.error('Failed to fetch CMS data on server:', error)
     return {}
@@ -24,7 +36,6 @@ async function getCMSData() {
 }
 
 export default async function HomePage() {
-  // البيانات تُجلب على السيرفر وتُحقن في الكمبوننتس (يمنع وميض الصور القديمة)
   const cmsData = await getCMSData()
 
   return (
