@@ -35,6 +35,10 @@ export default function OrderModal({ orderId, onClose }: OrderModalProps) {
     vodafone_cash: 'Vodafone Cash',
   }
 
+  // التحقق من وجود بيانات البرومو كود والخصم
+  const hasPromo = order?.promoCode && order.promoCode.discountAmount > 0
+  const subtotal = order?.subtotal || order?.total || 0
+
   return (
     <>
       <div className="admin-modal-overlay" onClick={onClose} />
@@ -127,9 +131,46 @@ export default function OrderModal({ orderId, onClose }: OrderModalProps) {
               </div>
             )}
 
+            {/* Pricing Breakdown - تمت الإضافة هنا */}
+            <div className="admin-invoice-section" style={{ borderTop: '1px solid #eee', marginTop: 16, paddingTop: 16 }}>
+              <h4>Pricing Breakdown</h4>
+              <div className="admin-invoice-items">
+                <div className="admin-invoice-item" style={{ border: 'none', padding: '8px 0' }}>
+                  <div className="admin-invoice-item-info">
+                    <span className="admin-invoice-item-name" style={{ fontWeight: 400 }}>Original Subtotal</span>
+                  </div>
+                  <span className="admin-invoice-item-price" style={{ fontWeight: 400 }}>{formatPrice(subtotal)}</span>
+                </div>
+                
+                {hasPromo && order.promoCode ? (
+                  <>
+                    <div className="admin-invoice-item" style={{ border: 'none', padding: '8px 0', color: '#16a34a' }}>
+                      <div className="admin-invoice-item-info">
+                        <span className="admin-invoice-item-name" style={{ fontWeight: 400 }}>Promo Code: {order.promoCode.code}</span>
+                      </div>
+                      <span className="admin-invoice-item-price" style={{ fontWeight: 400 }}>-{order.promoCode.discountValue}%</span>
+                    </div>
+                    <div className="admin-invoice-item" style={{ border: 'none', padding: '8px 0', color: '#16a34a' }}>
+                      <div className="admin-invoice-item-info">
+                        <span className="admin-invoice-item-name" style={{ fontWeight: 400 }}>Discount Amount</span>
+                      </div>
+                      <span className="admin-invoice-item-price" style={{ fontWeight: 400 }}>-{formatPrice(order.promoCode.discountAmount)}</span>
+                    </div>
+                  </>
+                ) : null}
+                
+                <div className="admin-invoice-item" style={{ border: 'none', padding: '8px 0', fontSize: 14, color: '#666' }}>
+                  <div className="admin-invoice-item-info">
+                    <span className="admin-invoice-item-name" style={{ fontWeight: 400 }}>Shipping Fee</span>
+                  </div>
+                  <span className="admin-invoice-item-price" style={{ fontWeight: 400 }}>Confirmed via WhatsApp</span>
+                </div>
+              </div>
+            </div>
+
             {/* Total Footer */}
             <div className="admin-invoice-total-row">
-              <span className="admin-invoice-total-label">Total Amount</span>
+              <span className="admin-invoice-total-label">Final Total</span>
               <span className="admin-invoice-total-amount">{formatPrice(order.total)}</span>
             </div>
           </div>

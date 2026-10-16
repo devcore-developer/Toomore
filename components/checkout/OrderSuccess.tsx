@@ -3,11 +3,22 @@ import { formatPrice } from '@/lib/utils'
 import { CartItem } from '@/lib/types'
 
 interface OrderSuccessProps {
-  items: CartItem[]
-  total: number
+  order: {
+    id: string
+    items: CartItem[]
+    subtotal: number
+    total: number
+    promoCode?: {
+      code: string
+      discountValue: number
+      discountAmount: number
+    } | null
+  }
 }
 
-export default function OrderSuccess({ items, total }: OrderSuccessProps) {
+export default function OrderSuccess({ order }: OrderSuccessProps) {
+  const hasPromo = order.promoCode && order.promoCode.discountAmount > 0
+
   return (
     <div className="checkout-success-overlay">
       <div className="checkout-success-card">
@@ -22,7 +33,7 @@ export default function OrderSuccess({ items, total }: OrderSuccessProps) {
         
         <div className="checkout-success-summary">
           <h4>Your Order</h4>
-          {items.map((item) => (
+          {order.items.map((item) => (
             <div key={item.id} className="checkout-success-item-wrap">
               <div className="checkout-success-item">
                 <span>{item.name} × {item.quantity}</span>
@@ -45,9 +56,30 @@ export default function OrderSuccess({ items, total }: OrderSuccessProps) {
               )}
             </div>
           ))}
-          <div className="checkout-success-total">
-            <span>Total</span>
-            <span>{formatPrice(total)}</span>
+          
+          <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid #eee' }}>
+            <div className="checkout-success-item">
+              <span>Original Subtotal</span>
+              <span>{formatPrice(order.subtotal)}</span>
+            </div>
+            
+            {hasPromo && order.promoCode && (
+              <>
+                <div className="checkout-success-item">
+                  <span>Promo Code: {order.promoCode.code}</span>
+                  <span>-{order.promoCode.discountValue}%</span>
+                </div>
+                <div className="checkout-success-item">
+                  <span>Discount Amount</span>
+                  <span>-{formatPrice(order.promoCode.discountAmount)}</span>
+                </div>
+              </>
+            )}
+            
+            <div className="checkout-success-total">
+              <span>Final Total</span>
+              <span>{formatPrice(order.total)}</span>
+            </div>
           </div>
         </div>
 

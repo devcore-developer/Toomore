@@ -11,11 +11,12 @@ export default function CheckoutPage() {
   const { items, total, clearCart } = useCart()
   const [isSuccess, setIsSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [orderDetails, setOrderDetails] = useState<{ items: any[], total: number } | null>(null)
+  // تغيير النوع لاستقبال كائن الطلب بالكامل من الخادم
+  const [orderDetails, setOrderDetails] = useState<any>(null)
 
   // لما الطلب ينجح، يعرض شاشة النجاح
   if (isSuccess && orderDetails) {
-    return <OrderSuccess items={orderDetails.items} total={orderDetails.total} />
+    return <OrderSuccess order={orderDetails} />
   }
 
   // لو السلة فاضية ومش في طلب جديد
@@ -37,7 +38,8 @@ export default function CheckoutPage() {
     address: string
     paymentMethod: string
     notes: string
-    paymentScreenshot?: string // ✅ تم إضافة السطر ده
+    paymentScreenshot?: string
+    promoCode?: string // تم إضافة البرومو كود
   }) => {
     setIsSubmitting(true)
     try {
@@ -51,17 +53,21 @@ export default function CheckoutPage() {
           paymentMethod: data.paymentMethod,
           notes: data.notes,
           paymentScreenshot: data.paymentScreenshot,
+          promoCode: data.promoCode, // إرسال البرومو كود للخادم
           items: items,
           total: total(),
         }),
       })
 
-      if (res.ok) {
-        setOrderDetails({ items, total: total() })
+      const result = await res.json()
+
+      if (res.ok && result.success) {
+        // استخدام بيانات الطلب المرجعة من الخادم والتي تحتوي على السعر النهائي والخصم
+        setOrderDetails(result.order)
         setIsSuccess(true)
         clearCart()
       } else {
-        alert('Something went wrong. Please try again.')
+        alert(result.message || 'Something went wrong. Please try again.')
       }
     } catch (error) {
       alert('Network error. Please check your connection.')

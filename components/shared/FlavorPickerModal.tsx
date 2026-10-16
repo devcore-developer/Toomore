@@ -1,14 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCartStore } from '@/store/cart-store'
-import { FLAVORS } from '@/lib/constants' // تم استيراد النكهات من الكونفيج
 
 interface BoxProps {
   id: string
   title: string
   pieces: number
   price: number
+}
+
+interface Flavor {
+  name: string
+  image?: string
+  desc?: string
 }
 
 interface FlavorPickerModalProps {
@@ -19,14 +24,26 @@ interface FlavorPickerModalProps {
 export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalProps) {
   const addItem = useCartStore((s) => s.addItem)
   
-  // استخدام النكهات من lib/constants وتحويلها للأسماء الكبيرة
-  const flavors = FLAVORS.map(f => f.name.toUpperCase())
-  
-  // بناء الحالة المبدئية بناءً على النكهات المستوردة
-  const initialQuantities: Record<string, number> = {}
-  flavors.forEach(f => initialQuantities[f] = 0)
-  
-  const [quantities, setQuantities] = useState<Record<string, number>>(initialQuantities)
+  const [flavors, setFlavors] = useState<Flavor[]>([])
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/flavors')
+      .then(res => res.json())
+      .then(data => {
+        const fetchedFlavors: Flavor[] = data.flavors || []
+        setFlavors(fetchedFlavors)
+        const initialQuantities: Record<string, number> = {}
+        fetchedFlavors.forEach(f => {
+          const name = f?.name ? f.name.toUpperCase() : ''
+          if (name) initialQuantities[name] = 0
+        })
+        setQuantities(initialQuantities)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
 
   const totalSelected = Object.values(quantities).reduce((sum, q) => sum + q, 0)
   const isValid = totalSelected === box.pieces
@@ -66,6 +83,15 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
     onClose()
   }
 
+  if (loading) return (
+    <>
+      <div className="flavor-modal-overlay" onClick={onClose} />
+      <div className="flavor-modal">
+        <p>Loading flavors...</p>
+      </div>
+    </>
+  )
+
   return (
     <>
       <div className="flavor-modal-overlay" onClick={onClose} />
@@ -92,16 +118,23 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
         </div>
 
         <div className="flavor-modal-list">
-          {flavors.map(f => (
-            <div key={f} className="flavor-modal-row">
-              <span className="flavor-modal-name">{f}</span>
-              <div className="flavor-qty">
-                <button onClick={() => updateQty(f, -1)} disabled={quantities[f] === 0}>−</button>
-                <span>{quantities[f]}</span>
-                <button onClick={() => updateQty(f, 1)}>+</button>
-              </div>
-            </div>
-          ))}
+          {flavors.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#666' }}>No flavors available at the moment.</p>
+          ) : (
+            flavors.map(f => {
+              const fName = f.name.toUpperCase()
+              return (
+                <div key={fName} className="flavor-modal-row">
+                  <span className="flavor-modal-name">{fName}</span>
+                  <div className="flavor-qty">
+                    <button onClick={() => updateQty(fName, -1)} disabled={quantities[fName] === 0}>−</button>
+                    <span>{quantities[fName] || 0}</span>
+                    <button onClick={() => updateQty(fName, 1)}>+</button>
+                  </div>
+                </div>
+              )
+            })
+          )}
         </div>
 
         <button 

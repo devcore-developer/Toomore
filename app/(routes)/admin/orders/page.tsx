@@ -18,7 +18,7 @@ interface Order {
   total: number
   paymentMethod: string
   status: string
-  createdAt: string
+  createdAt: string // الاحتفاظ بالتاريخ الخام للفرز
 }
 
 export default function AdminOrdersPage() {
@@ -42,9 +42,14 @@ export default function AdminOrdersPage() {
           total: data.total || 0,
           paymentMethod: data.paymentMethod || 'cod',
           status: data.status || 'pending',
-          createdAt: data.createdAt ? new Date(data.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A',
+          // تخزين التاريخ الخام، مع قيمة افتراضية للطلبات القديمة جداً لتنزل للأسفل
+          createdAt: data.createdAt || new Date(0).toISOString(),
         })
       })
+      
+      // فرز الطلبات من الأحدث للأقدم (تنازلياً) بناءً على التاريخ الخام
+      list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      
       setOrders(list)
     } catch (err) {
       console.error(err)
@@ -110,7 +115,12 @@ export default function AdminOrdersPage() {
           { key: 'total', label: 'Total', render: (v) => <span className="admin-price-highlight">{formatPrice(v)}</span> },
           { key: 'paymentMethod', label: 'Payment', render: (v) => paymentLabels[v] || v },
           { key: 'status', label: 'Status', render: (v) => <StatusBadge status={v} /> },
-          { key: 'createdAt', label: 'Date' },
+          { 
+            key: 'createdAt', 
+            label: 'Date', 
+            // تنسيق التاريخ فقط عند العرض لضمان عدم التأثير على الفرز
+            render: (v) => v ? new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A' 
+          },
         ]}
         data={orders}
         onRowClick={(row) => setSelectedOrderId(row.id)}

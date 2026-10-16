@@ -34,9 +34,17 @@ export interface Testimonial {
   rating: number
 }
 
+export interface PromoCodeSnapshot {
+  code: string
+  discountValue: number
+  discountAmount: number
+  originalSubtotal: number
+}
+
 export interface Order {
   id: string
   items: CartItem[]
+  subtotal?: number
   total: number
   customerName: string
   customerPhone: string
@@ -44,4 +52,7 @@ export interface Order {
   paymentMethod: 'cod' | 'instapay' | 'vodafone_cash'
   status: 'pending' | 'confirmed' | 'shipped' | 'delivered'
   createdAt: string
+  promoCode?: PromoCodeSnapshot | null
+  notes?: string
+  paymentScreenshot?: string
 }
