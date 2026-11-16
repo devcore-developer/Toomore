@@ -5,6 +5,7 @@ import { Providers } from './providers'
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import ClarityScript from '@/components/analytics/ClarityScript' // ← جديد: Microsoft Clarity
 
 const inter = Inter({
   subsets: ['latin'],
@@ -64,6 +65,8 @@ export default function RootLayout({
         <meta name="google-site-verification" content="voxlv21v9YstqHZSODz8nwTVbccksfvGZknK-VSRWtM" />
       </head>
       <body>
+        {/* Microsoft Clarity — مش بيتحمّل خالص على صفحات الأدمن */}
+        <ClarityScript />
         <Providers>
           <AnnouncementBar />
           <Navbar />
