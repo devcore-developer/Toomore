@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { Product } from '@/lib/types'
-import { FLAVORS } from '@/lib/constants'
+import { Flavor } from '@/lib/flavors'
 import ProductGrid from '@/components/product/ProductGrid'
 import ProductCard from '@/components/product/ProductCard'
 import FlavorShowcase from '@/components/home/FlavorShowcase'
@@ -11,7 +11,8 @@ import SingleFlavorModal from '@/components/shared/SingleFlavorModal'
 
 export function ShopContent({ products }: { products: Product[] }) {
   const { addItem } = useCart()
-  const [selectedFlavor, setSelectedFlavor] = useState<typeof FLAVORS[number] | null>(null)
+  // النكهات القادمة من FlavorShowcase (المصدر الموحد) — لا توجد قائمة نكهات يدوية
+  const [selectedFlavor, setSelectedFlavor] = useState<Flavor | null>(null)
 
   return (
     <>
@@ -35,7 +36,7 @@ export function ShopContent({ products }: { products: Product[] }) {
 
       {selectedFlavor && (
         <SingleFlavorModal
-          flavor={selectedFlavor}
+          flavor={{ name: selectedFlavor.name, image: selectedFlavor.image || '' }}
           onClose={() => setSelectedFlavor(null)}
         />
       )}

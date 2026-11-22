@@ -2,18 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useCartStore } from '@/store/cart-store'
+import { useFlavors } from '@/hooks/useFlavors'
 
 interface BoxProps {
   id: string
   title: string
   pieces: number
   price: number
-}
-
-interface Flavor {
-  name: string
-  image?: string
-  desc?: string
 }
 
 interface FlavorPickerModalProps {
@@ -23,27 +18,20 @@ interface FlavorPickerModalProps {
 
 export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalProps) {
   const addItem = useCartStore((s) => s.addItem)
-  
-  const [flavors, setFlavors] = useState<Flavor[]>([])
-  const [quantities, setQuantities] = useState<Record<string, number>>({})
-  const [loading, setLoading] = useState(true)
 
+  // النكهات من المصدر الموحد (hooks/useFlavors) — نفس بيانات لوحة الأدمن مباشرة
+  const { flavors, loading } = useFlavors()
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+
+  // تهيئة عدادات الكميات عند وصول النكهات (أو تحديثها من الأدمن)
   useEffect(() => {
-    fetch('/api/flavors')
-      .then(res => res.json())
-      .then(data => {
-        const fetchedFlavors: Flavor[] = data.flavors || []
-        setFlavors(fetchedFlavors)
-        const initialQuantities: Record<string, number> = {}
-        fetchedFlavors.forEach(f => {
-          const name = f?.name ? f.name.toUpperCase() : ''
-          if (name) initialQuantities[name] = 0
-        })
-        setQuantities(initialQuantities)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-  }, [])
+    const initialQuantities: Record<string, number> = {}
+    flavors.forEach(f => {
+      const name = f?.name ? f.name.toUpperCase() : ''
+      if (name) initialQuantities[name] = 0
+    })
+    setQuantities(initialQuantities)
+  }, [flavors])
 
   const totalSelected = Object.values(quantities).reduce((sum, q) => sum + q, 0)
   const isValid = totalSelected === box.pieces
@@ -110,7 +98,7 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
         </div>
 
         <p className="flavor-modal-sub">Select quantities for each flavor. Total must equal {box.pieces}.</p>
-        
+
         <div className="flavor-modal-counter">
           <span className={isValid ? 'flavor-counter-valid' : 'flavor-counter-invalid'}>
             {totalSelected} / {box.pieces} pieces selected
@@ -137,8 +125,8 @@ export default function FlavorPickerModal({ box, onClose }: FlavorPickerModalPro
           )}
         </div>
 
-        <button 
-          className={`flavor-modal-add-btn ${!isValid ? 'flavor-modal-add-btn--disabled' : ''}`} 
+        <button
+          className={`flavor-modal-add-btn ${!isValid ? 'flavor-modal-add-btn--disabled' : ''}`}
           onClick={handleAdd}
           disabled={!isValid}
         >

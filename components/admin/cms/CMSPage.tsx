@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import CMSSection from './CMSSection'
 import { CMS_SECTIONS, CMS_DEFAULTS } from '@/lib/cms-config'
+import { FLAVORS_UPDATED_EVENT } from '@/hooks/useFlavors'
 
 export default function CMSPage() {
   const [data, setData] = useState<Record<string, any>>({})
@@ -53,6 +54,10 @@ export default function CMSPage() {
       if (res.ok) {
         setData(prev => ({ ...prev, [sectionId]: sectionData }))
         setHasUnsaved(false)
+        // عند حفظ النكهات: إبلاغ كل مكونات الموقع المفتوحة بالتحديث فورًا
+        if (sectionId === 'flavors') {
+          window.dispatchEvent(new CustomEvent(FLAVORS_UPDATED_EVENT))
+        }
         // تم تصحيح الرسالة هنا لتطبع اسم القسم الحقيقي
         setToast({ message: `Section "${sectionId}" saved successfully!`, type: 'success' })
       } else {

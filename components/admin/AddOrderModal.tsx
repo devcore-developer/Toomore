@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
-import { FLAVORS, BOX_PRICES } from '@/lib/constants'
+import { BOX_PRICES } from '@/lib/constants'
+import { useFlavors } from '@/hooks/useFlavors'
 
 interface AddOrderModalProps {
   isOpen: boolean
@@ -23,6 +24,9 @@ export default function AddOrderModal({ isOpen, onClose, onAdded }: AddOrderModa
   const [payment, setPayment] = useState('cod')
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
+
+  // النكهات من المصدر الموحد (نفس بيانات الأدمن) — بدل القائمة الثابتة القديمة
+  const { flavors: availableFlavors, loading: flavorsLoading } = useFlavors()
 
   if (!isOpen) return null
 
@@ -160,7 +164,9 @@ export default function AddOrderModal({ isOpen, onClose, onAdded }: AddOrderModa
             <div className="admin-form-field">
               <label className="admin-form-label">Selected Flavors</label>
               <div className="admin-flavor-picker">
-                {FLAVORS.map(f => (
+                {flavorsLoading ? (
+                  <p className="admin-loading">Loading flavors...</p>
+                ) : availableFlavors.map(f => (
                   <div key={f.name} className="admin-flavor-row">
                     <span className="admin-flavor-name">{f.name}</span>
                     <div className="flavor-qty">

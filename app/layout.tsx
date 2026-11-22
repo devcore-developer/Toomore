@@ -6,6 +6,7 @@ import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ClarityScript from '@/components/analytics/ClarityScript' // ← جديد: Microsoft Clarity
+import GTMScript from '@/components/analytics/GTMScript' // ← Google Tag Manager
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,6 +68,8 @@ export default function RootLayout({
       <body>
         {/* Microsoft Clarity — مش بيتحمّل خالص على صفحات الأدمن */}
         <ClarityScript />
+        {/* Google Tag Manager — نفس آلية الاستبعاد: لا يُحمَّل على صفحات الأدمن */}
+        <GTMScript />
         <Providers>
           <AnnouncementBar />
           <Navbar />

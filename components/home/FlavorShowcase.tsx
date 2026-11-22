@@ -2,21 +2,15 @@
 
 import FadeIn from '@/components/shared/FadeIn'
 import SectionTitle from '@/components/shared/SectionTitle'
-import { useCMS } from '@/hooks/useCMS'
-
-const DEFAULT_FLAVORS = [
-  { name: 'Hazelnut Chocolate', image: '/images/flavor-hazelnut.png', desc: 'Milk chocolate filled with roasted hazelnut cream.', badge: 'BEST SELLER', type: 'Milk Chocolate' },
-  { name: 'Dark Mocha', image: '/images/flavor-mocha.png', desc: 'Dark chocolate blended with coffee & cocoa.', badge: 'SIGNATURE', type: 'Dark Chocolate' },
-  { name: 'White Mocha', image: '/images/flavor-white.png', desc: 'Creamy white chocolate with hazelnut coffee.', badge: 'NEW', type: 'White Chocolate' },
-  { name: 'Peanut Butter', image: '/images/flavor-peanut.png', desc: 'Milk chocolate with peanut butter & crunch.', badge: 'LIMITED', type: 'Crunchy' },
-]
+import { useFlavors } from '@/hooks/useFlavors'
+import { FALLBACK_FLAVORS } from '@/lib/flavors'
 
 interface FlavorShowcaseProps {
   tag?: string
   title?: string
   subtitle?: string
   onFlavorClick?: (flavor: any) => void
-  cmsData?: Record<string, any> // تم إضافة هذا الـ Prop
+  cmsData?: Record<string, any> // بيانات السيرفر للصفحة الرئيسية
 }
 
 export default function FlavorShowcase({
@@ -26,14 +20,15 @@ export default function FlavorShowcase({
   onFlavorClick,
   cmsData // استقبال البيانات من السيرفر
 }: FlavorShowcaseProps) {
-  // نحتفظ بالـ hook لصفحات أخرى مثل الشوب (حيث لا يتم تمرير cmsData)
-  const { getArray } = useCMS()
-  
-  // المنطق الجديد: إذا كانت بيانات السيرفر موجودة، استخدمها فوراً.
-  // إذا لم تكن موجودة (مثل صفحة الشوب)، استخدم الـ hook كالمعتاد.
+  // المصدر الموحد للنكهات على العميل (نفس بيانات لوحة الأدمن)
+  // يحل محل قائمة DEFAULT_FLAVORS اليدوية القديمة و useCMS
+  const { flavors: fetchedFlavors } = useFlavors()
+
+  // بيانات السيرفر أولاً (الصفحة الرئيسية)، ثم المصدر الموحد،
+  // ثم الإعدادات الافتراضية الرسمية أثناء التحميل أو عند فشل الاتصال
   const flavors = Array.isArray(cmsData?.flavors) && cmsData.flavors.length > 0
     ? cmsData.flavors
-    : getArray('flavors', DEFAULT_FLAVORS)
+    : (fetchedFlavors.length > 0 ? fetchedFlavors : FALLBACK_FLAVORS)
 
   return (
     <section className="flavor-showcase-section">

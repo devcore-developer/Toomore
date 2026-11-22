@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { adminDb } from '@/lib/db'
 import { generateOrderId } from '@/lib/utils'
 import { FieldValue } from 'firebase-admin/firestore'
-import { CMS_DEFAULTS } from '@/lib/cms-config'
+import { getFlavors } from '@/lib/flavors-server'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,29 +11,14 @@ export async function POST(request: NextRequest) {
 
     // 1. Server-side validation for flavors and subtotal
     let subtotal = 0
-    
-    // جلب النكهات المتاحة من الـ CMS للتحقق منها
-    const cmsSnap = await adminDb.collection('cms').get()
-    let validFlavors: string[] = []
-    
-    cmsSnap.forEach((doc) => {
-      const data = doc.data()
-      if (doc.id === 'flavors' || data.id === 'flavors') {
-        const flavors = data.items || data.flavors || []
-        validFlavors = flavors.map((f: any) => typeof f === 'string' ? f.toUpperCase() : f.name?.toUpperCase())
-      } else if (data.flavors && Array.isArray(data.flavors)) {
-        const flavors = data.flavors
-        validFlavors = flavors.map((f: any) => typeof f === 'string' ? f.toUpperCase() : f.name?.toUpperCase())
-      }
-    })
-    
-    if (validFlavors.length === 0) {
-      validFlavors = (CMS_DEFAULTS.flavors || []).map((f: any) => typeof f === 'string' ? f.toUpperCase() : f.name?.toUpperCase())
-    }
+
+    // جلب النكهات المتاحة من المصدر الموحد (نفس المصدر المستخدم في كل الموقع)
+    const availableFlavors = await getFlavors()
+    const validFlavors = availableFlavors.map((f) => f.name.toUpperCase())
 
     for (const item of items) {
       subtotal += item.price * item.quantity
-      
+
       // Verify flavor counts and availability for mixed boxes
       if (item.category === 'mixed' && item.pieces) {
         if (!item.flavors || item.flavors.length !== item.pieces * item.quantity) {
@@ -42,7 +27,7 @@ export async function POST(request: NextRequest) {
             { status: 400 }
           )
         }
-        
+
         // التحقق من أن النكهات المختارة متاحة وموجودة
         const invalidFlavors = item.flavors.filter((f: string) => !validFlavors.includes(f.toUpperCase()))
         if (invalidFlavors.length > 0) {
@@ -72,7 +57,7 @@ export async function POST(request: NextRequest) {
 
       const promo = promoSnap.data()!
       const now = new Date()
-      
+
       if (promo.validFrom && new Date(promo.validFrom) > now) {
         return NextResponse.json({ success: false, message: 'Promo code not valid yet.' }, { status: 400 })
       }
@@ -114,7 +99,7 @@ export async function POST(request: NextRequest) {
     }
 
     const docRef = await adminDb.collection('orders').add(order)
-    
+
     const savedOrder = {
       ...order,
       id: docRef.id
